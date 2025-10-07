@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>マイページ</title>
+	<!-- 共通・会員関連CSSの読み込み -->
+	<link th:href="@{/css/common.css}" rel="stylesheet">
+	<link th:href="@{/css/member_common.css}" rel="stylesheet">
+	<link th:href="@{/css/member_regist.css}" rel="stylesheet">
+</head>
+<body>
+<main>
+	<div id="wrapper">
+		<!-- ページタイトル -->
+		<h1>マイページ</h1>
+
+		<!-- 個人情報の表示 -->
+		<div class="info-block">
+			<h2>個人情報</h2>
+			<div class="info-item">氏名：<span th:text="${memberData.memberName}"></span></div>
+			<div class="info-item">フリガナ：<span th:text="${memberData.memberKana}"></span></div>
+			<div class="info-item">メールアドレス：<span th:text="${memberData.mail}"></span></div>
+			<div class="info-item">電話番号：<span th:text="${memberData.phoneNumber}"></span></div>
+			<div class="info-item">郵便番号：<span th:text="${memberData.postalCode}"></span></div>
+			<div class="info-item">住所（都道府県）：<span th:text="${memberData.address1}"></span></div>
+			<div class="info-item">住所（市区町村）：<span th:text="${memberData.address2}"></span></div>
+			<div class="info-item">住所（番地）：<span th:text="${memberData.address3}"></span></div>
+		</div>
+
+		<!-- クレジットカード情報の表示 -->
+		<div class="info-block">
+			<h2>クレジットカード情報</h2>
+			<div class="info-item">カード番号：<span th:text="${memberData.creditNo}"></span></div>
+			<div class="info-item">有効期限（月/年）：<span th:text="${memberData.creditMonth}"></span>/<span th:text="${memberData.creditYear}"></span></div>
+			<div class="info-item">カード名義：<span th:text="${memberData.creditName}"></span></div>
+		</div>
+
+		<!-- 操作ボタン群 -->
+		<div class="buttons">
+			<!-- 編集ページへのリンク -->
+			<a th:href="@{/edit}" class="btn">情報を編集する</a>
+
+			<!-- 退会ページへのリンク -->
+			<a th:href="@{/withdraw}" class="btn danger-button">退会する</a>
+
+			<!-- 商品一覧などへ戻る -->
+			<a th:href="@{/item}" class="back-btn">戻る</a>
+		</div>
+	</div>
+</main>
+</body>
+</html>

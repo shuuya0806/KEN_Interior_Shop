@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>従業員ログイン</title>
+	</head>
+<body>
+	<div id="wrapper">
+		<header></header>
+		<main>
+			<div id="form-area">
+				<h1>従業員ログイン</h1>
+				<form th:action="@{/stafflogin}" th:object="${staffLoginForm}" method="post">
+					<div class="form-row">
+						<label>従業員ID</label>
+						<input th:field="*{staffId}" th:value="${staffId}" >
+						<span th:if="${#fields.hasErrors('staffId')}" th:errors="*{staffId}" class="errors"></span>
+					</div>
+					
+					<div class="form-row">
+						<label>パスワード</label>
+						<input th:field="*{password}" value="${password}">
+						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors"></span>
+					</div>
+					
+					<div class="form-row">
+						<span class="errors" th:text="${staffLoginError}"></span>
+					</div>
+					
+					<div class="form-row">
+						<input type="submit" name="doLogin" value="ログイン" class="btn">
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer></footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+@charset "UTF-8";
+
+/*カートに追加されたときのメッセージ*/
+.flash-message {
+	color: green;
+	margin-top: 20px;
+}
+
+/*商品詳細テーブル全体*/
+#item-detail{
+	background-color: #FFFFEE;
+	margin: 50px auto 50px;
+	padding: 20px 0;
+	width: 1000px;
+}
+
+/*商品詳細の説明文全体*/
+#item-text {
+	vertical-align: top;
+	width: 500px;
+	padding: 30px 20px 30px;
+	font-size: 20px;
+}
+
+/*商品詳細の画像*/
+#item-img img {
+	width: 350px;
+}
+
+/*カートボタンとセレクトタブ全体*/
+.btn-cart {
+	margin-bottom: 50px;
+}
+
+/*カートのform*/
+.btn-cart form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/*数量変更セレクトタブ全体*/
+#quantity-select {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  	gap: 10px;
+  	width: 100%;
+}
+
+/*数量変更セレクトのラベル*/
+#quantity-select label {
+	margin-left: 10px;
+	font-size: 18px;
+}
+
+/*数量変更セレクト*/
+#quantity-select select {
+	font-size: 20px;
+  	height: 30px;
+	padding: 5px;
+}
+
+/*戻るボタン*/
+.btn-back {
+	text-align: center;
+}
+

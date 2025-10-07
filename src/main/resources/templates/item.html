@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>商品一覧</title>
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/header.css}" rel="stylesheet">
+  <link th:href="@{/css/item.css}" rel="stylesheet">
+  <script th:src="@{/js/main.js}"></script>
+  <script th:src="@{/js/item_card.js}"></script>
+  <script th:src="@{/js/popup.js}" defer></script>
+</head>
+<body th:classappend="${isLogin} ? 'logged-in' : ''"  th:data-message="${popupMessage}" th:data-color="${popupColor}">
+
+  <!-- 共通ヘッダー（ログイン状態に応じて表示内容を切り替え） -->
+  <header th:insert="~{header :: header_area}"></header>
+
+  <main>
+    <div id="wrapper">
+      <h1>商品一覧</h1>
+
+      <!-- フラッシュメッセージ表示領域（カート追加などの通知用） -->
+      <div th:if="${message}" class="flash-message">
+        <p th:text="${message}"></p>
+      </div>
+
+      <!-- 商品検索フォーム（キーワード・カテゴリ・金額による絞り込み） -->
+      <div class="item-row">
+        <form th:action="@{/search}" method="get">
+          <!-- キーワード入力欄（商品名などの部分一致検索） -->
+          <input type="text" name="keyword" th:value="${keyword}" placeholder="キーワード入力">
+
+          <!-- カテゴリ選択プルダウン（商品カテゴリによる絞り込み） -->
+          <select name="categoryId">
+            <option value="">-- 選択してください --</option>
+            <option th:each="cat : ${categoryForm}"
+                    th:value="${cat.categoryId}"
+                    th:text="${cat.categoryName}"
+                    th:selected="${cat.categoryId == categoryId}">
+            </option>
+          </select>
+
+          <!-- 検索ボタン（指定した条件で商品を検索） -->
+          <input type="submit" value="検索" class="search-btn">
+
+          <!-- 金額入力欄（最低金額・最高金額を指定、負の値は入力不可） -->
+          <div class="price-sort">
+            <label for="minPrice">最低金額:
+              <input type="number" id="minPrice" name="minPrice" th:value="${minPrice}" min="0" step="100" placeholder="例:1000"/>
+            </label>
+            <label for="maxPrice">最高金額:
+              <input type="number" id="maxPrice" name="maxPrice" th:value="${maxPrice}" min="0" step="100" placeholder="例:10000"/>
+            </label>
+          </div>
+        </form>
+      </div>
+
+      <!-- 商品クリック案内メッセージ（詳細ページへの遷移を説明） -->
+      <span class="item-Note">商品をクリックすると詳細ページに遷移します</span>
+
+      <!-- 商品一覧表示エリア（検索結果の商品カードを繰り返し表示） -->
+      <div class="item-list">
+        <div class="item-card" th:each="items : ${itemForm}" th:data-url="@{/item/detail/{id}(id=${items.itemId})}">
+          <h3 th:text="${items.itemName}"></h3>
+          <img th:src="@{/images/{img}(img=${items.image})}" th:alt="${items.itemName}">
+          <p th:text="'¥' + ${items.itemPrice}"></p>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- 共通フッター -->
+  <footer th:insert="~{footer :: footer_area}"></footer>
+  
+</body>
+</html>

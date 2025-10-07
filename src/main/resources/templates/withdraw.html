@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>退会手続き画面</title>
+  <!-- 共通・完了画面用CSSの読み込み -->
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/member_common.css}" rel="stylesheet">
+  <link th:href="@{/css/complete.css}" rel="stylesheet">
+</head>
+<body>
+  <main>
+	<div id="wrapper">
+		<div class="container">
+	      <!-- タイトル -->
+	      <h1>退会手続き画面</h1>
+	
+	      <!-- 注意文言 -->
+	      <div class="message">
+	        <p>退会手続きを実行します。<br>
+	        退会後は同じユーザーアカウントでログインできません。</p>
+	      </div>
+	
+	      <!-- 操作ボタン -->
+	      <div class="buttons">
+	        <!-- 退会実行 -->
+	        <form th:action="@{/withdraw}" method="post">
+	          <button type="submit" class="btn">退会する</button>
+	        </form>
+	
+	        <!-- キャンセル（マイページへ戻る） -->
+	        <a th:href="@{/mypage}" class="btn">キャンセルする</a>
+	      </div>
+	    </div>
+	</div>
+  </main>
+</body>
+</html>

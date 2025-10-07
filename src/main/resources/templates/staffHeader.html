@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>共通ヘッダー</title>
+</head>
+<body>
+	<!-- フラグメントとして定義 -->
+	<div th:fragment="header_area" th:remove="tag">
+	
+		<!-- ヘッダー全体（背景白、文字黒） -->
+		<table style="width:100%; background-color:#fff; color:#000; padding:10px 0; border-bottom:1px solid #ccc;">
+			<tr>
+				<!-- ロゴ（左上） -->
+  				<td style="padding-left:20px; vertical-align:top;">
+    				<a th:href="@{/staffmenu}">
+						<!-- クリックでメニュー画面へ遷移 -->
+      					<img src="/images/logo/logo_SS_forStaff.png" alt="サイトロゴ" style="height:50px;">
+   			 		</a>
+  				</td>
+  						          <!-- ログアウト -->
+		       <td style="font-size:2em;">
+		          <a th:href="@{/stafflogout}" style="color:#000; text-decoration:none;">ログアウト</a>
+		       </td>
+  				<!-- ログイン中のみログインユーザー名表示 -->
+  				<td style="text-align:right; padding-right:20px;">
+    				<div style="margin-top:5px; font-size:1em;">
+	   			 		<div th:if="${loginStaff != null and loginStaff.staffName != null}">
+	      					<span th:text="${loginStaff.staffName} + 'さんログイン中です'"></span>
+	    				</div>
+    				</div>
+  				</td>
+			</tr>
+		
+		</table>
+	</div>
+</body>
+
+</html>

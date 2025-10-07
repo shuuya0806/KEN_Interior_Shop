@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>カート一覧</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+	<link th:href="@{/css/header.css}" rel="stylesheet">
+	<link th:href="@{/css/cart.css}" rel="stylesheet">
+	<script th:src="@{/js/main.js}"></script>
+</head>
+
+<body th:classappend="${isLogin} ? 'logged-in' : ''">
+		    <!-- 共通ヘッダーを挿入 -->
+    <header th:insert="~{header :: header_area}"></header>
+	
+	<main>
+		<div id="wrapper">
+			
+			<h1>カート</h1>
+			
+			<div th:if="${cartItems != null and !#lists.isEmpty(cartItems)}" class="order-check">
+		    	<form th:action="@{/cart/updateCart}" method="post" class="cart">
+					<table id="cart-table">
+					    <tr>
+					        <th>商品名</th>
+					        <th>税別価格</th>
+					        <th>数量</th>
+					        <th>削除</th>
+					    </tr>
+					
+					    <tr th:each="item : ${cartItems}">
+					        <td th:text="${item.itemName}">商品名</td>
+					        <td th:text="${item.itemPrice}">1000</td>
+					
+					        <!-- 数量変更 -->
+					        <td>
+					            <input type="hidden" th:name="itemId" th:value="${item.itemId}" />
+					            <select th:name="itemQuantity">
+					                <option th:each="i : ${#numbers.sequence(1,10)}"
+					                        th:value="${i}" th:text="${i}"
+					                        th:selected="${i == item.itemQuantity}">
+					                </option>
+					            </select>
+					        </td>
+					
+					        <!-- 削除チェックボックス -->
+					        <td>
+					            <input type="checkbox" th:name="removeItemId" th:value="${item.itemId}" />
+					        </td>
+					    </tr>
+					</table>
+					
+					<div class="remove-btn">
+					    <button type="submit" name="action" value="update" class="btn">数量を一括変更</button>
+					    <button type="submit" name="action" value="delete"class="btn">選択した商品を削除</button>
+					</div>
+				</form>
+				
+				<!-- 全削除ボタン -->
+				<div class="allremove-btn">
+	                <form th:action="@{/cart/clear}" method="post">
+	                    <button type="submit" name="clearCart" value="true" class="btn">全削除</button>
+	                </form>
+				</div>
+		
+		    	
+		    	<!-- 合計金額 -->
+				<div id="total">
+					<table id="total-table">
+						<tr>
+							<th scope="row">税別合計</th>
+							<td>
+								<span th:text="${totalExclTax}"></span>円
+							</td>
+						</tr>
+						
+						<tr>
+							<th scope="row">消費税合計</th>
+							<td>
+								<span th:text="${totalTax}"></span>円
+							</td>
+						</tr>
+						
+						<tr>
+							<th scope="row">税込合計</th>
+							<td>
+								<span th:text="${totalInclTax}"></span>円
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="order-conf">
+					<form th:action="@{/order/confirm}" method="post">
+			    		<button type="submit" class="btn">注文確認画面へ</button>
+			    	</form>
+		    	</div>
+			</div>
+			
+			<div th:if="${cartItems == null or #lists.isEmpty(cartItems)}" class="clear-message">
+				<!-- カートが空の場合の表示 -->
+			    <p class="error-message">
+					カートは空です
+				</p>
+			</div>
+		
+			<!-- 注文確認ボタンと買い物を続けるリンク -->
+			<div class="a-tag">
+			    <br>
+			    <a th:href="@{/item}" class="btn">買い物を続ける</a>
+			</div>
+			
+			
+		</div>
+	</main>
+	
+	<!-- 共通フッター -->
+  	<footer th:insert="~{footer :: footer_area}"></footer>
+	
+</body>
+</html>

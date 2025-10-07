@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>編集内容確認</title>
+    <!-- 共通・会員関連CSSの読み込み -->
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <link th:href="@{/css/member_common.css}" rel="stylesheet">
+    <link th:href="@{/css/member_regist.css}" rel="stylesheet">
+  </head>
+  <body>
+    <main>
+      <div id="wrapper">
+        <h1>編集内容確認</h1>
+
+        <!-- 編集内容送信フォーム -->
+        <form th:action="@{/editComplete}" th:object="${confirmForm}" method="post">
+
+          <!-- hiddenで全項目をPOST送信 -->
+          <input type="hidden" th:field="*{memberId}">
+          <input type="hidden" th:field="*{memberName}">
+          <input type="hidden" th:field="*{memberKana}">
+          <input type="hidden" th:field="*{mail}">
+          <input type="hidden" th:field="*{password}">
+          <input type="hidden" th:field="*{phoneNumber}">
+          <input type="hidden" th:field="*{postalCode}">
+          <input type="hidden" th:field="*{address1}">
+          <input type="hidden" th:field="*{address2}">
+          <input type="hidden" th:field="*{address3}">
+          <input type="hidden" th:field="*{creditNo}">
+          <input type="hidden" th:field="*{creditMonth}">
+          <input type="hidden" th:field="*{creditYear}">
+          <input type="hidden" th:field="*{creditName}">
+          <input type="hidden" th:field="*{securityCode}">
+          <input type="hidden" th:field="*{cancel}">
+
+          <!-- 個人情報の表示 -->
+          <div class="info-block">
+            <h2>個人情報</h2>
+            <div class="info-item">氏名：<span th:text="*{memberName}"></span></div>
+            <div class="info-item">フリガナ：<span th:text="*{memberKana}"></span></div>
+            <div class="info-item">メールアドレス：<span th:text="*{mail}"></span></div>
+            <div class="info-item">電話番号：<span th:text="*{phoneNumber}"></span></div>
+            <div class="info-item">郵便番号：<span th:text="*{postalCode}"></span></div>
+            <div class="info-item">住所（都道府県）：<span th:text="*{address1}"></span></div>
+            <div class="info-item">住所（市区町村）：<span th:text="*{address2}"></span></div>
+            <div class="info-item">住所（番地）：<span th:text="*{address3}"></span></div>
+          </div>
+
+          <!-- クレジットカード情報の表示 -->
+          <div class="info-block">
+            <h2>クレジットカード情報</h2>
+            <div class="info-item">カード番号：<span th:text="*{creditNo}"></span></div>
+            <div class="info-item">有効期限（月/年）：<span th:text="*{creditMonth}"></span>/<span th:text="*{creditYear}"></span></div>
+            <div class="info-item">カード名義：<span th:text="*{creditName}"></span></div>
+          </div>
+
+          <!-- ボタンエリア -->
+          <div class="buttons">
+            <button type="submit" class="btn">この内容で登録</button>
+            <!-- 修正ボタン：編集画面に戻る -->
+            <a th:href="@{/edit}" class="btn back-btn confirm-btn">修正する</a>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>エラー</title>
+</head>
+<body style="text-align:center; padding:50px;">
+    <h1>エラーが発生しました</h1>
+    <p th:text="${message}">ここにエラーメッセージが表示されます</p>
+    <a href="/item" style="text-decoration:none; color:blue;">トップページに戻る</a>
+</body>
+</html>

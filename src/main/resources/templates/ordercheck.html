@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>カート一覧</title>
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/header.css}" rel="stylesheet">
+  <link th:href="@{/css/ordercheck.css}" rel="stylesheet">
+  <script th:src="@{/js/main.js}"></script>
+</head>
+<body th:classappend="${isLogin} ? 'logged-in' : ''">
+  <!-- 共通ヘッダーを挿入 -->
+  <header th:insert="~{header :: header_area}"></header>
+
+  <main>
+    <div id="wrapper">
+      <h1>カート</h1>
+
+      <form th:action="@{/ordercomp}" th:object="${orderForm}" method="post" id="order-check">
+        <div class="cart-table">
+          <table id="cart-table">
+            <tr>
+              <th>商品名</th>
+              <th>税別価格</th>
+              <th>数量</th>
+            </tr>
+            <tr th:each="detail, iterStat : ${orderForm.orderDetailsForm}">
+              <td>
+                <input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemId}" />
+                <span th:text="${detail.itemName}">商品名</span>
+              </td>
+              <td>
+                <input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].subtotal}" />
+                <span th:text="${detail.subtotal}">1000</span>
+              </td>
+              <td>
+                <input type="hidden" th:field="*{orderDetailsForm[__${iterStat.index}__].itemQuantity}" />
+                <span th:text="${detail.itemQuantity}">1</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- 合計金額・合計数量 -->
+        <div id="total">
+          <table id="total-table">
+            <tr>
+              <th scope="row">商品合計数</th>
+              <td><span th:text="${totalQuantity}"></span>個</td>
+            </tr>
+            <tr>
+              <th scope="row">税別合計</th>
+              <td><span th:text="${totalExclTax}"></span>円</td>
+            </tr>
+            <tr>
+              <th scope="row">消費税合計</th>
+              <td><span th:text="${totalTax}"></span>円</td>
+            </tr>
+            <tr>
+              <th scope="row">税込合計</th>
+              <td><span th:text="${totalInclTax}"></span>円</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- 住所・支払方法・発送の選択 -->
+        <div id="ordercheck-form">
+          <div class="heading">
+            <span>お間違いなければ、下記フォームを入力の上、注文ボタンを押下してください</span>
+          </div>
+
+          <div class="radio-btn">
+            <span class="label-cell">お届け先:</span>
+            <p>ご登録いただいてる住所に配達</p>
+            <span></span>
+            <p>変更する場合は下記フォームの内容を変更お願いします。</p>
+          </div>
+
+          <div id="new-address-form">
+            <table>
+              <tr>
+                <th>お名前</th>
+                <td class="contact-info">
+                  <label class="new-addressOption">
+                    <input type="text" th:field="*{shippingForm.shippingName}" placeholder="例：山田太郎">
+                    <span th:if="${#fields.hasErrors('shippingForm.shippingName')}" th:errors="*{shippingForm.shippingName}" class="errors"></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <th>フリガナ</th>
+                <td class="contact-info">
+                  <label class="new-addressOption">
+                    <input type="text" th:field="*{shippingForm.shippingKana}" placeholder="例：ヤマダタロウ">
+                    <span th:if="${#fields.hasErrors('shippingForm.shippingKana')}" th:errors="*{shippingForm.shippingKana}" class="errors"></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <th>電話番号</th>
+                <td class="contact-info">
+                  <label class="new-addressOption">
+                    <input type="text" th:field="*{shippingForm.shippingphone}" placeholder="例：09012345678">
+                    <span th:if="${#fields.hasErrors('shippingForm.shippingphone')}" th:errors="*{shippingForm.shippingphone}" class="errors"></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <th>ご住所</th>
+                <td id="new-address">
+                  <label class="new-addressOption">
+                    <span>郵便番号:</span>
+                    <input id="postal" type="text" th:field="*{shippingForm.shippingPostalCode}" placeholder="例：5300001">
+                    <span th:if="${#fields.hasErrors('shippingForm.shippingPostalCode')}" th:errors="*{shippingForm.shippingPostalCode}" class="errors"></span>
+                  </label>
+                  <label class="new-addressOption">
+                    <span>都道府県:</span>
+                    <input id="prefecture" type="text" th:field="*{shippingForm.shippingAddress1}" placeholder="例：大阪府">
+                    <span th:if="${#fields.hasErrors('shippingForm.shippingAddress1')}" th:errors="*{shippingForm.shippingAddress1}" class="errors"></span>
+                  </label>
+                  <label class="new-addressOption">
+                    <span>市区町村:</span>
+                    <input id="city" type="text" th:field="*{shippingForm.shippingAddress2}" placeholder="例：大阪市北区">
+                    <span th:if="${#fields.hasErrors('shippingForm.shippingAddress2')}" th:errors="*{shippingForm.shippingAddress2}" class="errors"></span>
+                  </label>
+                  <label class="new-addressOption">
+                    <span>番地:</span>
+                    <input id="street" type="text" th:field="*{shippingForm.shippingAddress3}" placeholder="例：梅田1-1-1">
+                    <span th:if="${#fields.hasErrors('shippingForm.shippingAddress3')}" th:errors="*{shippingForm.shippingAddress3}" class="errors"></span>
+                  </label>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- 支払い方法 -->
+          <div class="radio-row">
+            <span class="label-cell">お支払い方法:</span>
+            <label class="radio-btn-Option">
+              <input type="radio" th:field="*{payment}" value="現金"/> 代引き
+            </label>
+            <span class="label-cell"></span>
+            <label class="radio-btn-Option">
+              <input type="radio" th:field="*{payment}" value="クレジット"/> クレジットカード
+            </label>
+            <span th:if="${#fields.hasErrors('payment')}" th:errors="*{payment}"></span>
+          </div>
+
+          <!-- 発送方法 -->
+          <div class="radio-row">
+            <span class="label-cell">配送指定:</span>
+            <label class="radio-btn-Option">
+              <input type="radio" th:field="*{shipping}" value="Standard"/> 通常配送
+            </label>
+            <span class="label-cell"></span>
+            <div class="specify-date">
+              <label class="radio-btn-Option">
+                <input type="radio" th:field="*{shipping}" value="Specify"/> 日時指定
+              </label>
+              <div class="date-inputs">
+                <input type="date" th:value="${futureDate}" id="date" name="date">
+                <select>
+                  <option>午前中</option>
+                  <option>12時～14時</option>
+                  <option>14時～16時</option>
+                  <option>16時～18時</option>
+                  <option>18時～20時</option>
+                </select>
+              </div>
+            </div>
+            <span th:if="${#fields.hasErrors('shipping')}" th:errors="*{shipping}"></span>
+          </div>
+
+          <div id="btn">
+            <button type="submit" class="btn">確定</button>
+          </div>
+        </div>
+      </form>
+
+      <div>
+        <a th:href="@{/cart}" class="btn">戻る</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- 共通フッター -->
+  <footer th:insert="~{footer :: footer_area}"></footer>
+	
+  <!-- 郵便番号から住所を自動入力するJS -->
+  <script th:src="@{/js/postalCode.js}"></script>
+</body>
+</html>

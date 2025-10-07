@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>注文管理メニュー</title>
+	<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="wrapper">
+		<!-- 共通ヘッダーを挿入 -->
+		<header th:insert="~{staffHeader :: header_area}"></header> 
+			<main>
+			<h1>注文管理メニュー</h1>
+			<div class="menu-buttons">
+				<a th:href="@{/stafforder/history}" class="btn">注文履歴確認</a>
+				<a th:href="@{/staffmenu}" class="btn">従業員メニューへ戻る</a>
+			</div>
+			</main>
+		<footer></footer>
+	</div>
+</body>
+</html>

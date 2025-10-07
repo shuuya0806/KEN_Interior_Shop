@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>退会完了</title>
+  <!-- 共通・完了画面用CSSの読み込み -->
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/member_common.css}" rel="stylesheet">
+  <link th:href="@{/css/complete.css}" rel="stylesheet">
+</head>
+<body>
+  <main>
+	<div id="wrapper">
+		<div class="container">
+	      <!-- タイトル -->
+	      <h1>退会手続きが完了しました</h1>
+	
+	      <!-- メッセージ表示 -->
+	      <div id="complete">
+	        <div class="message">
+	          <p>ご利用いただき、誠にありがとうございました。</p>
+	          <p>またのご利用を心よりお待ちしております。</p>
+	        </div>
+	      </div>
+	
+	      <!-- トップページへのリンク -->
+	      <a th:href="@{/item}" class="btn">トップページへ戻る</a>
+	    </div>
+	</div>
+  </main>
+</body>
+</html>

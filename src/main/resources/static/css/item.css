@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+
+/*カートに追加された時のメッセージ*/
+.flash-message {
+	color: green;
+	margin-top: 20px;
+}
+
+/* 検索フォーム全体*/
+.item-row{
+  	align-items: stretch;
+  	max-width: 600px;
+  	margin: 30px auto 30px;
+  	text-align: center;
+}
+
+/*テキストボックス・selectタグの高さ*/
+.item-row input[type="text"],
+.item-row select,
+.item-row input[type="submit"] {
+  height: 40px;
+  font-size: 18px;
+  margin-right: 10px;
+  box-sizing: border-box;
+}
+
+/*テキストボックスの幅 */
+.item-row input[type="text"] {
+  width: 300px;
+  box-sizing: border-box;
+}
+
+/* プルダウンの幅 */
+.item-row select {
+  width: 200px;
+  box-sizing: border-box;
+}
+
+/* ボタンも必要に応じて幅 */
+.item-row input[type="submit"] {
+  width: 60px;
+  margin-right: 0px;
+}
+
+/*金額ソート全体*/
+.price-sort {
+	margin-top: 20px;
+}
+
+/*見出し・金額入力*/
+.price-sort label,
+.price-sort input [type="number"] {
+	height: 40px;
+  	font-size: 18px;
+  	margin-right: 10px;
+  	box-sizing: border-box;
+}
+
+/*注釈*/
+.item-Note {
+	margin: 0 0 20px;
+}
+
+
+/* 商品全体 */
+.item-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+
+/* 商品カード */
+.item-card {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 10px;
+	width: 250px;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: white;
+}
+
+/* 検索結果 */
+.item-img {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/*カートに追加ボタン*/
+.item-card button {
+	width: 130px;
+}
+
+/*数量変更セレクトタグ*/
+.item-card select {
+	 font-size: 20px;
+	 padding: 5px;
+}
+
+/*数量変更セレクトタグの見出し*/
+.item-card label {
+	 font-size: 20px;
+}
+
+/*アイテムカード　ホバー*/
+.item-card:hover {
+	background-color: #997769;
+}
+
+/* 商品カードの画像 */
+.item-card img {
+	max-width: 100%;
+	height: auto;
+	margin-bottom: 10px;
+}
+
+/*検索結果のカートボタン上部*/
+.item-card form {
+	margin-top: 20px;
+}

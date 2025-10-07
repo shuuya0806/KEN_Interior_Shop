@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>従業員メニュー</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<!-- 共通ヘッダーを挿入 -->
+	    <header th:insert="~{staffHeader :: header_area}"></header> 
+		<main>
+			<h1>従業員メニュー</h1>
+			<div class="menu-buttons">
+				<a th:href="@{/staffordermenu}" class="btn">注文管理</a>
+			</div>
+		</main>
+		<footer></footer>
+	</div>
+</body>
+</html>

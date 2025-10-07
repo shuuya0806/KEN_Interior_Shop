@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+
+/*カートテーブル全体*/
+#cart-table {
+	border: 1px solid black;
+	border-radius: 5px;
+	margin: 0 auto;
+	background-color: #EEEEEE;
+	margin-top: 30px;
+}
+
+/*カートテーブル*/
+#cart-table th, #cart-table td {
+	border: 1px solid black;
+	padding: 8px;  
+	text-align: center;
+}
+
+
+
+/*金額テーブル全体*/
+#total-table {
+	border: 1px solid black; 
+	border-radius: 5px;
+	background-color: #EEEEEE;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: auto; 
+	margin-right: 0;
+	text-align: right;
+}
+
+/*金額テーブル*/
+#total-table th, #total-table td {
+	border: 1px solid black;
+	text-align: left;
+	padding: 8px;
+	text-align: center;
+}
+
+/*入力フォーム全体*/
+#ordercheck-form{
+	margin: 30px auto;
+}
+
+/*見出し*/
+.heading {
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+/*住所変更見出し*/
+.radio-btn {
+	display: grid;
+  	grid-template-columns: 80px auto;
+  	justify-content: center;
+  	gap: 8px; 
+  	margin-bottom: 30px;
+}
+
+/*住所変更pタグ*/
+.radio-btn p {
+	margin: 0;
+}
+
+/*住所入力フォーム全体*/
+#new-address-form {
+	border: 1px solid black; 
+    border-radius: 5px;
+	background-color: #EEEEEE;
+	display: flex;
+  	flex-direction: column;
+  	gap: 8px; 
+  	margin: 30px auto; 
+}
+
+/*住所入力フォーム*/
+#new-address-form th, #new-address-form td {
+	border: 1px solid black;
+	padding: 8px;
+	text-align: center; 
+}
+
+/*入力フォームのテキストボックス全体*/
+.contact-info input[type="text"] {
+	width: 100%;
+  	box-sizing: border-box;
+}
+
+/*入力フォームのテキストボックス*/
+.new-addressOption {
+	display: flex;
+  	align-items: center; 
+  	gap: 8px;
+}
+
+/*入力フォームの住所欄*/
+#new-address {
+	display: flex;
+  	flex-direction: column;
+  	gap: 8px;
+}
+
+/*住所欄のテキストボックス*/
+#new-address input[type="text"] {
+	width: 80%;
+}
+
+/*支払い方法の見出し*/
+.label-cell {
+	font-weight: bold;
+}
+
+/*配送関連*/
+.radio-btn-Option {
+	display: flex;
+  	align-items: center; 
+  	font-size: 14px;
+}
+
+/*ラジオボタン*/
+.label-cell input[type="radio"] {
+	margin-right: 6px;
+}
+
+/*ラジオボタン選択全体*/
+.radio-row {
+	display: grid;
+  	grid-template-columns: 105px auto;
+  	gap: 8px;
+  	width: 700px;
+  	margin-bottom: 30px;
+}
+
+/*日時指定*/
+.specify-date {
+	display: flex;
+	align-items: center; 
+  	gap: 8px;
+}
+
+/*日付入力*/
+.date-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/*ボタン*/
+.btn {
+	padding: 12px;
+}
+
+/*ボタン全体*/
+#btn {
+	text-align: center;
+}
+
+
+	

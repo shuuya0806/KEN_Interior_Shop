@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>注文完了</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet">
+		<link th:href="@{/css/complete.css}" rel="stylesheet">
+	</head>
+<body th:classappend="${isLogin} ? 'logged-in' : ''">
+	<main>
+		<div id="wrapper">
+			<div class="container">
+				<h1>注文完了</h1>
+				<div id="complete">
+					<div class="message">
+						<p><strong>注文完了しました</strong></p><br>
+					</div>
+			    	<p>ご注文ありがとうございます！</p>
+				</div>
+			    
+			    <div>
+			        <a th:href="@{/item}" class="btn">トップページへ戻る</a>
+			    </div>
+			</div>
+	    </div>
+	</main>
+</body>
+</html>

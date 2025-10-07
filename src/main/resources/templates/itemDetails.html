@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品詳細ページ</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <link th:href="@{/css/item_detail.css}" rel="stylesheet">
+	<link th:href="@{/css/header.css}" rel="stylesheet">
+	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/popup.js}" defer></script>
+</head>
+<body th:classappend="${isLogin} ? 'logged-in' : ''"  th:data-message="${popupMessage}" th:data-color="${popupColor}">
+
+    <!-- 共通ヘッダーを挿入 -->
+    <header th:insert="~{header :: header_area}"></header>
+        <!-- タイトルを商品名サイズに -->
+        
+    <main>
+		<div id="wrapper">
+			<h1>商品詳細</h1>
+			
+			<!-- 「カートに追加しました」メッセージを表示 -->
+			<div th:if="${message}" class="flash-message">
+	   			 <p th:text="${message}"></p>
+			</div>
+			
+	        <table id="item-detail">
+	            <tr>
+	                <!-- 左：商品情報 -->
+	                <td id="item-text">
+	                    <!-- 商品名 -->
+	                    <h2 th:text="${item.itemName}">商品名</h2>
+	                    <!-- 商品説明 -->
+	                    <p th:text="${item.explanation}">商品説明</p>
+	                    <!-- 価格表示 -->
+	                    <p>
+	                        価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円
+	                        &nbsp;&nbsp;
+	                        <!-- 税込価格 10% を計算して表示 -->
+	                       (税込: <span th:text="${taxIncludedPrice}">0</span> 円)
+	                    </p>
+	                    <!-- 発売日 -->
+	                    <p>発売開始日: <span th:text="${item.rsDate} ?: '未定'"></span></p>
+	                </td>
+	
+	                <!-- 右：商品画像 -->
+	                <td id="item-img">
+	                    <img th:src="@{/images/{img}(img=${item.image})}" th:alt="${item.itemName}">
+	                </td>
+	            </tr>
+	        </table>
+	
+	        <!-- 戻るボタン / カート追加 -->
+	        <div id="item-detail-btns">
+				
+				<div class="btn-cart">
+					<!--      カート追加ボタン       -->
+		            <form th:action="@{/cart/add}" method="post">
+		                
+		                <!-- ★サーバーに送信する商品情報を hidden で保持 -->
+		                <!-- 商品ID（DBで特定するために必須） -->
+		                <input type="hidden" name="itemId" th:value="${item.itemId}">
+		                <!-- 商品名（カート画面表示用） -->
+		                <input type="hidden" name="itemName" th:value="${item.itemName}">
+		                <!-- 商品価格（カート画面表示用 / 計算用） -->
+		                <input type="hidden" name="itemPrice" th:value="${item.itemPrice}">
+		         
+		
+		                <!-- ★カート追加後に戻るページを指定するためのURL -->
+		                <!-- 「商品詳細ページ」にリダイレクトできるように仕込む -->
+						<input type="hidden" name="redirectUrl" 
+		       				th:value="@{/item/detail/{itemId}(itemId=${item.itemId},from=${from},keyword=${keyword},categoryId=${categoryId})}">
+	
+						<div id="cart-btn">
+							<!-- ユーザーが押す実際のボタン -->
+			                <button type="submit" class="btn">
+			                    カートに追加
+			                </button>
+						</div>
+		                
+		                <div id="quantity-select">
+							<!-- 数量選択（1～10のプルダウン） -->
+						    <label for="itemQuantity">数量:</label>
+						    <select name="itemQuantity" id="itemQuantity">
+						        <option th:each="i : ${#numbers.sequence(1, 10)}"
+						                th:value="${i}"
+						                th:text="${i}">
+						        </option>
+						    </select>
+						</div>
+		            </form>
+				</div>
+				
+				<div class="btn-back">
+					<!-- 戻るボタン -->
+					<form th:action="@{/back1}" method="get" style="display:inline;">
+		 			<button type="submit" class="back-btn">戻る</button>
+					</form>
+				</div>
+	        </div>
+	    </div>
+    </main>
+    
+    <!-- 共通フッター -->
+  	<footer th:insert="~{footer :: footer_area}"></footer>
+    
+</body>
+</html>

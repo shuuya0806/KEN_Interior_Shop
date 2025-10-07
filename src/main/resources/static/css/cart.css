@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+
+/*カート画面全体に*/
+.order-check {
+	margin-top: 50px;
+}
+
+/*商品テーブル全体*/
+#cart-table {
+	border: 1px solid black;
+	border-radius: 5px;
+	margin: 0 200px;
+	margin-bottom: 30px;
+	background-color: #EEEEEE;
+}
+
+/*商品テーブル*/
+#cart-table th, #cart-table td {
+	border: 1px solid black;
+	padding: 8px;
+	text-align: center;
+}
+
+/*数量変更ボタン・削除ボタン*/
+.remove-btn, .allremove-btn {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+/*ボタン*/
+.remove-btn .btn {
+	width: 200px;
+}
+
+/*金額テーブル全体*/
+#total-table{
+	border: 1px solid black;
+	border-radius: 5px;
+	background-color: #EEEEEE;
+	margin-bottom: 20px;
+	margin-left: auto;
+	margin-right: 0; 
+	text-align: right;
+}
+
+/*金額テーブル*/
+#total-table th, #total-table td  {
+	border: 1px solid black;
+	text-align: left;
+	padding: 8px;
+	text-align: center;
+}
+
+/*注文確認ボタン*/
+.order-conf{
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+/*ボタン全体*/
+.btn {
+	padding: 12px;
+}
+
+/*空の場合の文字が表示されない場合*/
+.clear-message:empty {
+  margin: 0;	/*表示されなければmarginを無効に*/
+}
+
+/*空の場合の文字全体*/
+.clear-message {
+	margin: 30px 0;
+}
+
+/*空の場合の文字*/
+.error-message {
+	font-size: 70px;
+}
+
+
+

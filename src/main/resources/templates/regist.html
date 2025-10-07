@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>個人情報登録</title>
+  <!-- 共通・会員登録用CSSの読み込み -->
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/member_common.css}" rel="stylesheet">
+  <link th:href="@{/css/member_regist.css}" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1>個人情報登録</h1>
+      <div id="member-regist">
+        <!-- 会員登録フォーム -->
+        <form th:action="@{/registration}" th:object="${memberRegistForm}" method="post">
+
+          <!-- 基本情報入力 -->
+          <div id="member-data">
+            <div class="subject">
+              <span>基本情報</span>
+            </div>
+
+            <!-- 氏名 -->
+            <div class="regist-form">
+              <label for="fullName">氏名 <strong class="required">(必須)</strong></label>
+              <input id="fullName" type="text" th:field="*{memberName}" placeholder="例：山田太郎">
+              <span th:if="${#fields.hasErrors('memberName')}" th:errors="*{memberName}" class="error-message"></span>
+            </div>
+
+            <!-- フリガナ -->
+            <div class="regist-form">
+              <label for="kana">フリガナ <strong class="required">(必須)</strong></label>
+              <input id="kana" type="text" th:field="*{memberKana}" placeholder="例：ヤマダタロウ">
+              <span th:if="${#fields.hasErrors('memberKana')}" th:errors="*{memberKana}" class="error-message"></span>
+            </div>
+
+            <!-- メールアドレス -->
+            <div class="regist-form">
+              <label for="email">メールアドレス <strong class="required">(必須)</strong></label>
+              <input id="email" type="email" th:field="*{mail}" placeholder="例：example@example.com">
+              <span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="error-message"></span>
+              <!-- エラーメッセージ表示エリア -->
+              <span th:if="${mailError}" class="error-message" th:text="${mailError}"></span>
+            </div>
+
+            <!-- パスワード -->
+            <div class="regist-form">
+              <label for="password">パスワード <strong class="required">(必須)</strong></label>
+              <input id="password" type="password" th:field="*{password}" placeholder="半角数字4桁">
+              <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
+            </div>
+
+            <!-- 電話番号 -->
+            <div class="regist-form">
+              <label for="phone">電話番号 <strong class="required">(必須)</strong></label>
+              <input id="phone" type="tel" th:field="*{phoneNumber}" placeholder="例：09012345678">
+              <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" class="error-message"></span>
+              <!-- エラーメッセージ表示エリア -->
+              <span th:if="${phoneError}" class="error-message" th:text="${phoneError}"></span>
+            </div>
+
+            <!-- 住所情報 -->
+            <span class="subject">ご住所</span>
+
+            <!-- 郵便番号（任意） -->
+            <div class="regist-form">
+              <label for="postal">郵便番号 (任意)</label>
+              <input id="postal" type="text" th:field="*{postalCode}" placeholder="例：5300001">
+              <span th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}" class="error-message"></span>
+            </div>
+
+            <!-- 都道府県 -->
+            <div class="regist-form">
+              <label for="prefecture">都道府県 <strong class="required">(必須)</strong></label>
+              <input id="prefecture" type="text" th:field="*{address1}" placeholder="例：大阪府">
+              <span th:if="${#fields.hasErrors('address1')}" th:errors="*{address1}" class="error-message"></span>
+            </div>
+
+            <!-- 市区町村 -->
+            <div class="regist-form">
+              <label for="city">市区町村 <strong class="required">(必須)</strong></label>
+              <input id="city" type="text" th:field="*{address2}" placeholder="例：大阪市北区">
+              <span th:if="${#fields.hasErrors('address2')}" th:errors="*{address2}" class="error-message"></span>
+            </div>
+
+            <!-- 番地 -->
+            <div class="regist-form">
+              <label for="street">番地 <strong class="required">(必須)</strong></label>
+              <input id="street" type="text" th:field="*{address3}" placeholder="例：梅田1-1-1">
+              <span th:if="${#fields.hasErrors('address3')}" th:errors="*{address3}" class="error-message"></span>
+            </div>
+          </div>
+
+          <!-- クレジットカード情報（任意） -->
+          <div id="card-data">
+            <div class="subject">
+              <span>クレジットカード (任意)</span>
+            </div>
+
+            <!-- カード番号 -->
+            <div class="regist-form">
+              <label for="cardNumber">カード番号</label>
+              <input id="cardNumber" type="text" th:field="*{creditNo}">
+            </div>
+
+            <!-- 有効期限（月） -->
+            <div class="regist-form">
+              <label for="expMonth">有効期限（月）</label>
+              <input id="expMonth" type="text" th:field="*{creditMonth}">
+            </div>
+
+            <!-- 有効期限（年） -->
+            <div class="regist-form">
+              <label for="expYear">有効期限（年）</label>
+              <input id="expYear" type="text" th:field="*{creditYear}">
+            </div>
+
+            <!-- カード名義 -->
+            <div class="regist-form">
+              <label for="cardName">カード名義</label>
+              <input id="cardName" type="text" th:field="*{creditName}">
+            </div>
+
+            <!-- セキュリティコード -->
+            <div class="regist-form">
+              <label for="cvc">セキュリティコード</label>
+              <input id="cvc" type="password" th:field="*{securityCode}">
+            </div>
+          </div>
+
+          <!-- ボタンエリア：登録・戻る -->
+          <div class="buttons">
+            <button type="submit" class="btn">登録</button>
+          </div>
+        </form>
+
+        <div class="buttons">
+          <form th:action="@{/login}" method="get">
+            <button type="submit" class="back-btn">戻る</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 郵便番号から住所を自動入力するJS -->
+  <script th:src="@{/js/postalCode.js}"></script>
+</body>
+</html>
