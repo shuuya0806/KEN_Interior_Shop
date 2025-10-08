@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>会員ログイン</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<div id="wrapper">
+		<header></header>
+		<main>
+			<div id="form-area">
+				<h1>会員ログイン</h1>
+				<form th:action="@{/login}" th:object="${loginUser}" method="post">
+					<div class="form-row">
+						<label>メールアドレス</label>
+						<input th:field="*{mail}" value="${mail}">
+						<span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="errors"></span>
+					</div>
+					
+					<div class="form-row">
+						<label>パスワード</label>
+						<input th:field="*{password}" value="${password}">
+						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors"></span>
+					</div>
+		
+					<div class="form-row">
+						<span class="errors" th:text="${loginError}"></span>
+					</div>
+					
+					<div class="form-row">
+						<input type="submit" name="doLogin" value="ログイン" class="btn">
+					</div>
+				</form>
+				<form th:action="@{/registration}" method="get">
+					<div class="form-row">
+					<input type="submit" name="regist" value="新規登録" class="btn">
+					</div>
+				</form>
+				<form th:action="@{/back}" method="get">
+					<div class="form-row">
+					<input type="submit" name="back" value="戻る" class="btn">
+					</div>
+				</form>
+			</div>
+		</main>
+		<footer></footer>
+	</div>
+</body>
+</html>
