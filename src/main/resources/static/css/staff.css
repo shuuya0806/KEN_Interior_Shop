@@ -3,11 +3,11 @@
 .menu-buttons {
     display: flex;
     flex-direction: column; /* ボタンを縦に並べる */
-    align-items: flex-start; /* 左寄せ */
     gap: 20px; /* ボタン間のスペース */
     margin-top: 40px; /* 上からの余白 */
 }
 
 .menu-buttons .btn {
     width: 200px; /* ボタン幅を統一 */
+    margin: auto;
 }

@@ -3,31 +3,37 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>従業員ログイン</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/stafflogin.css}" rel="stylesheet" type="text/css">
 	</head>
 <body>
 	<div id="wrapper">
 		<header></header>
 		<main>
-			<div id="form-area">
+			<div id="login-form">
 				<h1>従業員ログイン</h1>
 				<form th:action="@{/stafflogin}" th:object="${staffLoginForm}" method="post">
 					<div class="form-row">
 						<label>従業員ID</label>
-						<input th:field="*{staffId}" th:value="${staffId}" >
-						<span th:if="${#fields.hasErrors('staffId')}" th:errors="*{staffId}" class="errors"></span>
+						<div class="input-wrapper">
+							<input th:field="*{staffId}" th:value="${staffId}" >
+							<span th:if="${#fields.hasErrors('staffId')}" th:errors="*{staffId}" class="errors"></span>
+						</div>
 					</div>
 					
 					<div class="form-row">
 						<label>パスワード</label>
-						<input th:field="*{password}" value="${password}">
-						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors"></span>
+						<div class="input-wrapper">
+							<input th:field="*{password}" value="${password}">
+							<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors"></span>
+						</div>
 					</div>
 					
-					<div class="form-row">
+					<div class="error-message">
 						<span class="errors" th:text="${staffLoginError}"></span>
 					</div>
 					
-					<div class="form-row">
+					<div class="form-btn">
 						<input type="submit" name="doLogin" value="ログイン" class="btn">
 					</div>
 				</form>
