@@ -19,13 +19,20 @@
 						<th>顧客ID</th>
 						<th>合計金額</th>
 						<th>注文日</th>
+						<th>ステータス</th>
+						<th>操作</th>
 					</tr>
 					<th:block th:each="order : ${listOrderForm}">
 						<tr>
 							<td th:text="${order.orderId}"></td>
-							<td th:text="${order.memberId}"></td>
+							<td>氏名(仮)</td>
 							<td th:text="${order.total}"></td>
 							<td th:text="${order.orderDate}"></td>
+							<td th:text="${order.shippingFrag}"></td>
+							<a th:href="@{/staff/orders/{id}(id=${order.orderId})}">
+								<td><button type="button">詳細</button></td>
+							</a>
+							<td><button type="button">注文取消</button></td>
 						</tr>
 					</th:block>
 				</table>
