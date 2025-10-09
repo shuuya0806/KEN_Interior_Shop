@@ -3,16 +3,16 @@ package jp.ken.interiorshop.domain.repository;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.ken.interiorshop.domain.entity.OrderEntity;
-import jp.ken.interiorshop.infrastructure.mapper.OrderResultSetExtractor;
+import jp.ken.interiorshop.infrastructure.mapper.StaffOrderMapper;
 
 @Repository
 public class StaffOrderRepository {
 	
-	private ResultSetExtractor<List<OrderEntity>> orderExtractor = new OrderResultSetExtractor();
+	private RowMapper<OrderEntity> staffOrderMapper = new StaffOrderMapper();
 	private JdbcTemplate jdbcTemplate;
 	
 	public StaffOrderRepository(JdbcTemplate jdbcTemplate) {
@@ -31,7 +31,7 @@ public class StaffOrderRepository {
 		sb.append(" order_id");
 		String sql = sb.toString();
 		
-		List<OrderEntity> orderList = jdbcTemplate.query(sql,orderExtractor);
+		List<OrderEntity> orderList = jdbcTemplate.query(sql,staffOrderMapper);
 		
 		return orderList;
 	}
