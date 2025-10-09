@@ -25,8 +25,7 @@
 					<th:block th:each="order : ${listOrderForm}">
 						<tr>
 							<td th:text="${order.orderId}"></td>
-<<<<<<< HEAD
-							<td>氏名(仮)</td>
+							<td th:text="${order.memberName}"></td>
 							<td th:text="${order.total}"></td>
 							<td th:text="${order.orderDate}"></td>
 							<td th:text="${order.shippingFrag}"></td>
@@ -34,8 +33,6 @@
 								<td><button type="button">詳細</button></td>
 							</a>
 							<td><button type="button">注文取消</button></td>
-=======
->>>>>>> refs/remotes/origin/main
 						</tr>
 					</th:block>
 				</table>

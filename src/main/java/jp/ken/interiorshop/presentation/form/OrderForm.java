@@ -50,4 +50,7 @@ public class OrderForm implements Serializable {
 	//発送のネストForm
 	@Valid
 	private ShippingForm shippingForm = new ShippingForm();
+	
+	//会員名(従業員画面でのみ使用)
+	private String memberName;
 }
