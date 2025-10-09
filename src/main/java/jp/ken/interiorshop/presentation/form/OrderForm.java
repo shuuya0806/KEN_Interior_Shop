@@ -17,7 +17,7 @@ public class OrderForm implements Serializable {
 	private String orderId;
 	
 	//顧客ID
-	private String memberId;
+	private Integer memberId;
 	
 	//合計金額
 	private Integer total;

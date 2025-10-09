@@ -28,7 +28,7 @@ public class OrderEntity {
     private int shippingId;
     
     // 発送フラグ
-    private Integer shippingFrag = 0;
+    private String shippingFrag = "未発送";
     
     // 複数商品を保持するリスト
     // private List<OrderDetailsForm> orderDetailsForm = new ArrayList<>();  元のデータ(テスト後の挙動次第で元に戻す)   
