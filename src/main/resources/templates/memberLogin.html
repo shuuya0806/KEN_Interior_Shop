@@ -1,50 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<title>会員ログイン</title>
-		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>会員ログイン</title>
+    <!-- 共通CSSの読み込み -->
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <link th:href="@{/css/member_common.css}" rel="stylesheet">
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+</head>
 <body>
-	<div id="wrapper">
-		<header></header>
-		<main>
-			<div id="form-area">
-				<h1>会員ログイン</h1>
-				<form th:action="@{/login}" th:object="${loginUser}" method="post">
-					<div class="form-row">
-						<label>メールアドレス</label>
-						<input th:field="*{mail}" value="${mail}">
-						<span th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}" class="errors"></span>
-					</div>
-					
-					<div class="form-row">
-						<label>パスワード</label>
-						<input th:field="*{password}" value="${password}">
-						<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="errors"></span>
-					</div>
-		
-					<div class="form-row">
-						<span class="errors" th:text="${loginError}"></span>
-					</div>
-					
-					<div class="form-row">
-						<input type="submit" name="doLogin" value="ログイン" class="btn">
-					</div>
-				</form>
-				<form th:action="@{/registration}" method="get">
-					<div class="form-row">
-					<input type="submit" name="regist" value="新規登録" class="btn">
-					</div>
-				</form>
-				<form th:action="@{/back}" method="get">
-					<div class="form-row">
-					<input type="submit" name="back" value="戻る" class="btn">
-					</div>
-				</form>
-			</div>
-		</main>
-		<footer></footer>
-	</div>
+<main>
+    <div id="wrapper">
+        <div id="login">
+            <h1>会員ログイン</h1>
+
+            <!-- ログインフォーム -->
+            <form th:action="@{/login}" th:object="${loginUser}" method="post">
+                <div id="login-form">
+
+                    <!-- メールアドレス入力 -->
+                    <div class="form-row">
+                        <label for="mail">メールアドレス</label>
+                        <div class="input-wrapper">
+                            <input type="text" th:field="*{mail}" id="mail" placeholder="メールアドレスを入力">
+                            <!-- メールアドレスのバリデーションエラー表示 -->
+                            <div th:if="${#fields.hasErrors('mail')}" class="error-message">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('mail')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- パスワード入力 -->
+                    <div class="form-row">
+                        <label for="password">パスワード</label>
+                        <div class="input-wrapper">
+                            <input type="password" th:field="*{password}" id="password" placeholder="パスワードを入力">
+                            <!-- パスワードのバリデーションエラー表示 -->
+                            <div th:if="${#fields.hasErrors('password')}" class="error-message">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 認証失敗時のエラーメッセージ表示 -->
+                <div th:if="${loginError}" class="error-message" th:text="${loginError}"></div>
+
+                <!-- ログインボタン -->
+                <div class="form-btn">
+                    <input type="submit" name="doLogin" value="ログイン" class="btn">
+                </div>
+            </form>
+
+            <!-- 戻るボタン -->
+            <form th:action="@{/back}" method="get">
+                <div class="form-btn">
+                    <input type="submit" name="back" value="戻る" class="back-btn">
+                </div>
+            </form>
+
+            <!-- 新規登録案内 -->
+            <div class="form-btn">
+                <p>会員登録がお済みでない方は下記のボタンをクリック</p>
+                <form th:action="@{/registration}" method="get">
+                    <input type="submit" name="regist" value="新規登録" class="btn">
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+<footer></footer>
 </body>
 </html>
