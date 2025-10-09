@@ -24,11 +24,6 @@ public class StaffMenuController {
 		return "staffOrderMenu";
 	}
 	
-	// 注文履歴確認画面表示
-	/*@GetMapping("/stafforder/history")
-	public String showOrderHistory(@SessionAttribute("loginStaff") StaffLoginForm staffLoginForm, Model model) {
-		model.addAttribute("loginStaff", staffLoginForm);
-		return "staffOrderHistory";
-	}*/
+
 	
 }
