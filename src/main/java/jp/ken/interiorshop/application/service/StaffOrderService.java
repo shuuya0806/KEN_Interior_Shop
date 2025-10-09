@@ -19,6 +19,7 @@ public class StaffOrderService {
 	public StaffOrderService(StaffOrderRepository staffOrderRepository,
 			ModelMapper FormMapper) {
 		this.staffOrderRepository = staffOrderRepository;
+		this.FormMapper = FormMapper;
 	}
 	
 	//注文履歴を取得

@@ -23,6 +23,9 @@
 					<th:block th:each="order : ${listOrderForm}">
 						<tr>
 							<td th:text="${order.orderId}"></td>
+							<td th:text="${order.memberId}"></td>
+							<td th:text="${order.total}"></td>
+							<td th:text="${order.orderDate}"></td>
 						</tr>
 					</th:block>
 				</table>
