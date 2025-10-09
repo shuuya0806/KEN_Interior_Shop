@@ -14,11 +14,12 @@ import jp.ken.interiorshop.presentation.form.OrderForm;
 public class StaffOrderService {
 	
 	private StaffOrderRepository staffOrderRepository;
-	private ModelMapper FormMapper;
+	private ModelMapper formMapper;
 	
 	public StaffOrderService(StaffOrderRepository staffOrderRepository,
-			ModelMapper FormMapper) {
+			ModelMapper formMapper) {
 		this.staffOrderRepository = staffOrderRepository;
+		this.formMapper = formMapper;
 	}
 	
 	//注文履歴を取得
@@ -41,7 +42,7 @@ public class StaffOrderService {
 		List<OrderForm> formList = new ArrayList<OrderForm>();
 		
 		for(OrderEntity entity : entityList) {
-			OrderForm form = FormMapper.map(entity, OrderForm.class);
+			OrderForm form = formMapper.map(entity, OrderForm.class);
 			formList.add(form);
 		}
 		

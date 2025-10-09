@@ -31,7 +31,7 @@ public class StaffOrderRepository {
 		sb.append(" order_id");
 		String sql = sb.toString();
 		
-		List<OrderEntity> orderList = jdbcTemplate.query(sql,staffOrderMapper);
+		List<OrderEntity> orderList = jdbcTemplate.query(sql, staffOrderMapper);
 		
 		return orderList;
 	}
