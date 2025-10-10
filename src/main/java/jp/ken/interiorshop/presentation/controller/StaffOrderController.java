@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import jp.ken.interiorshop.application.service.StaffOrderService;
 import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 import jp.ken.interiorshop.presentation.form.OrderForm;
+import jp.ken.interiorshop.presentation.form.ShippingForm;
 import jp.ken.interiorshop.presentation.form.StaffLoginForm;
 
 @Controller
@@ -41,26 +42,36 @@ public class StaffOrderController {
 		
 		//DBから注文履歴を取得
 		List<OrderForm> listOrderForm = staffOrderService.getOrderList();
-		model.addAttribute("listOrderForm", listOrderForm);
+		
+		//nullチェック
+		if (listOrderForm == null || listOrderForm.isEmpty()) {
+	        model.addAttribute("message", "注文履歴はありません。");
+	        // 空リストを渡しておくとテンプレート内で null チェック不要
+	        model.addAttribute("listOrderForm", List.of());
+	    } else {
+	        model.addAttribute("listOrderForm", listOrderForm);
+	    }
 		
 		return "staffOrderHistory";
 	}
 	
 	//注文履歴詳細画面表示
-    @GetMapping("/staff/orders/{id}")
-    public String showOrderDetail(@PathVariable("id") int orderId, Model model) throws Exception {
+   @GetMapping("/staff/orders/{orderId:[0-9]+}")
+    public String showOrderDetail(@PathVariable("orderId") int orderId, Model model) throws Exception {
 
-        // サービスから注文詳細情報を取得
+        // DBから注文詳細情報を取得
     	List<OrderDetailsForm> orderDetailsList = staffOrderService.getOrderDetailsById(orderId);
-
-        // モデルに追加
+    	
+    	// DBからorderIdをキーに発送先情報を取得
+    	ShippingForm shippingForm = staffOrderService.getShippingId(orderId);
+    	
         model.addAttribute("orderDetailsList", orderDetailsList);
+        model.addAttribute("shippingForm", shippingForm);
         
         if(orderDetailsList == null || orderDetailsList.isEmpty()) {
             throw new RuntimeException("注文詳細が取得できませんでした");
         }
-
-        // 詳細画面に遷移（例：staff/orderDetail.html）
+        
         return "staffOrderDetails";
     }
 	

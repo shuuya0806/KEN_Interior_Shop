@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import jp.ken.interiorshop.domain.entity.MemberEntity;
 import jp.ken.interiorshop.domain.entity.OrderDetailsEntity;
 import jp.ken.interiorshop.domain.entity.OrderEntity;
+import jp.ken.interiorshop.domain.entity.ShippingEntity;
 import jp.ken.interiorshop.domain.repository.MemberRepository;
 import jp.ken.interiorshop.domain.repository.StaffOrderRepository;
 import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 import jp.ken.interiorshop.presentation.form.OrderForm;
+import jp.ken.interiorshop.presentation.form.ShippingForm;
 
 @Service
 public class StaffOrderService {
@@ -76,6 +78,16 @@ public class StaffOrderService {
 		return orderDetailsForm;
 	}
 	
+	//orderIdをキーにshippingIdを取得
+	public ShippingForm getShippingId(int orderId) throws Exception{
+		ShippingEntity shippingEntity = staffOrderRepository.getShippingId(orderId);
+		
+		ShippingForm shippingForm = convertShipping(shippingEntity);
+		
+		return shippingForm;
+		
+	}
+	
 	private List<OrderForm> convert(List<OrderEntity> entityList) {
 		
 		List<OrderForm> formList = new ArrayList<OrderForm>();
@@ -105,6 +117,14 @@ public class StaffOrderService {
 		int result = staffOrderRepository.OrderCancel(orderId);
 		
 		return result;
+
+	}
+		
+	private ShippingForm convertShipping(ShippingEntity shippingEntity) {
+		ShippingForm shippingForm = FormMapper.map(shippingEntity, ShippingForm.class);
+		
+		return shippingForm;
+
 	}
 
 }
