@@ -32,7 +32,7 @@
 							<a th:href="@{/staff/orders/{id}(id=${order.orderId})}">
 								<td><button type="button">詳細</button></td>
 							</a>
-							<td><button type="button">注文取消</button></td>
+							<td><button type="button" id="test">注文取消</button></td>
 						</tr>
 					</th:block>
 				</table>
@@ -44,5 +44,6 @@
 		</main>
 		<footer></footer>
 	</div>
+	<script th:src="@{/js/ordercancel.js}"></script>
 </body>
 </html>
