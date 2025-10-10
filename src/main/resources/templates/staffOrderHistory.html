@@ -12,7 +12,13 @@
 	    <header th:insert="~{staffHeader :: header_area}"></header> 
 		<main>
 			<h1>注文履歴</h1>
-			<div>
+			 <!-- 注文履歴がない場合のメッセージ -->
+    		<div th:if="${listOrderForm.isEmpty()}">
+        		<p>注文履歴はありません。</p>
+    		</div>
+			
+			<!-- 注文履歴がある場合のみテーブルを表示 -->
+			<div th:if="${!listOrderForm.isEmpty()}">
 				<table>
 					<tr>
 						<th>注文ID</th>

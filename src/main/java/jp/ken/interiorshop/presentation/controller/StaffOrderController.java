@@ -40,7 +40,15 @@ public class StaffOrderController {
 		
 		//DBから注文履歴を取得
 		List<OrderForm> listOrderForm = staffOrderService.getOrderList();
-		model.addAttribute("listOrderForm", listOrderForm);
+		
+		//nullチェック
+		if (listOrderForm == null || listOrderForm.isEmpty()) {
+	        model.addAttribute("message", "注文履歴はありません。");
+	        // 空リストを渡しておくとテンプレート内で null チェック不要
+	        model.addAttribute("listOrderForm", List.of());
+	    } else {
+	        model.addAttribute("listOrderForm", listOrderForm);
+	    }
 		
 		return "staffOrderHistory";
 	}
@@ -52,14 +60,12 @@ public class StaffOrderController {
         // サービスから注文詳細情報を取得
     	List<OrderDetailsForm> orderDetailsList = staffOrderService.getOrderDetailsById(orderId);
 
-        // モデルに追加
         model.addAttribute("orderDetailsList", orderDetailsList);
         
         if(orderDetailsList == null || orderDetailsList.isEmpty()) {
             throw new RuntimeException("注文詳細が取得できませんでした");
         }
-
-        // 詳細画面に遷移
+        
         return "staffOrderDetails";
     }
 	
