@@ -51,4 +51,20 @@ public class StaffOrderRepository {
 		
 		return orderDetailsEntity;
 	}
+	
+	//注文履歴の削除
+	public int OrderCancel(int orderId) {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("DELETE");
+		sb.append(" FROM");
+		sb.append(" order_details");
+		sb.append(" AND");
+		sb.append(" orders");
+		sb.append(" WHERE");
+		sb.append(" order_id = ?");
+		String sql = sb.toString();
+		
+		return jdbcTemplate.update(sql, orderId);
+	}
 }

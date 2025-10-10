@@ -98,5 +98,13 @@ public class StaffOrderService {
 		
 		return formList;
 	}
+	
+	//注文履歴を削除
+	public int OrderCancel(int orderId) {
+		
+		int result = staffOrderRepository.OrderCancel(orderId);
+		
+		return result;
+	}
 
 }
