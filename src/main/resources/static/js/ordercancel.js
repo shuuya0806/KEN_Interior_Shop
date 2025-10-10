@@ -28,10 +28,12 @@ confirmButton.addEventListener('click', () => {
 		})
 		.then((result) => {
 			console.log('削除処理を実行しました。');
+			alert('削除完了しました');
 			location.reload(); //ページを再読み込み
 		})
-		.catch((reason) => {
-		    // エラー
+		.catch((error) => {
+		    console.error('削除エラー:', error);
+		    alert('削除中にエラーが発生しました。');
 		})
 	// 処理完了時の部分
 	console.log('削除処理を実行しました。');

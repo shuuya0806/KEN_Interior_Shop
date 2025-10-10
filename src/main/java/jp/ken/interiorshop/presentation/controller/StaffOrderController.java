@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jp.ken.interiorshop.application.service.StaffOrderService;
@@ -100,6 +101,7 @@ public class StaffOrderController {
 	
     //注文履歴削除処理
     @PostMapping("/stafforder/cancel")
+    @ResponseBody //返り値がView名ではなくHTTPレスポンスになる
     public String OrderCancel(@RequestBody Map<String, Object> cancelOrderId) throws Exception {
     	
     	Object orderIdObj = cancelOrderId.get("orderId");
@@ -111,7 +113,7 @@ public class StaffOrderController {
     	int orderId = Integer.parseInt(orderIdObj.toString());
     	staffOrderService.OrderCancel(orderId);
     	
-    	return "redirect:/stafforder";
+    	return "OK";
     }
 
    // 発送処理
