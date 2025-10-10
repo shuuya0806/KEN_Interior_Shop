@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jp.ken.interiorshop.application.service.StaffOrderService;
@@ -67,8 +68,12 @@ public class StaffOrderController {
     	// DBからorderIdをキーに発送先情報を取得
     	ShippingForm shippingForm = staffOrderService.getShippingId(orderId);
     	
+    	// DBからorderIdをキーに発送フラグを取得
+    	String shippingFrag = staffOrderService.getShippingFrag(orderId);
+    	
         model.addAttribute("orderDetailsList", orderDetailsList);
         model.addAttribute("shippingForm", shippingForm);
+        model.addAttribute("shippingFrag", shippingFrag);
         
         if(orderDetailsList == null || orderDetailsList.isEmpty()) {
             throw new RuntimeException("注文詳細が取得できませんでした");
@@ -76,6 +81,22 @@ public class StaffOrderController {
         
         return "staffOrderDetails";
     }
+   
+   // 発送確認画面表示
+   @GetMapping("/stafforder/staffShippingConfirm")
+   public String showShippingConfirm(@RequestParam("orderId") int orderId, Model model) throws Exception{
+       // 注文明細取得
+       List<OrderDetailsForm> orderDetailsList = staffOrderService.getOrderDetailsById(orderId);
+
+       // 発送先情報取得
+       ShippingForm shippingForm = staffOrderService.getShippingId(orderId);
+       
+       model.addAttribute("orderDetailsList", orderDetailsList);
+       model.addAttribute("shippingForm", shippingForm);
+       model.addAttribute("orderId", orderId);
+       
+       return "staffShippingConfirm";
+   }
 	
     //注文履歴削除処理
     @PostMapping("/stafforder/cancel")
@@ -92,4 +113,23 @@ public class StaffOrderController {
     	
     	return "redirect:/stafforder";
     }
+
+   // 発送処理
+   @PostMapping("/stafforder/shippingComplete")
+   public String shippingComplete(@RequestParam("orderId") int orderId, Model model) throws Exception{
+	   //ステータスを発送済みに変更する処理
+	   staffOrderService.shippedOrder(orderId);
+	   
+	   return "shippingComplete";
+   }
+   
+   // 発送キャンセル処理
+   @PostMapping("/stafforder/cancelShipping")
+   public String cancelShipping(@RequestParam("orderId") int orderId, Model model) throws Exception{
+	   //ステータスを未発送に変更する処理
+	   staffOrderService.cancelShippedOrder(orderId);
+	   
+	   return "shippingCancel";
+   }
+
 }
