@@ -66,4 +66,23 @@ public class StaffOrderRepository {
 	    
 	    return shippingEntity;
 	}
+	
+	//orderIdをキーに発送フラグを取得
+	public String getShippingFrag(int orderId) throws Exception{
+		String sql = "SELECT shipping_frag FROM orders WHERE order_id = ?";
+		return jdbcTemplate.queryForObject(sql, String.class, orderId);
+		
+	}
+	
+	//ステータスを発送済みに変更する処理
+	public void shippedOrder(int orderId) throws Exception{
+		 String sql = "UPDATE orders SET shipping_frag = '発送済み' WHERE order_id = ?";
+		 jdbcTemplate.update(sql, orderId);
+	}
+	
+	//ステータスを未発送に変更する処理
+	public void cancelShippedOrder(int orderId) throws Exception{
+		 String sql = "UPDATE orders SET shipping_frag = '未発送' WHERE order_id = ?";
+		 jdbcTemplate.update(sql, orderId);
+	}
 }

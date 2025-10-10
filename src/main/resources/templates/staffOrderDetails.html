@@ -47,6 +47,27 @@
             </tr>
         </tbody>
     </table>
+    
+<!-- 発送処理 / 発送キャンセルボタン -->
+<div style="margin-top:20px;" 
+     th:if="${orderDetailsList != null and #lists.size(orderDetailsList) > 0}">
+
+    <!-- 発送前（未発送） -->
+    <form th:action="@{/stafforder/staffShippingConfirm}" method="get"
+          th:if="${shippingFrag == '未発送'}" style="display:inline;">
+        <input type="hidden" name="orderId" th:value="${orderDetailsList[0].orderId}" />
+        <button type="submit">発送処理</button>
+    </form>
+
+    <!-- 発送済み -->
+    <form th:action="@{/stafforder/cancelShipping}" method="post"
+          th:if="${shippingFrag == '発送済み'}" style="display:inline;">
+        <input type="hidden" name="orderId" th:value="${orderDetailsList[0].orderId}" />
+        <button type="submit">発送キャンセル</button>
+    </form>
+
+</div>
+
 
     <!-- 戻るボタン -->
     <div style="margin-top: 20px;">

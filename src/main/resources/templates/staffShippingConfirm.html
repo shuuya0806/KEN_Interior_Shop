@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>発送確認</title>
+</head>
+<body>
+
+<h1>発送確認</h1>
+
+<!-- 注文情報 -->
+<div th:if="${orderDetailsList != null and #lists.size(orderDetailsList) > 0}">
+    <p>注文ID：<span th:text="${orderId}"></span></p>
+
+    <!-- 注文明細テーブル -->
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>注文詳細ID</th>
+                <th>商品ID</th>
+                <th>商品名</th>
+                <th>数量</th>
+                <th>小計</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="detail : ${orderDetailsList}">
+                <td th:text="${detail.detailId}"></td>
+                <td th:text="${detail.itemId}"></td>
+                <td th:text="${detail.itemName}"></td>
+                <td th:text="${detail.itemQuantity}"></td>
+                <td th:text="${detail.subtotal}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- 発送先情報 -->
+<div th:if="${shippingForm != null}">
+    <h2>発送先情報</h2>
+    <p>名前：<span th:text="${shippingForm.shippingName}"></span></p>
+    <p>フリガナ：<span th:text="${shippingForm.shippingKana}"></span></p>
+    <p>電話番号：<span th:text="${shippingForm.shippingphone}"></span></p>
+    <p>郵便番号：<span th:text="${shippingForm.shippingPostalCode}"></span></p>
+    <p>住所：
+        <span th:text="${shippingForm.shippingAddress1}"></span>
+        <span th:text="${shippingForm.shippingAddress2}"></span>
+        <span th:text="${shippingForm.shippingAddress3}"></span>
+    </p>
+</div>
+
+<!-- 確認ボタン -->
+<form th:action="@{/stafforder/shippingComplete}" method="post">
+    <input type="hidden" name="orderId" th:value="${orderId}" />
+    <button type="submit">発送確定</button>
+</form>
+    <a th:href="@{/stafforder/history}">
+            <button type="button">キャンセル</button>
+    </a>
+
+
+</body>
+</html>

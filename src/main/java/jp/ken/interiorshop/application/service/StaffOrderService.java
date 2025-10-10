@@ -78,7 +78,7 @@ public class StaffOrderService {
 		return orderDetailsForm;
 	}
 	
-	//orderIdをキーにshippingIdを取得
+	//orderIdをキーに発送先情報を取得
 	public ShippingForm getShippingId(int orderId) throws Exception{
 		ShippingEntity shippingEntity = staffOrderRepository.getShippingId(orderId);
 		
@@ -86,6 +86,24 @@ public class StaffOrderService {
 		
 		return shippingForm;
 		
+	}
+	
+	//orderIdをキーに発送フラグを取得
+	public String getShippingFrag(int orderId) throws Exception{
+		String shippingFrag = staffOrderRepository.getShippingFrag(orderId);
+		
+		
+		return shippingFrag;
+	}
+	
+	//ステータスを発送済みに変更する処理
+	public void shippedOrder(int orderId) throws Exception{
+		staffOrderRepository.shippedOrder(orderId);
+	}
+	
+	//ステータスを未発送に変更する処理
+	public void cancelShippedOrder(int orderId) throws Exception{
+		staffOrderRepository.cancelShippedOrder(orderId);
 	}
 	
 	private List<OrderForm> convert(List<OrderEntity> entityList) {
