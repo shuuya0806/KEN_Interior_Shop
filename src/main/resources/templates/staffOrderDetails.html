@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>注文詳細</title>
+</head>
+<body>
+
+    <h1>注文詳細</h1>
+
+    <!-- 注文IDの表示（リストの先頭から取得） -->
+    <div th:if="${orderDetailsList != null and #lists.size(orderDetailsList) > 0}">
+        <p>注文ID：<span th:text="${orderDetailsList[0].orderId}"></span></p>
+    </div>
+
+    <!-- 注文明細テーブル -->
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>注文詳細ID</th>
+                <th>商品ID</th>
+                <th>商品名</th>
+                <th>数量</th>
+                <th>小計</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="detail : ${orderDetailsList}">
+                <td th:text="${detail.detailId}"></td>
+                <td th:text="${detail.itemId}"></td>
+                <td th:text="${detail.itemName}"></td>
+                <td th:text="${detail.itemQuantity}"></td>
+                <td th:text="${detail.subtotal}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- 戻るボタン -->
+    <div style="margin-top: 20px;">
+        <a th:href="@{/staff/order/history}">
+            <button type="button">注文履歴に戻る</button>
+        </a>
+    </div>
+
+</body>
+</html>

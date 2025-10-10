@@ -29,9 +29,11 @@
 							<td th:text="${order.total}"></td>
 							<td th:text="${order.orderDate}"></td>
 							<td th:text="${order.shippingFrag}"></td>
-							<a th:href="@{/staff/orders/{id}(id=${order.orderId})}">
-								<td><button type="button">詳細</button></td>
-							</a>
+							<td>
+   								<a th:href="@{/staff/orders/{id}(id=${order.orderId})}">
+        						<button type="button">詳細</button>
+    							</a>
+							</td>
 							<td><button type="button">注文取消</button></td>
 						</tr>
 					</th:block>

@@ -19,4 +19,7 @@ public class OrderDetailsEntity {
 	
 	//小計
 	private int subtotal;
+	
+	//商品名
+	private String itemName;
 }
