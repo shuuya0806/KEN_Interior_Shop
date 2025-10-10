@@ -58,17 +58,30 @@ public class StaffOrderRepository {
 	//注文履歴の削除
 	public int OrderCancel(int orderId) {
 		
-		StringBuilder sb = new StringBuilder();
-		sb.append("DELETE");
-		sb.append(" FROM");
-		sb.append(" order_details");
-		sb.append(" AND");
-		sb.append(" orders");
-		sb.append(" WHERE");
-		sb.append(" order_id = ?");
-		String sql = sb.toString();
+		//order_idをキーにしてorder_detailsからデータを削除
+		StringBuilder sb1 = new StringBuilder();
+		sb1.append("DELETE");
+		sb1.append(" FROM");
+		sb1.append(" order_details");
+		sb1.append(" WHERE");
+		sb1.append(" order_id = ?");
+		String sql1 = sb1.toString();
+		int result1 = jdbcTemplate.update(sql1, orderId);
 		
-		return jdbcTemplate.update(sql, orderId);
+		//order_idをキーにしてordersからデータを削除
+		StringBuilder sb2 = new StringBuilder();
+		sb2.append("DELETE");
+		sb2.append(" FROM");
+		sb2.append(" orders");
+		sb2.append(" WHERE");
+		sb2.append(" order_id = ?");
+		String sql2 = sb2.toString();
+		int result2 = jdbcTemplate.update(sql2, orderId);
+		
+		//正常に処理が完了したかをチェックするための変数を準備
+		int result = result1 + result2;
+		
+		return result;
 		
 	}
 

@@ -1,12 +1,14 @@
 package jp.ken.interiorshop.presentation.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jp.ken.interiorshop.application.service.StaffOrderService;
@@ -77,10 +79,17 @@ public class StaffOrderController {
 	
     //注文履歴削除処理
     @PostMapping("/stafforder/cancel")
-    public String OrderCancel()throws Exception {
+    public String OrderCancel(@RequestBody Map<String, Object> cancelOrderId) throws Exception {
     	
-    	staffOrderService.OrderCancel(1);
+    	Object orderIdObj = cancelOrderId.get("orderId");
     	
-    	return "staffOrderHistory";
+    	if(orderIdObj == null) {
+    		throw new IllegalArgumentException("orderIdがnullです");
+    	}
+    	
+    	int orderId = Integer.parseInt(orderIdObj.toString());
+    	staffOrderService.OrderCancel(orderId);
+    	
+    	return "redirect:/stafforder";
     }
 }
