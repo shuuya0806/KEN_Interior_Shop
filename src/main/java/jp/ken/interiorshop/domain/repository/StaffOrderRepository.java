@@ -8,14 +8,17 @@ import org.springframework.stereotype.Repository;
 
 import jp.ken.interiorshop.domain.entity.OrderDetailsEntity;
 import jp.ken.interiorshop.domain.entity.OrderEntity;
+import jp.ken.interiorshop.domain.entity.ShippingEntity;
 import jp.ken.interiorshop.infrastructure.mapper.StaffOrderDetailsMapper;
 import jp.ken.interiorshop.infrastructure.mapper.StaffOrderMapper;
+import jp.ken.interiorshop.infrastructure.mapper.StaffShippingMapper;
 
 @Repository
 public class StaffOrderRepository {
 	
 	private RowMapper<OrderEntity> staffOrderMapper = new StaffOrderMapper();
 	private RowMapper<OrderDetailsEntity> staffOrderDetailsMapper = new StaffOrderDetailsMapper();
+	private RowMapper<ShippingEntity> staffShippingMapper = new StaffShippingMapper();
 	private JdbcTemplate jdbcTemplate;
 	
 	public StaffOrderRepository(JdbcTemplate jdbcTemplate) {
@@ -50,5 +53,17 @@ public class StaffOrderRepository {
 		List<OrderDetailsEntity> orderDetailsEntity = jdbcTemplate.query(sql, staffOrderDetailsMapper, orderId);
 		
 		return orderDetailsEntity;
+	}
+	
+	//orderIdをキーにshippingIdを取得
+	public ShippingEntity getShippingId(int orderId) throws Exception {
+	    String sql = "SELECT s.shipping_id, s.shipping_name, s.shipping_kana, s.shipping_phone,\n"
+	    		+ "       s.shipping_postal_code, s.shipping_address1, s.shipping_address2, s.shipping_address3\n"
+	    		+ "FROM orders o\n"
+	    		+ "JOIN shipping s ON o.shipping_id = s.shipping_id\n"
+	    		+ "WHERE o.order_id = ?";
+	    ShippingEntity shippingEntity = jdbcTemplate.queryForObject(sql, staffShippingMapper, orderId);
+	    
+	    return shippingEntity;
 	}
 }

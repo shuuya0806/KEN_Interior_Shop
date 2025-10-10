@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import jp.ken.interiorshop.application.service.StaffOrderService;
 import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 import jp.ken.interiorshop.presentation.form.OrderForm;
+import jp.ken.interiorshop.presentation.form.ShippingForm;
 import jp.ken.interiorshop.presentation.form.StaffLoginForm;
 
 @Controller
@@ -54,13 +55,17 @@ public class StaffOrderController {
 	}
 	
 	//注文履歴詳細画面表示
-    @GetMapping("/staff/orders/{orderId:[0-9]+}")
+   @GetMapping("/staff/orders/{orderId:[0-9]+}")
     public String showOrderDetail(@PathVariable("orderId") int orderId, Model model) throws Exception {
 
-        // サービスから注文詳細情報を取得
+        // DBから注文詳細情報を取得
     	List<OrderDetailsForm> orderDetailsList = staffOrderService.getOrderDetailsById(orderId);
-
+    	
+    	// DBからorderIdをキーに発送先情報を取得
+    	ShippingForm shippingForm = staffOrderService.getShippingId(orderId);
+    	
         model.addAttribute("orderDetailsList", orderDetailsList);
+        model.addAttribute("shippingForm", shippingForm);
         
         if(orderDetailsList == null || orderDetailsList.isEmpty()) {
             throw new RuntimeException("注文詳細が取得できませんでした");
