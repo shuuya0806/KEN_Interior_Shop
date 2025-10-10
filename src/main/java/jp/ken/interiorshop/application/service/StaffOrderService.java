@@ -7,9 +7,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import jp.ken.interiorshop.domain.entity.MemberEntity;
+import jp.ken.interiorshop.domain.entity.OrderDetailsEntity;
 import jp.ken.interiorshop.domain.entity.OrderEntity;
 import jp.ken.interiorshop.domain.repository.MemberRepository;
 import jp.ken.interiorshop.domain.repository.StaffOrderRepository;
+import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 import jp.ken.interiorshop.presentation.form.OrderForm;
 
 @Service
@@ -63,12 +65,34 @@ public class StaffOrderService {
 		
 	}
 	
+	//注文詳細情報を取得
+	public List<OrderDetailsForm> getOrderDetailsById(int orderId) throws Exception{
+		List<OrderDetailsEntity> orderDetailsEntity = null;
+		
+		orderDetailsEntity = staffOrderRepository.getOrderDetailsById(orderId);
+		
+		List<OrderDetailsForm> orderDetailsForm = convertOrderDetails(orderDetailsEntity);
+		
+		return orderDetailsForm;
+	}
+	
 	private List<OrderForm> convert(List<OrderEntity> entityList) {
 		
 		List<OrderForm> formList = new ArrayList<OrderForm>();
 		
 		for(OrderEntity entity : entityList) {
 			OrderForm form = FormMapper.map(entity, OrderForm.class);
+			formList.add(form);
+		}
+		
+		return formList;
+	}
+	
+	private List<OrderDetailsForm> convertOrderDetails(List<OrderDetailsEntity> orderDetailsEntity) {
+		List<OrderDetailsForm> formList = new ArrayList<OrderDetailsForm>();
+		
+		for(OrderDetailsEntity entity : orderDetailsEntity) {
+			OrderDetailsForm form = FormMapper.map(entity, OrderDetailsForm.class);
 			formList.add(form);
 		}
 		

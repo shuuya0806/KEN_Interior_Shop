@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jp.ken.interiorshop.application.service.StaffOrderService;
+import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 import jp.ken.interiorshop.presentation.form.OrderForm;
 import jp.ken.interiorshop.presentation.form.StaffLoginForm;
 
@@ -36,11 +38,29 @@ public class StaffOrderController {
 		throws Exception{
 		model.addAttribute("loginStaff", staffLoginForm);
 		
-//		//DBから注文履歴を取得
+		//DBから注文履歴を取得
 		List<OrderForm> listOrderForm = staffOrderService.getOrderList();
 		model.addAttribute("listOrderForm", listOrderForm);
 		
 		return "staffOrderHistory";
 	}
+	
+	//注文履歴詳細画面表示
+    @GetMapping("/staff/orders/{id}")
+    public String showOrderDetail(@PathVariable("id") int orderId, Model model) throws Exception {
+
+        // サービスから注文詳細情報を取得
+    	List<OrderDetailsForm> orderDetailsList = staffOrderService.getOrderDetailsById(orderId);
+
+        // モデルに追加
+        model.addAttribute("orderDetailsList", orderDetailsList);
+        
+        if(orderDetailsList == null || orderDetailsList.isEmpty()) {
+            throw new RuntimeException("注文詳細が取得できませんでした");
+        }
+
+        // 詳細画面に遷移（例：staff/orderDetail.html）
+        return "staffOrderDetails";
+    }
 	
 }

@@ -19,6 +19,7 @@ public class StaffOrderDetailsMapper implements RowMapper<OrderDetailsEntity> {
 		orderDetailsEntity.setItemId(rs.getInt("item_id"));
 		orderDetailsEntity.setItemQuantity(rs.getInt("item_quantity"));
 		orderDetailsEntity.setSubtotal(rs.getInt("subtotal"));
+		orderDetailsEntity.setItemName(rs.getString("item_name"));
 		
 		return orderDetailsEntity;
 
