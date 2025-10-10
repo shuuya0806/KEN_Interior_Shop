@@ -46,8 +46,8 @@ public class StaffOrderController {
 	}
 	
 	//注文履歴詳細画面表示
-    @GetMapping("/staff/orders/{id}")
-    public String showOrderDetail(@PathVariable("id") int orderId, Model model) throws Exception {
+    @GetMapping("/staff/orders/{orderId:[0-9]+}")
+    public String showOrderDetail(@PathVariable("orderId") int orderId, Model model) throws Exception {
 
         // サービスから注文詳細情報を取得
     	List<OrderDetailsForm> orderDetailsList = staffOrderService.getOrderDetailsById(orderId);
@@ -59,7 +59,7 @@ public class StaffOrderController {
             throw new RuntimeException("注文詳細が取得できませんでした");
         }
 
-        // 詳細画面に遷移（例：staff/orderDetail.html）
+        // 詳細画面に遷移
         return "staffOrderDetails";
     }
 	
