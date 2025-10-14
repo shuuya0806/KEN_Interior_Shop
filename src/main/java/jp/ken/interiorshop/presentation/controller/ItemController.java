@@ -44,7 +44,6 @@ public class ItemController {
 		// 発売日の商品のみを取得
 		List<ItemForm> releasedItemList = itemService.getReleasedItemList(formItemList);
 		
-
 		// 商品情報とカテゴリー情報をモデルに格納
 		model.addAttribute("itemForm", releasedItemList);
 		model.addAttribute("categoryForm", categoryFormList);
