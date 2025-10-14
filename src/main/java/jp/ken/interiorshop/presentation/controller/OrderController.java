@@ -91,6 +91,8 @@ public class OrderController {
         
         //消費税を計算
         int totalTax = itemService.totalTax(totalExclTax);
+        
+        int getPoint = orderRegistService.getPoint(totalInclTax);
 	    
 	    //金額やカート情報をモデルに格納
 	    model.addAttribute("totalExclTax", totalExclTax);
@@ -100,6 +102,7 @@ public class OrderController {
 	    model.addAttribute("orderForm", orderForm);
 	    model.addAttribute("totalQuantity", totalQuantity);
 	    model.addAttribute("futureDate", LocalDate.now().plusDays(2));
+	    model.addAttribute("getPoint", getPoint);
 
 	    // 注文確認画面へ遷移
 	    return "ordercheck";

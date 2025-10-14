@@ -60,6 +60,10 @@
               <th scope="row">税込合計</th>
               <td><span th:text="${totalInclTax}"></span>円</td>
             </tr>
+            <tr>
+				<th scope="row">獲得ポイント</th>
+				<td><span th:text="${getPoint}"></span></td>
+			</tr>
           </table>
         </div>
 
@@ -145,6 +149,14 @@
             </label>
             <span th:if="${#fields.hasErrors('payment')}" th:errors="*{payment}"></span>
           </div>
+          
+          <!-- ポイント支払いの有無 -->
+          <div class="radio-row">
+			  <span class="label-cell">ポイントの使用</span>
+			  <label class="radio-btn-Option">
+				  <input type="radio" value="ポイント使用"/> ポイント使用
+			  </label>
+		  </div>
 
           <!-- 発送方法 -->
           <div class="radio-row">

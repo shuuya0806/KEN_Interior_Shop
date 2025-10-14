@@ -132,4 +132,13 @@ public class OrderRegistService {
 		
 		return memberRegistForm;
 	}
+	
+	//獲得ポイント計算
+	public int getPoint (int totalInclTax) {
+		
+		//1000円ごとに1ポイント獲得
+		int getPoint = totalInclTax / 1000;
+		
+		return getPoint;
+	}
 }
