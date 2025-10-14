@@ -1,5 +1,7 @@
 package jp.ken.interiorshop.application.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,28 @@ public class ItemService {
 	public List<CategoryForm> getCategoryList() throws Exception {
 		List<CategoryEntity> entityList = itemSearchRepository.getCategoryAllList();
 		return convertCategoryForm(entityList);
+	}
+	
+	// 発売日の商品のみを取得
+	public List<ItemForm> getReleasedItemList(List<ItemForm> formItemList) throws Exception{
+		// 発売済み商品のリストを作成
+		List<ItemForm> releasedItemList = new ArrayList<>();
+		// 日付フォーマットを指定（DBのrsDateの形式に合わせる）
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		// 今日の日付を取得
+		LocalDate today = LocalDate.now();
+		// 商品を1件ずつチェック
+		for (ItemForm item : formItemList) {
+		    if (item.getRsDate() != null && !item.getRsDate().isEmpty()) {
+		        LocalDate releaseDate = LocalDate.parse(item.getRsDate(), formatter);
+		        
+		        // 発売開始日が今日以前なら「発売中」と判断
+		        if (!releaseDate.isAfter(today)) {
+		            releasedItemList.add(item);
+		        }
+		    }
+		}
+		return releasedItemList;
 	}
 
 	// 商品Entity → Form変換（ModelMapperを使用）

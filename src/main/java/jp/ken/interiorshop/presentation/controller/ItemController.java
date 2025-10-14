@@ -40,9 +40,12 @@ public class ItemController {
 		
 		 // DBからカテゴリ一覧を取得
 		List<CategoryForm> categoryFormList = itemService.getCategoryList();
-
+		
+		// 発売日の商品のみを取得
+		List<ItemForm> releasedItemList = itemService.getReleasedItemList(formItemList);
+		
 		// 商品情報とカテゴリー情報をモデルに格納
-		model.addAttribute("itemForm", formItemList);
+		model.addAttribute("itemForm", releasedItemList);
 		model.addAttribute("categoryForm", categoryFormList);
 		model.addAttribute("itemNewForm", new ItemForm());
 		
