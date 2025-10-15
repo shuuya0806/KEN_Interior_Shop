@@ -59,6 +59,15 @@ public class ItemService {
 		}
 		return releasedItemList;
 	}
+	
+	// 次月発売予定商品を取得
+	public List<ItemForm> getNextMonthItem() throws Exception{
+		List<ItemEntity> nextMonthItem = itemSearchRepository.getNextMonthItem();
+		
+		List<ItemForm> nextMonthItemList = convertItemForm(nextMonthItem);
+		
+		return nextMonthItemList;
+	}
 
 	// 商品Entity → Form変換（ModelMapperを使用）
 	public List<ItemForm> convertItemForm(List<ItemEntity> entityList) {

@@ -13,7 +13,13 @@
 		<main>
 			<h1>従業員メニュー</h1>
 			<div class="menu-buttons">
+				<!-- 管理者のみ表示 -->
+    			<a th:if="${loginStaff.administrator == '管理者'}" th:href="@{/empinfomenu}" class="btn">従業員情報管理</a>
+				
+				<!-- 全員表示 -->
 				<a th:href="@{/staffordermenu}" class="btn">注文管理</a>
+				<a th:href="@{/staffordermenu}" class="btn">在庫管理</a>
+				<a th:href="@{/staffordermenu}" class="btn">集計管理</a>
 			</div>
 		</main>
 		<footer></footer>

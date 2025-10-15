@@ -24,6 +24,11 @@ public class StaffMenuController {
 		return "staffOrderMenu";
 	}
 	
-
+	// 従業員情報管理メニュー画面表示
+	@GetMapping("/empinfomenu")
+	public String showEmoInfoMenu(@SessionAttribute("loginStaff") StaffLoginForm staffLoginForm, Model model) {
+		model.addAttribute("loginStaff", staffLoginForm);
+		return "empInfoMenu";
+	}
 	
 }

@@ -44,7 +44,7 @@ public class ItemController {
 		// 発売日の商品のみを取得
 		List<ItemForm> releasedItemList = itemService.getReleasedItemList(formItemList);
 		
-		// 商品情報とカテゴリー情報をモデルに格納
+		// 商品情報(発売日の商品のみ)とカテゴリー情報をモデルに格納
 		model.addAttribute("itemForm", releasedItemList);
 		model.addAttribute("categoryForm", categoryFormList);
 		model.addAttribute("itemNewForm", new ItemForm());
@@ -55,10 +55,26 @@ public class ItemController {
 		// 商品一覧画面へ遷移
 		return "item"; 
 	}
+	
+	/**
+	 * 次月発売予定商品一覧表示
+	 */
+	@GetMapping("/nextmonthitem")
+	public String showNextMonthItem(Model model, HttpSession session) throws Exception{
+		//DBから次月発売商品を取得
+		List<ItemForm> nextMonthItemList = itemService.getNextMonthItem();
+		
+		model.addAttribute("itemForm", nextMonthItemList);
+		
+		// 「戻る」ボタン用のURLをセッションに格納
+		session.setAttribute("currentUrl", "/item");
+		
+		return "nextMonthItem";
+	}
 
 	/**
 	 * カート画面表示
-	  */
+	 */
 	@GetMapping("/cart")
 	public String showCart(@ModelAttribute("loginUser") MemberLoginForm memberLoginForm,
 	                       Model model, HttpSession session) {
@@ -302,7 +318,11 @@ public class ItemController {
 	        model.addAttribute("message", message);
 	        session.removeAttribute("message");
 	    }
-
+	    
+	    if("nextMonth".equals(from)) {
+	    	session.setAttribute("currentUrl", "/nextmonthitem");
+	    }
+	    
 	    // 商品詳細画面へ遷移
 	    return "itemDetails"; 
 	}

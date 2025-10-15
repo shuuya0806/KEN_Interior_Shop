@@ -55,6 +55,7 @@
 				
 				<div class="btn-cart">
 					<!--      カート追加ボタン       -->
+		          <div class="btn-cart" th:if="${T(java.time.LocalDate).parse(item.rsDate).isBefore(T(java.time.LocalDate).now())}">
 		            <form th:action="@{/cart/add}" method="post">
 		                
 		                <!-- ★サーバーに送信する商品情報を hidden で保持 -->
@@ -89,6 +90,7 @@
 						    </select>
 						</div>
 		            </form>
+		          </div>
 				</div>
 				
 				<div class="btn-back">
