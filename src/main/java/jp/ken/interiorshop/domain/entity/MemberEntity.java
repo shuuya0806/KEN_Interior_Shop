@@ -40,4 +40,7 @@ public class MemberEntity {
     
     // 退会フラグ 初期値は0
     private int cancel = 0;
+    
+    //ポイント
+    private int point;
 }

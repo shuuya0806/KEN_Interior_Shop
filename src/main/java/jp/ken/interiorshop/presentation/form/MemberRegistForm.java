@@ -69,4 +69,7 @@ public class MemberRegistForm implements Serializable {
 	
 	//退会フラグ 初期値は0
 	private Integer cancel = 0; 
+	
+	//ポイント 初期値は0
+	private Integer point = 0;
 }

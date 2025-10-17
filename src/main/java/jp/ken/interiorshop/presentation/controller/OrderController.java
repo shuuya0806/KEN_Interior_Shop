@@ -103,6 +103,7 @@ public class OrderController {
 	    model.addAttribute("totalQuantity", totalQuantity);
 	    model.addAttribute("futureDate", LocalDate.now().plusDays(2));
 	    model.addAttribute("getPoint", getPoint);
+	    model.addAttribute("memberRegistForm", memberRegistForm);
 
 	    // 注文確認画面へ遷移
 	    return "ordercheck";
@@ -125,6 +126,9 @@ public class OrderController {
 	        List<ItemForm> cartItems = (List<ItemForm>) session.getAttribute("cart");
 	        List<OrderDetailsForm> detailsList = new ArrayList<>();
 	        int totalQuantity = 0;
+	        
+	        //「ポイントを使用する」を選択した場合、ポイントを取得
+	        
 	        
 	        //カートが空でなければ商品詳細のデータをFormへ格納
 	        if (cartItems != null) {
@@ -150,6 +154,9 @@ public class OrderController {
 	        
 	        //消費税を計算
 	        int totalTax = itemService.totalTax(totalExclTax);
+	        
+	        //獲得ポイントを計算
+	        int getPoint = orderRegistService.getPoint(totalInclTax);
 		    
 		    //金額やカート情報をモデルに格納
 		    model.addAttribute("totalExclTax", totalExclTax);
@@ -159,6 +166,7 @@ public class OrderController {
 		    model.addAttribute("orderForm", orderForm);
 		    model.addAttribute("totalQuantity", totalQuantity);
 		    model.addAttribute("futureDate", LocalDate.now().plusDays(2));
+		    model.addAttribute("getPoint", getPoint);
 
 		    // 注文確認画面へ遷移
 		    return "ordercheck"; 
