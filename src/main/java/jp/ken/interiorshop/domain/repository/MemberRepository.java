@@ -180,7 +180,7 @@ public class MemberRepository {
 		sb.append("SELECT ");
 		sb.append("member_id, member_name, member_kana, mail, password, ");
 		sb.append("phone_number, postal_code, address1, address2, address3, ");
-		sb.append("credit_no, cancel ");
+		sb.append("credit_no, cancel, point ");
 		sb.append("FROM members");
 		return sb;
 	}
