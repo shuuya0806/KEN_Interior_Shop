@@ -152,11 +152,17 @@
           
           <!-- ポイント支払いの有無 -->
           <div class="radio-row">
-			  <span class="label-cell">ポイントの使用</span>
+			  <span class="label-cell">ポイント:</span>
+			  <span th:text="現在のポイント + ${memberRegistForm.point}"></span>
+			  <span class="label-cell"></span>
 			  <label class="radio-btn-Option">
-				  <input type="radio" value="ポイント使用"/> ポイント使用
+				  <input type="radio" th:field="*{usePoint}" value="ポイント使用"> ポイントを使用する
+			  	  <input type="text" th:field="*{pointValue}">
 			  </label>
-			  <input type="text" th:field="*{memberRegistForm.point}">
+			  <span class="label-cell"></span>
+			  <label class="radio-btn-Option">
+				  <input type="radio" th:field="*{usePoint}" value="使用しない"> 使用しない
+			  </label>
 		  </div>
 
           <!-- 発送方法 -->
