@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>従業員情報変更</title>
+  <!-- 共通・会員登録用CSSの読み込み -->
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/member_common.css}" rel="stylesheet">
+  <link th:href="@{/css/member_regist.css}" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <div id="wrapper">
+      <h1>従業員情報変更</h1>
+      <div id="member-regist">
+        <!-- 会員登録フォーム -->
+        <form th:action="@{/staffeditconfirm}" th:object="${staffLoginForm}" method="post">
+
+          <!-- staffIdを送信 -->
+			<input type="hidden" th:field="*{staffId}" />
+			
+            <!-- 氏名 -->
+            <div class="regist-form">
+              <label for="fullName">氏名 <strong class="required">(必須)</strong></label>
+              <input id="fullName" type="text" th:field="*{staffName}">
+              <span th:if="${#fields.hasErrors('staffName')}" th:errors="*{staffName}" class="error-message"></span>
+            </div>
+
+            <!-- パスワード -->
+            <div class="regist-form">
+              <label for="password">パスワード <strong class="required">(必須)</strong></label>
+              <input id="password" type="text" th:field="*{password}">
+              <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
+             <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
+            </div>
+
+            <!-- 管理者権限 -->
+         	<div class="radio-row">
+            	<span class="label-cell">管理者権限</span>
+            	<label class="radio-btn-Option">
+              		<input type="radio" th:field="*{administrator}" value="管理者"/> 付与する
+            	</label>
+            	<span class="label-cell"></span>
+           	 	<label class="radio-btn-Option">
+              		<input type="radio" th:field="*{administrator}" value="従業員"/> 付与しない
+            	</label>
+            	<span th:if="${#fields.hasErrors('administrator')}" th:errors="*{administrator}"></span>
+          	</div>
+
+          <!-- ボタンエリア：登録・戻る -->
+          <div class="buttons">
+            <button type="submit" class="btn">確認</button>
+          </div>
+        </form>
+
+        <div class="buttons">
+          <form th:action="@{/staffview}" method="get">
+            <button type="submit" class="back-btn">戻る</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

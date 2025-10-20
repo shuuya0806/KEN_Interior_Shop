@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>従業員情報変更確認</title>
+  <!-- 共通・会員登録用CSSの読み込み -->
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/member_common.css}" rel="stylesheet">
+  <link th:href="@{/css/member_regist.css}" rel="stylesheet">
+</head>
+<body>
+<main>
+  <div id="wrapper">
+    <h1>従業員情報変更確認</h1>
+	<!-- 登録処理用フォーム（hiddenで全データ送信） -->
+	<form th:action="@{/staffeditDB}" method="post" th:object="${staffLoginForm}">
+	  
+		<!-- 個人情報の表示 -->
+		<div class="info-block">
+			<h2>従業員情報</h2>
+			<div class="info-item">氏名：<span th:text="*{staffName}"></span></div>
+			<div class="info-item">パスワード：<span th:text="*{password}"></span></div>
+			<div class="info-item">管理者権限：<span th:text="*{administrator}"></span></div>
+		</div>
+			
+		<!-- hiddenフィールドでデータを再送信 -->
+		<input type="hidden" th:field="*{staffName}">
+		<input type="hidden" th:field="*{staffId}">
+		<input type="hidden" th:field="*{password}">
+		<input type="hidden" th:field="*{administrator}">
+
+		<!-- 登録処理ボタン -->
+		<div class="buttons">
+			<button type="submit" class="btn">登録</button>
+		</div>
+	</form>
+	
+	  <!-- 修正ボタン（入力画面へ戻る） -->
+	  <form th:action="@{/staffedit}" method="get" th:object="${staffLoginForm}">
+		<!-- 入力したデータを再利用するために再送信 -->
+		<input type="hidden" th:field="*{staffName}">
+		<input type="hidden" th:field="*{staffId}">
+		<input type="hidden" th:field="*{password}">
+		<input type="hidden" th:field="*{administrator}">
+	    <div class="buttons">
+			<button type="submit" class="back-btn">修正</button>
+	    </div>
+	  </form>
+  </div>
+</main>
+</body>
+</html>
