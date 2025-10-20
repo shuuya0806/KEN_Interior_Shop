@@ -27,6 +27,7 @@ public class MemberMapper implements RowMapper<MemberEntity>  {
 		memberEntity.setAddress3(rs.getString("address3"));
 		memberEntity.setCreditNo(rs.getString("credit_no"));
 		memberEntity.setCancel(rs.getInt("cancel"));
+		memberEntity.setPoint(rs.getInt("point"));
 		
 		return memberEntity;
 

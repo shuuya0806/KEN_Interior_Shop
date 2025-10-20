@@ -47,8 +47,8 @@ public class OrderRegistRepository {
 	 */
 		public int orderRegist(int shippingId, int memberId, OrderEntity orderEntity) {
 		String sql = "INSERT INTO orders (member_id, total, order_date, " +
-	             "payment, shipping_id, shipping_frag)" +
-	             "VALUES (?, ?, ?, ?, ?, ?)";
+	             "payment, shipping_id, shipping_frag, use_point) " +
+	             "VALUES (?, ?, ?, ?, ?, ?, ?)";
 		
 		// 注文情報をDBに登録（未発送状態で保存）
 		jdbcTemplate.update(sql, memberId,
@@ -56,7 +56,8 @@ public class OrderRegistRepository {
                 LocalDate.now(),
                 orderEntity.getPayment(),
                 shippingId, 
-                "未発送");
+                "未発送",
+                orderEntity.getUsePoint());
 		
 		//登録直後の注文IDを取得
 		Integer orderId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);

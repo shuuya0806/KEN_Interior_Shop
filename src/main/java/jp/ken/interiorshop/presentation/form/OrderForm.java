@@ -58,8 +58,7 @@ public class OrderForm implements Serializable {
 	private MemberRegistForm memberRegistForm = new MemberRegistForm();
 	
 	//ポイント使用の有無
-	private String usePoint;
 	
-	//使用するポイントの量
-	private String pointValue;
+	//使用するポイント
+	private String usePoint;
 }

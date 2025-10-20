@@ -60,7 +60,7 @@ public class OrderController {
         shippingForm.setShippingAddress1(memberRegistForm.getAddress1());
         shippingForm.setShippingAddress2(memberRegistForm.getAddress2());
         shippingForm.setShippingAddress3(memberRegistForm.getAddress3());
-        orderForm.setShippingForm(shippingForm); 
+        orderForm.setShippingForm(shippingForm);
         
         // セッションのカート情報を OrderDetailsForm リストに変換して格納
         List<ItemForm> cartItems = (List<ItemForm>) session.getAttribute("cart");
@@ -92,6 +92,7 @@ public class OrderController {
         //消費税を計算
         int totalTax = itemService.totalTax(totalExclTax);
         
+        //獲得ポイントを計算
         int getPoint = orderRegistService.getPoint(totalInclTax);
 	    
 	    //金額やカート情報をモデルに格納
@@ -126,9 +127,6 @@ public class OrderController {
 	        List<ItemForm> cartItems = (List<ItemForm>) session.getAttribute("cart");
 	        List<OrderDetailsForm> detailsList = new ArrayList<>();
 	        int totalQuantity = 0;
-	        
-	        //「ポイントを使用する」を選択した場合、ポイントを取得
-	        
 	        
 	        //カートが空でなければ商品詳細のデータをFormへ格納
 	        if (cartItems != null) {
