@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jp.ken.interiorshop.application.service.StaffLoginService;
+import jp.ken.interiorshop.common.validatior.groups.ValidGroup1;
 import jp.ken.interiorshop.presentation.form.StaffLoginForm;
 
 @Controller
@@ -57,9 +60,14 @@ public class StaffMenuController {
 	
 	//従業員情報登録確認画面表示
 	@PostMapping("/staffregistconfirm")
-	public String showStaffRegistConfirm(@ModelAttribute StaffLoginForm staffLoginForm, @SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) {
+	public String showStaffRegistConfirm(@Validated(ValidGroup1.class) @ModelAttribute StaffLoginForm staffLoginForm, BindingResult bindingResult, @SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) {
 		model.addAttribute("loginStaff", loginStaff);
 		model.addAttribute("staffLoginForm", staffLoginForm);
+		
+	    if (bindingResult.hasErrors()) {
+	        return "staffRegist";
+	    }
+
 		return "staffRegistConfirm";
 	}
 	
@@ -96,10 +104,14 @@ public class StaffMenuController {
 	
 	//従業員情報変更確認画面表示
 	@PostMapping("staffeditconfirm")
-	public String showStaffEditConfirm(@ModelAttribute StaffLoginForm staffLoginForm, @SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) throws Exception{
+	public String showStaffEditConfirm(@Validated(ValidGroup1.class) @ModelAttribute StaffLoginForm staffLoginForm, BindingResult bindingResult, @SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) throws Exception{
 		//従業員情報変更処理
 		model.addAttribute("loginStaff", loginStaff);
 		model.addAttribute("staffLoginForm", staffLoginForm);
+		
+		if(bindingResult.hasErrors()) {
+			return "staffedit";
+		}
 		return "staffEditConfirm";
 	}
 	
