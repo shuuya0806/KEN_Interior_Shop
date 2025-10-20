@@ -41,7 +41,7 @@ public class StaffLoginController {
 
 		try {
 			//全メンバー情報を取得し、リストに保存
-			List<StaffLoginForm> login = staffLoginService.getStaffList(staffLoginForm);
+			List<StaffLoginForm> login = staffLoginService.getStaffList();
 			
 			boolean match = false;
 		

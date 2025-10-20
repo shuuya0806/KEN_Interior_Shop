@@ -17,6 +17,7 @@ public class StaffLoginForm implements Serializable {
 	@NotEmpty(message="パスワードを入力して下さい")
 	private String password;
 	
-	private String administrator;
+	//初期値は従業員
+	private String administrator = "従業員";
 }
 
