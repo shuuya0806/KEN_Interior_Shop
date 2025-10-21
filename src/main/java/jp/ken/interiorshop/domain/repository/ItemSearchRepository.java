@@ -47,12 +47,6 @@ public class ItemSearchRepository {
 		String sql = createCommonCategorySQL().append(" ORDER BY category_id").toString();
 		return jdbcTemplate.query(sql, categoryMapper);
 	}
-	
-	// 在庫一覧を取得
-	public List<ItemEntity> getItemStockList() throws Exception{
-		String sql = "SELECT item_id, item_name, stock FROM m_items ORDER BY item_id";
-		return jdbcTemplate.query(sql, itemMapper);
-	}
 
 	// 商品IDから1件取得
 	public ItemEntity getItemById(int itemId) throws Exception {

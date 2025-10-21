@@ -38,12 +38,6 @@ public class ItemService {
 		return convertCategoryForm(entityList);
 	}
 	
-	// 在庫一覧を取得
-	public List<ItemForm> getItemStockList() throws Exception{
-		List<ItemEntity> entityList = itemSearchRepository.getItemStockList();
-		return convertItemForm(entityList);
-	}
-	
 	// 発売日の商品のみを取得
 	public List<ItemForm> getReleasedItemList(List<ItemForm> formItemList) throws Exception{
 		// 発売済み商品のリストを作成

@@ -24,17 +24,6 @@
                         <td th:text="${item.itemId}"></td>
                         <td th:text="${item.itemName}"></td>
                         <td th:text="${item.stock}"></td>
-
-                        <!-- プルダウン（例：0〜10個まで選択） -->
-                        <td>
-                            <select name="stockUpdates" th:field="*{stockUpdates[__${item.itemId}__]}">
-                                <option th:each="i : ${#numbers.sequence(0, 10)}"
-                                        th:value="${i}"
-                                        th:text="${i}"
-                                        th:selected="${i == item.stock}">
-                                </option>
-                            </select>
-                        </td>
                     </tr>
                 </th:block>
             </table>
