@@ -172,7 +172,8 @@ public class OrderController {
 		
 		// カートの合計を OrderForm に格納
 		Integer totalExclTax = (Integer) session.getAttribute("totalExclTax");
-		orderForm.setTotal(totalExclTax);
+		int totalInclTax = itemService.totalInclTax(totalExclTax);
+		orderForm.setTotal(totalInclTax);
 		
 		// サービスで注文情報を登録（発送、注文、注文詳細の3テーブル）
 		orderRegistService.orderRegist(memberLoginForm, orderForm, orderForm.getShippingForm());
