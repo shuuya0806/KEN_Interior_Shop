@@ -154,12 +154,12 @@
 		<div class="radio-row">
 			<span class="label-cell">ポイント:</span>
 			<span>現在のポイント: <span id="currentPoint" th:text="${memberRegistForm.point}"
-			data-point="${memberRegistForm.point}"></span></span>
+			th:attr="data-point='${memberRegistForm.point}'"></span></span>
 			  
           <!-- ラジオボタン-->
 			<span class="label-cell"></span>
 			<label class="radio-btn-Option">
-				<input type="radio" field="usePointCheck" value="ポイント使用" id="yes"> ポイントを使用する
+				<input type="radio" name="usePointCheck" value="ポイント使用" id="yes"> ポイントを使用する
 			</label>
 			
 			<!-- ポイント数入力欄(ポイントを使用する場合のみ表示)-->
@@ -173,7 +173,7 @@
 
 			<span class="label-cell"></span>
 			<label class="radio-btn-Option">
-				<input type="radio" field="usePointCheck" value="使用しない" id="no"> 使用しない
+				<input type="radio" name="usePointCheck" value="使用しない" id="no" checked> 使用しない
 			</label>
 			
 		</div>
