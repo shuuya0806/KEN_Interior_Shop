@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body {
+	background-color: #e0ffff;
+}
+
 .menu-buttons {
     display: flex;
     flex-direction: column; /* ボタンを縦に並べる */
