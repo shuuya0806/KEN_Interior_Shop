@@ -82,4 +82,13 @@ public class OrderRegistRepository {
                 regist.getSubtotal());
 		}
 	}
+	
+	//獲得ポイントをDBに登録
+	public void pointUpdate(int currentPoint, int memberId) {
+		//UPDATE文を作成
+		String sql = "UPDATE members SET point = ? WHERE ?";
+		
+		//引数を反映させて登録
+		jdbcTemplate.update(sql, currentPoint, memberId);
+	}
 }

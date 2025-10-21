@@ -141,4 +141,19 @@ public class OrderRegistService {
 		
 		return getPoint;
 	}
+	
+	//購入後のポイントを計算
+	public int pointUpdate(int currentPoint, int usePoint, int getPoint, int memberId) {
+		
+		//現在のポイントから使用したポイントを引く
+		currentPoint -= usePoint;
+		
+		//そのポイントに今回獲得したポイントを足す
+		currentPoint += getPoint;
+		
+		//獲得したポイントをDBに登録する
+		orderRegistRepository.pointUpdate(currentPoint, memberId);
+		
+		return currentPoint;
+	}
 }

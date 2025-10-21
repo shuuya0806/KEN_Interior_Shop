@@ -60,5 +60,5 @@ public class OrderForm implements Serializable {
 	//ポイント使用の有無
 	
 	//使用するポイント
-	private String usePoint;
+	private int usePoint;
 }

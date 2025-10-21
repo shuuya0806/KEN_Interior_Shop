@@ -177,6 +177,14 @@ public class OrderController {
 		// サービスで注文情報を登録（発送、注文、注文詳細の3テーブル）
 		orderRegistService.orderRegist(memberLoginForm, orderForm, orderForm.getShippingForm());
 		
+        // 会員情報取得
+        MemberRegistForm memberRegistForm = orderRegistService.getMemberList(memberLoginForm.getMemberId());
+		
+		//購入後のポイントを会員情報に入れる
+		orderRegistService.pointUpdate(memberRegistForm.getPoint(), orderForm.getUsePoint(),
+									   orderRegistService.getPoint(totalExclTax),
+									   memberLoginForm.getMemberId());
+		
 		// カートのセッションを破棄
 	    session.removeAttribute("cart");
 	    session.removeAttribute("totalExclTax");
