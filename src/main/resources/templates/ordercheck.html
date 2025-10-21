@@ -153,8 +153,9 @@
           <!-- ポイント支払いの有無 -->
 		<div class="radio-row">
 			<span class="label-cell">ポイント:</span>
-			<span>現在のポイント: <span id="currentPoint" th:text="${memberRegistForm.point}"
-			th:attr="data-point='${memberRegistForm.point}'"></span></span>
+			<span>現在のポイント: <span id="currentPoint" th:attr="data-point=${memberRegistForm.point}"
+				th:text="${memberRegistForm.point}"></span>
+			</span>
 			  
           <!-- ラジオボタン-->
 			<span class="label-cell"></span>
@@ -209,6 +210,9 @@
         </div>
       </form>
 
+	  <!-- 「ポイントを使用する」を選択時に入力欄を表示するJS-->
+	  <script th:src="@{/js/pointValue.js}"></script>
+	  
       <div>
         <a th:href="@{/cart}" class="btn">戻る</a>
       </div>
@@ -221,7 +225,5 @@
   <!-- 郵便番号から住所を自動入力するJS -->
   <script th:src="@{/js/postalCode.js}"></script>
   
-  <!-- 「ポイントを使用する」を選択時に入力欄を表示するJS-->
-  <script th:src="@{/js/pointValue.js}"></script>
 </body>
 </html>

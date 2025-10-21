@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const pointValueWrapper = document.getElementById("pointValueWrapper");
   const pointValueInput = document.getElementById("pointValue");
   const pointError = document.getElementById("pointError");
-  const currentPointEl = document.getElementById("currentPoint");
 
   // data-point 属性から現在ポイントを取得（数値化）
-  const currentPoint = parseInt(currentPointEl.dataset.point, 10);
+  const currentPoint = parseInt(document.getElementById("currentPoint").dataset.point, 10);
+  console.log("currentPoint", currentPoint);
 
   function togglePointInput() {
     if (usePointYes.checked) {
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (usePointYes.checked && !validatePointInput()) {
       e.preventDefault();
     }
-  });
+  })
 
   togglePointInput();
 });
