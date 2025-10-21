@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import jp.ken.interiorshop.application.service.StaffLoginService;
-import jp.ken.interiorshop.common.validatior.groups.ValidGroup1;
+import jp.ken.interiorshop.common.validatior.groups.ValidGroupOrder;
 import jp.ken.interiorshop.presentation.form.StaffLoginForm;
 
 @Controller
@@ -60,7 +60,7 @@ public class StaffMenuController {
 	
 	//従業員情報登録確認画面表示
 	@PostMapping("/staffregistconfirm")
-	public String showStaffRegistConfirm(@Validated(ValidGroup1.class) @ModelAttribute StaffLoginForm staffLoginForm, BindingResult bindingResult, @SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) {
+	public String showStaffRegistConfirm(@Validated(ValidGroupOrder.class) @ModelAttribute StaffLoginForm staffLoginForm, BindingResult bindingResult, @SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) {
 		model.addAttribute("loginStaff", loginStaff);
 		model.addAttribute("staffLoginForm", staffLoginForm);
 		
@@ -104,7 +104,7 @@ public class StaffMenuController {
 	
 	//従業員情報変更確認画面表示
 	@PostMapping("staffeditconfirm")
-	public String showStaffEditConfirm(@Validated(ValidGroup1.class) @ModelAttribute StaffLoginForm staffLoginForm, BindingResult bindingResult, @SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) throws Exception{
+	public String showStaffEditConfirm(@Validated(ValidGroupOrder.class) @ModelAttribute StaffLoginForm staffLoginForm, BindingResult bindingResult, @SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) throws Exception{
 		//従業員情報変更処理
 		model.addAttribute("loginStaff", loginStaff);
 		model.addAttribute("staffLoginForm", staffLoginForm);
@@ -143,4 +143,13 @@ public class StaffMenuController {
 		
 		return "staffDeleteComplete";
 	}
+	
+	//在庫管理メニュー表示
+	@GetMapping("staffitemstock")
+	public String showStaffItemStock(@SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) throws Exception{
+		model.addAttribute("loginStaff", loginStaff);
+		return "staffItemStock";
+	}
+	
+	
 }

@@ -4,19 +4,24 @@ import java.io.Serializable;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jp.ken.interiorshop.common.validatior.groups.ValidGroup1;
+import jp.ken.interiorshop.common.validatior.groups.ValidGroup2;
 import lombok.Data;
 
 @Data
 public class StaffLoginForm implements Serializable {
 	
 	@NotNull(message = "必須入力です", groups = ValidGroup1.class)
+	@Pattern(regexp = "^[0-9]{4}$", message = "従業員IDは4桁の数字で入力してください", groups = ValidGroup2.class)
 	private Integer staffId;
 	
 	@NotEmpty(message = "必須入力です",  groups = ValidGroup1.class)
+	@Pattern(regexp = "^[一-龥々ぁ-んァ-ヶー]+$", message = "名前は漢字・ひらがな・カタカナで入力してください",  groups = ValidGroup2.class)
 	private String staffName;
 
 	@NotEmpty(message="パスワードを入力して下さい", groups = ValidGroup1.class)
+	@Pattern(regexp = "^[0-9]{4}$", message = "パスワードは4桁の数字で入力してください", groups = ValidGroup2.class)
 	private String password;
 	
 	//初期値は従業員
