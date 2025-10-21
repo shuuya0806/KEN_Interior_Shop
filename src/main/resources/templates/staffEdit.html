@@ -31,7 +31,6 @@
               <label for="password">パスワード <strong class="required">(必須)</strong></label>
               <input id="password" type="text" th:field="*{password}">
               <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
-             <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
             </div>
 
             <!-- 管理者権限 -->
