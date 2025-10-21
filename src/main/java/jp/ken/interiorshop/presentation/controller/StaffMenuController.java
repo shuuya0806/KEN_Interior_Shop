@@ -12,16 +12,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import jp.ken.interiorshop.application.service.ItemService;
 import jp.ken.interiorshop.application.service.StaffLoginService;
 import jp.ken.interiorshop.common.validatior.groups.ValidGroupOrder;
+import jp.ken.interiorshop.presentation.form.ItemForm;
 import jp.ken.interiorshop.presentation.form.StaffLoginForm;
 
 @Controller
 public class StaffMenuController {
 	StaffLoginService staffLoginService;
+	ItemService itemService;
 	
-	public StaffMenuController(StaffLoginService staffLoginService){
+	public StaffMenuController(StaffLoginService staffLoginService, ItemService itemService){
 		this.staffLoginService = staffLoginService;
+		this.itemService = itemService;
 	}
 	
 	//メニュー画面へ遷移
@@ -150,6 +154,19 @@ public class StaffMenuController {
 		model.addAttribute("loginStaff", loginStaff);
 		return "staffItemStock";
 	}
+	
+	//在庫一覧表示処理
+	@GetMapping("staffitemstocklist")
+	public String showStaffItemStockList(@SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) throws Exception{
+		//在庫一覧を取得
+		List<ItemForm> itemStockList = itemService.getItemStockList();
+		
+		model.addAttribute("loginStaff", loginStaff);
+		model.addAttribute("itemStockList", itemStockList);
+		
+		return "staffItemStockList";
+	}
+	
 	
 	
 }

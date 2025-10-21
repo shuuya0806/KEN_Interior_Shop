@@ -21,7 +21,6 @@ public class StaffLoginForm implements Serializable {
 	private String staffName;
 
 	@NotEmpty(message="パスワードを入力して下さい", groups = ValidGroup1.class)
-	@Pattern(regexp = "^[0-9]{4}$", message = "パスワードは4桁の数字で入力してください", groups = ValidGroup2.class)
 	private String password;
 	
 	//初期値は従業員
