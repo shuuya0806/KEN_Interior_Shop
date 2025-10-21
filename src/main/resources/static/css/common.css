@@ -83,3 +83,8 @@ html, body {
 	text-decoration: none;    /* 下線も消す場合 */
 	text-align: center;
 }
+
+/* フッターの文字 */
+.stafflogin {
+	color: black;
+}

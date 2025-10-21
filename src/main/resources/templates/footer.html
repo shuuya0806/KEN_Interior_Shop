@@ -3,11 +3,12 @@
 <head> 
   <meta charset="UTF-8"> 
   <title></title> 
+  <link th:href="@{/css/common.css}" rel="stylesheet">
 </head> 
 <body> 
-  <div th:fragment="footer_area" th:remove="tag"> 
+	<div th:fragment="footer_area" th:remove="tag"> 
     <div class="copyright"> 
-      <small>&copy; Ken Interior Shop</small>
+		<a th:href="@{/stafflogin}" class="stafflogin"><small>&copy; Ken Interior Shop</small></a>
     </div> 
   </div> 
 </body> 
