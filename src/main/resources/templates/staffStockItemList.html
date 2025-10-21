@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>在庫一覧</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="wrapper">
+    <header th:insert="~{staffHeader :: header_area}"></header>
+    <main>
+        <h1>在庫一覧</h1>
+        <form th:action="@{/staffstockupdate}" method="post">
+            <table>
+                <tr>
+                    <th>商品ID</th>
+                    <th>商品名</th>
+                    <th>在庫</th>
+                    <th>在庫変更</th>
+                </tr>
+                <th:block th:each="item : ${itemStockList}">
+                    <tr>
+                        <td th:text="${item.itemId}"></td>
+                        <td th:text="${item.itemName}"></td>
+                        <td th:text="${item.stock}"></td>
+
+                        <!-- プルダウン（例：0〜10個まで選択） -->
+                        <td>
+                            <select name="stockUpdates" th:field="*{stockUpdates[__${item.itemId}__]}">
+                                <option th:each="i : ${#numbers.sequence(0, 10)}"
+                                        th:value="${i}"
+                                        th:text="${i}"
+                                        th:selected="${i == item.stock}">
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                </th:block>
+            </table>
+            <div class="menu-buttons">
+                <button type="submit" class="btn">変更を保存</button>
+                <a th:href="@{/staffitemstock}" class="btn">戻る</a>
+            </div>
+        </form>
+    </main>
+    <footer></footer>
+</div>
+</body>
+</html>
