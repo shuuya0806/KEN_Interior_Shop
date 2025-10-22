@@ -158,7 +158,10 @@
 	text-align: center;
 }
 
-
+#pointError{
+	color:red;
+	font-weight: bold;
+}
 
 
 
