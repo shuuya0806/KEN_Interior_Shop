@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.presentation.form.MemberLoginForm;
+import jp.ken.interiorshop.presentation.form.StaffLoginForm;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
@@ -27,6 +28,22 @@ public class GlobalControllerAdvice {
 			return memberLoginForm;
 		}
 	}
+	
+	//ログインしているスタッフ名
+		@ModelAttribute("loginStaff")
+		public StaffLoginForm staffLoginForm(HttpSession session) {
+			
+			// セッションにログイン情報の有無確認
+			StaffLoginForm staffLoginForm = (StaffLoginForm) session.getAttribute("loginStaff");
+			
+			if(staffLoginForm == null) {
+				
+				return new StaffLoginForm();
+			} else {
+				
+				return staffLoginForm;
+			}
+		}
 	
 	@ModelAttribute
     public void addLoginFlag(HttpSession session, Model model) {
