@@ -20,35 +20,43 @@
 			
 			<!-- 注文履歴がある場合のみテーブルを表示 -->
 			<div th:if="${!listOrderForm.isEmpty()}">
-				<table>
-					<tr>
-						<th>注文ID</th>
-						<th>顧客名</th>
-						<th>合計金額</th>
-						<th>注文日</th>
-						<th>ステータス</th>
-						<th>操作</th>
-					</tr>
-					<th:block th:each="order : ${listOrderForm}">
-						<tr>
-							<td th:text="${order.orderId}"></td>
-							<td th:text="${order.memberName}"></td>
-							<td th:text="${order.total}"></td>
-							<td th:text="${order.orderDate}"></td>
-							<td th:text="${order.shippingFrag}"></td>
-
-							<td>
-   								<a th:href="@{/staff/orders/{id}(id=${order.orderId})}">
-        						<button type="button">詳細</button>
-    							</a>
-							</td>
-							<td>
-								<button type="button" th:value="${order.orderId}" id="cancel">注文取消</button>
-							</td>
-						</tr>
-					</th:block>
-				</table>
+				<!-- メッセージがある場合だけ表示 -->
+				<div th:if="${message}" class="alert alert-warning message-center">
+				    <p th:text="${message}"></p>
+				</div>
+			    <form th:action="@{/staffbatchAction}" method="post">
+			        <table>
+			            <tr>
+			                <th>注文ID</th>
+			                <th>顧客名</th>
+			                <th>合計金額</th>
+			                <th>注文日</th>
+			                <th>ステータス</th>
+			                <th>詳細</th>
+			                <th>選択</th>
+			            </tr>
+			            <tr th:block th:each="order : ${listOrderForm}">
+			                    <td th:text="${order.orderId}"></td>
+			                    <td th:text="${order.memberName}"></td>
+			                    <td th:text="${order.total}"></td>
+			                    <td th:text="${order.orderDate}"></td>
+			                    <td th:text="${order.shippingFrag}"></td>
+			                    <td>
+									<a th:href="@{/staff/orders/{id}(id=${order.orderId})}">
+			                            <button type="button">詳細</button>
+			                        </a>
+								</td>
+								<td><input type="checkbox" name="selectedOrders" th:value="${order.orderId}"></td>
+			                </tr>
+			            </th:block>
+			        </table>
+			        <div class="action-buttons">
+			            <button type="submit" name="action" value="ship">発送処理</button>
+			            <button type="submit" name="action" value="cancel">発送キャンセル</button>
+			        </div>
+			    </form>
 			</div>
+
 			<div class="menu-buttons">
 				<a th:href="@{/staffordermenu}" class="btn">注文管理メニューに戻る</a>
 				<a th:href="@{/staffmenu}" class="btn">従業員メニューに戻る</a>
