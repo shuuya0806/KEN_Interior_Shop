@@ -106,6 +106,11 @@ public class StaffOrderService {
 		staffOrderRepository.cancelShippedOrder(orderId);
 	}
 	
+	//在庫更新処理
+	public void updateStock(String itemId, String newStock) throws Exception{
+		staffOrderRepository.updateStock(itemId, newStock);
+	}
+	
 	private List<OrderForm> convert(List<OrderEntity> entityList) {
 		
 		List<OrderForm> formList = new ArrayList<OrderForm>();
