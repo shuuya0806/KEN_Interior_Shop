@@ -43,8 +43,15 @@
 		                    </p>
 		                </div>
 		                <!-- セール中のものは割引後の金額も合わせて表示する -->
+		                <div th:if="${item.saleFrag == '実施中'}">
 		                	<s><p>価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円</p></s>
-		                	<p>価格（税抜）: <span th:text="${item.salePrice}" class="sale-price">0</span> 円</p>
+		                	<p>
+		                		価格（税抜）: <span th:text="${item.salePrice}" class="sale-price">0</span> 円
+		                        &nbsp;&nbsp;
+		                        <!-- 税込価格 10% を計算して表示 -->
+		                       (税込: <span th:text="${taxIncludedPrice}">0</span> 円)
+		                	</p>
+		                </div>
 	                    <!-- 発売日 -->
 	                    <p>発売開始日: <span th:text="${item.rsDate} ?: '未定'"></span></p>
 	                </td>

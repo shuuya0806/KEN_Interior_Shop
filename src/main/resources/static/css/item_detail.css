@@ -66,3 +66,7 @@
 	text-align: center;
 }
 
+/*セール価格*/
+.sale-price {
+	color:red;
+}

@@ -309,7 +309,13 @@ public class ItemController {
 	    // DBから商品情報の取得と税込価格の計算
 	    ItemForm item = itemService.getItemById(itemId);
 	    int price = Integer.parseInt(item.getItemPrice());
-	    int taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%加算
+	    int taxIncludedPrice;
+	    if (item.getSaleFrag() == "未実施") {
+	    	taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%加算
+	    } else {
+	    	int salePrice = item.getSalePrice();
+	    	taxIncludedPrice = (int) Math.floor(salePrice * 1.1); //消費税10%加算
+	    }
 
 	    // 商品情報と税込価格の計算結果をモデルに格納
 	    model.addAttribute("item", item);
