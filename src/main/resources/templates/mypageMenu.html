@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>マイページメニュー</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/member_common.css}" rel="stylesheet">
+	</head>
+<body>
+		<main>
+			<h1>マイページメニュー</h1>
+			<div class="menu-buttons">
+				<a th:href="@{/mypage}" class="btn">個人情報</a>
+				<a th:href="@{/memberorderhistory}" class="btn">注文履歴</a>
+			</div>
+		</main>
+		<footer></footer>
+</body>
+</html>

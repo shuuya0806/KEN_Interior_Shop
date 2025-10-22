@@ -4,16 +4,19 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.ken.interiorshop.domain.entity.OrderDetailsEntity;
 import jp.ken.interiorshop.domain.entity.OrderEntity;
 import jp.ken.interiorshop.domain.entity.ShippingEntity;
+import jp.ken.interiorshop.infrastructure.mapper.StaffOrderMapper;
 
 @Repository
 public class OrderRegistRepository {
 
 	private JdbcTemplate jdbcTemplate;
+	private RowMapper<OrderEntity> staffOrderMapper = new StaffOrderMapper();
 	
 	public OrderRegistRepository(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
@@ -90,5 +93,10 @@ public class OrderRegistRepository {
 		
 		//引数を反映させて登録
 		jdbcTemplate.update(sql, currentPoint, memberId);
+	}
+	
+	public OrderEntity getOrderListById(int memberId) throws Exception{
+		String sql = "SELECT order_id, member_id, total, order_date, payment, shipping_id, shipping_frag,  use_point FROM orders WHERE member_id = ? ORDER BY order_date DESC;";
+		return jdbcTemplate.queryForObject(sql, staffOrderMapper, memberId);
 	}
 }

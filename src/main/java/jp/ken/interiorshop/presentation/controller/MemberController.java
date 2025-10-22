@@ -14,12 +14,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jp.ken.interiorshop.application.service.LoginService;
+import jp.ken.interiorshop.application.service.OrderRegistService;
 import jp.ken.interiorshop.application.service.RegistService;
 import jp.ken.interiorshop.application.service.UpdateService;
 import jp.ken.interiorshop.application.service.WithdrawService;
 import jp.ken.interiorshop.common.validatior.groups.ValidGroupOrder;
 import jp.ken.interiorshop.presentation.form.MemberLoginForm;
 import jp.ken.interiorshop.presentation.form.MemberRegistForm;
+import jp.ken.interiorshop.presentation.form.OrderForm;
 
 @Controller
 public class MemberController {
@@ -28,13 +30,15 @@ public class MemberController {
 	private final RegistService registService;
 	private final WithdrawService withdrawService;
 	private final UpdateService updateService;
+	private final OrderRegistService orderRegistService;
 
 	public MemberController(LoginService loginService, RegistService registService,
-	                        WithdrawService withdrawService, UpdateService updateService) {
+	                        WithdrawService withdrawService, UpdateService updateService, OrderRegistService orderRegistService) {
 		this.loginService = loginService;
 		this.registService = registService;
 		this.withdrawService = withdrawService;
 		this.updateService = updateService;
+		this.orderRegistService = orderRegistService;
 	}
 
 	/**
@@ -185,13 +189,10 @@ public class MemberController {
 		// 会員登録完了画面へ遷移
 		return "registComplete";
 	}
-
-	/**
-	 * マイページ表示（ログイン済みユーザー情報の取得）
-	 */
-	@GetMapping("/mypage")
-	public String showMyPage(HttpSession session, Model model) throws Exception {
-		
+	
+	//マイページメニューを表示
+	@GetMapping("/mypagemenu")
+	public String showMyPageMenu(HttpSession session, Model model) throws Exception {
 		// セッションからログイン情報を取得
 		MemberLoginForm loginUser = (MemberLoginForm) session.getAttribute("loginUser");
 		
@@ -200,6 +201,18 @@ public class MemberController {
 			// 未ログインの場合はログイン画面へリダイレクト
 			return "redirect:/login";
 		}
+		
+		// マイページメニュー画面へ遷移
+		return "mypageMenu";
+	}
+	
+	/**
+	 * マイページ表示（ログイン済みユーザー情報の取得）
+	 */
+	@GetMapping("/mypage")
+	public String showMyPage(HttpSession session, Model model) throws Exception {
+		// セッションからログイン情報を取得
+		MemberLoginForm loginUser = (MemberLoginForm) session.getAttribute("loginUser");
 		
 		// 会員情報を取得しセッションとモデルに格納
 		MemberRegistForm memberData = loginService.getLoginData(loginUser.getMemberId());
@@ -315,5 +328,17 @@ public class MemberController {
 
 		// 会員情報完了画面へ遷移
 		return "editComplete";
+	}
+	
+	//注文履歴画面表示
+	@GetMapping("memberorderhistory")
+	public String showMemberOrderHistory(HttpSession session, Model model) throws Exception {
+		MemberLoginForm loginUser = (MemberLoginForm) session.getAttribute("loginUser");
+		//顧客IDをキーに対応した注文履歴を取得
+		OrderForm orderForm = orderRegistService.getOrderListById(loginUser.getMemberId());
+		
+		model.addAttribute("orderForm", orderForm);
+		
+		return "memberOrderHistory";
 	}
 }

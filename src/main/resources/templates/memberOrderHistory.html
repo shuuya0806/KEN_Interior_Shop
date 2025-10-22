@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>注文履歴</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/staffheader.css}" rel="stylesheet">
+	<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <main>
+        <h1>注文履歴</h1>
+
+        <div th:if="${#lists.isEmpty(orderForm)}">
+            <p>注文履歴はありません。</p>
+        </div>
+
+        <table th:if="${!#lists.isEmpty(orderForm)}" border="1">
+            <thead>
+                <tr>
+                    <th>注文ID</th>
+                    <th>注文日</th>
+                    <th>合計金額</th>
+                    <th>支払方法</th>
+                    <th>発送状態</th>
+                    <th>使用ポイント</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${orderForm}">
+                    <td th:text="${order.orderId}"></td>
+                    <td th:text="${order.orderDate}"></td>
+                    <td th:text="${order.total} + '円'"></td>
+                    <td th:text="${order.payment}"></td>
+                    <td th:text="${order.shippingFrag}"></td>
+                    <td th:text="${order.usePoint}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <a th:href="@{/mypageMenu}">マイページメニューへ戻る</a>
+        </div>
+    </main>
+</body>
+</html>

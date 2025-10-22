@@ -115,6 +115,14 @@ public class OrderRegistService {
 		return entity;
 	}
 	
+	//注文情報変換 (Entity → Form 変換)
+	private OrderForm convert(OrderEntity entity) {
+			
+		OrderForm orderForm = modelMapper.map(entity, OrderForm.class);
+			
+		return orderForm;
+	}
+	
 	//注文詳細変換（Entity → Form 変換）
 	private List<OrderDetailsEntity> convert(List<OrderDetailsForm> formList) {
 	    List<OrderDetailsEntity> entityList = new ArrayList<>();
@@ -155,5 +163,14 @@ public class OrderRegistService {
 		orderRegistRepository.pointUpdate(currentPoint, memberId);
 		
 		return currentPoint;
+	}
+	
+	
+	//顧客IDをキーに注文詳細情報を取得
+	public OrderForm getOrderListById(int memberId) throws Exception{
+		OrderEntity entity = orderRegistRepository.getOrderListById(memberId);
+		OrderForm orderForm = convert(entity);
+		
+		return orderForm;
 	}
 }
