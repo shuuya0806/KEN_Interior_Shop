@@ -1,5 +1,6 @@
 package jp.ken.interiorshop.presentation.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -108,36 +109,68 @@ public class StaffOrderController {
     	return "OK";
     }
    
-   //発送とキャンセル処理
-   @PostMapping("/staffbatchAction")
-   public String staffBatchAction(@RequestParam(name = "selectedOrders", required = false) List<Integer> selectedOrders, @SessionAttribute("loginStaff") StaffLoginForm staffLoginForm, @RequestParam("action") String action, Model model) throws Exception{
-       if (selectedOrders == null || selectedOrders.isEmpty()) {
-           model.addAttribute("message", "注文を選択してください");
-           model.addAttribute("loginStaff", staffLoginForm);
-           //注文履歴再取得
-           List<OrderForm> listOrderForm = staffOrderService.getOrderList();
-           model.addAttribute("listOrderForm", listOrderForm);
-           return "staffOrderHistory";
-       }
+    //発送、キャンセル処理
+    @PostMapping("/staffbatchAction")
+    public String staffBatchAction(
+            @RequestParam(name = "selectedOrders", required = false) List<Integer> selectedOrders,
+            @SessionAttribute("loginStaff") StaffLoginForm staffLoginForm,
+            @RequestParam("action") String action,
+            Model model) throws Exception {
 
-       // actionによって処理を分ける
-       if ("ship".equals(action)) {
-           // 選択した注文を発送処理
-           for (Integer orderId : selectedOrders) {
-               staffOrderService.shippedOrder(orderId);
-               return "shippingComplete";
-           }
-       } else if ("cancel".equals(action)) {
-           for (Integer orderId : selectedOrders) {
-               staffOrderService.cancelShippedOrder(orderId);
-               return "shippingCancel";
-           }
-       }
-       
-       return "staffOrderHistory";
-   }
-   
-   
+        model.addAttribute("loginStaff", staffLoginForm);
+        
+        //チェックボックスが選択されていない場合
+        if (selectedOrders == null || selectedOrders.isEmpty()) {
+            model.addAttribute("message", "注文を選択してください");
+            List<OrderForm> listOrderForm = staffOrderService.getOrderList();
+            model.addAttribute("listOrderForm", listOrderForm);
+            return "staffOrderHistory";
+        }
+        
+        //成功リストと失敗リスト
+        List<Integer> successList = new ArrayList<>();
+        List<Integer> failList = new ArrayList<>();
+
+        //失敗リスト作成（ルールに合わない注文）
+        for (Integer orderId : selectedOrders) {
+            String shippingFrag = staffOrderService.getShippingFrag(orderId);
+
+            if ("ship".equals(action) && !"未発送".equals(shippingFrag)) {
+                failList.add(orderId);
+            } else if ("cancel".equals(action) && !"発送済み".equals(shippingFrag)) {
+                failList.add(orderId);
+            }
+        }
+
+        //失敗リストがあればメッセージを表示
+        if (!failList.isEmpty()) {
+            model.addAttribute("message", "不正な操作です: ");
+            List<OrderForm> listOrderForm = staffOrderService.getOrderList();
+            model.addAttribute("listOrderForm", listOrderForm);
+            return "staffOrderHistory";
+        }
+
+        // 成功リストがあれば発送処理を実施
+        for (Integer orderId : selectedOrders) {
+            if ("ship".equals(action)) {
+                staffOrderService.shippedOrder(orderId);
+                successList.add(orderId);
+            } else if ("cancel".equals(action)) {
+                staffOrderService.cancelShippedOrder(orderId);
+                successList.add(orderId);
+            }
+        }
+
+        // ボタンにより画面遷移を分岐
+        if ("ship".equals(action)) {
+            return "shippingComplete";
+        } else if ("cancel".equals(action)) {
+            return "shippingCancel";
+        }
+
+        return "staffOrderHistory";
+    }
+
    // 在庫変更処理
    @PostMapping("/staffstockupdate")
    public String updateStock(@RequestParam("itemId") List<String> itemIds, @RequestParam("stock") List<String> stocks) throws Exception{
