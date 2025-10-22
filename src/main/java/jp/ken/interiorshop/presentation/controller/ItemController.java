@@ -193,6 +193,7 @@ public class ItemController {
 
 	    
 	    List<ItemForm> itemFormList;
+	    List<ItemForm> releasedItemList;
 
 	    // 金額の妥当性チェック（負の値が含まれている場合はエラー）
 	    if ((minPrice != null && minPrice < 0) || (maxPrice != null && maxPrice < 0)) {
@@ -200,6 +201,9 @@ public class ItemController {
 
 	        // 条件が不正な場合はDBから全件取得
 	        itemFormList = itemService.getItemList();
+	        
+	        // 条件が不正な場合はDBから全件取得した物から発売日の商品のみを取得
+		 	releasedItemList = itemService.getReleasedItemList(itemFormList);
 	    }
 	    // 価格整合性チェック（最低価格 > 最高価格 の場合はエラー）
 	    else if (minPrice != null && maxPrice != null && maxPrice < minPrice) {
@@ -207,19 +211,25 @@ public class ItemController {
 
 	        // 条件が不正な場合はDBから全件取得
 	        itemFormList = itemService.getItemList();
+	        
+	        // 条件が不正な場合はDBから全件取得した物から発売日の商品のみを取得
+		 	 releasedItemList = itemService.getReleasedItemList(itemFormList);
 	    } else {
 	        // 商品検索（条件が1つでもあれば絞り込み）
 	        List<ItemEntity> itemEntityList = itemService.searchItem(keyword, categoryId, minPrice, maxPrice);
 	        itemFormList = itemService.convertItemForm(itemEntityList);
+	        
+	        // 商品検索（条件が1つでもあれば絞り込み）から発売日の商品のみを取得
+		 	 releasedItemList = itemService.getReleasedItemList(itemFormList);
 
 	        // 検索結果が0件ならメッセージをモデルに格納
-	        if (itemFormList.isEmpty()) {
+	        if (releasedItemList.isEmpty()) {
 	            model.addAttribute("infoMessage", "該当商品はありません");
 	        }
 	    }
 
 	    // 検索結果をモデルに格納
-	    model.addAttribute("itemForm", itemFormList);
+	    model.addAttribute("itemForm", releasedItemList);
 
 	    // 「戻る」用URLを検索条件で判定（検索条件がある場合のみ上書き）
 	    StringBuilder backUrl = new StringBuilder("/search?");
