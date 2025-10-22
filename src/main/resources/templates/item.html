@@ -63,7 +63,15 @@
         <div class="item-card" th:each="items : ${itemForm}" th:data-url="@{/item/detail/{id}(id=${items.itemId})}">
           <h3 th:text="${items.itemName}"></h3>
           <img th:src="@{/images/{img}(img=${items.image})}" th:alt="${items.itemName}">
-          <p th:text="'¥' + ${items.itemPrice}"></p>
+          <!-- セール中の商品でない場合は通常の価格のみ表示 -->
+          <div th:if="${items.saleFrag == '未実施'}">
+          	<p th:text="'¥' + ${items.itemPrice}"></p>
+          </div>
+          <!-- セール中の商品は通常の価格に取り消し線を引いて表示し、セール価格を赤文字で表示 -->
+          <div th:if="${items.saleFrag == '実施中'}">
+			  <s><p th:text="'¥' + ${items.itemPrice}"></p></s>
+			  <p th:text="'¥' + ${items.salePrice}" class="sale-price"></p>
+		  </div>
         </div>
       </div>
     </div>

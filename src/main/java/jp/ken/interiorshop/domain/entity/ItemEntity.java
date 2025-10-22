@@ -30,4 +30,10 @@ public class ItemEntity {
     
     // 在庫数
     private int stock;
+    
+    // セールフラグ
+    private String saleFrag;
+    
+    // セール価格
+    private int salePrice;
 }

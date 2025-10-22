@@ -27,8 +27,8 @@ public class ItemSearchRepository {
 	// 商品テーブルの共通SELECT句を生成
 	private StringBuilder createCommonSQL() {
 		return new StringBuilder(
-			"SELECT item_id, item_name, category_id, item_price, rs_date, image, explanation, stock FROM m_items"
-		);
+			"SELECT item_id, item_name, category_id, item_price, rs_date, image, explanation, stock, "
+			+ "sale_frag, sale_price FROM m_items");
 	}
 
 	// カテゴリテーブルの共通SELECT句を生成

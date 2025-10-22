@@ -129,3 +129,8 @@
 .item-card form {
 	margin-top: 20px;
 }
+
+/*セール価格*/
+.sale-price {
+	color:red;
+}
