@@ -27,16 +27,6 @@ public class StaffOrderController {
 	public StaffOrderController(StaffOrderService staffOrderService){
 		this.staffOrderService = staffOrderService;
 	}
-
-	@GetMapping(value = "/stafforder")
-	public String OrderManagement(Model model) throws Exception{
-		
-		//DBから注文履歴を取得
-		List<OrderForm> listOrderForm = staffOrderService.getOrderList();
-		model.addAttribute("listOrderForm", listOrderForm);
-		
-		return "redirect:/staffOrderHistory";
-	}
 	
 	// 注文履歴確認画面表示
 	@GetMapping("/stafforder/history")
@@ -61,7 +51,7 @@ public class StaffOrderController {
 	
 	//注文履歴詳細画面表示
    @GetMapping("/staff/orders/{orderId:[0-9]+}")
-    public String showOrderDetail(@PathVariable("orderId") int orderId, Model model) throws Exception {
+    public String showOrderDetail(@PathVariable("orderId") int orderId, @SessionAttribute("loginStaff") StaffLoginForm staffLoginForm, Model model) throws Exception {
 
         // DBから注文詳細情報を取得
     	List<OrderDetailsForm> orderDetailsList = staffOrderService.getOrderDetailsById(orderId);
@@ -75,6 +65,7 @@ public class StaffOrderController {
         model.addAttribute("orderDetailsList", orderDetailsList);
         model.addAttribute("shippingForm", shippingForm);
         model.addAttribute("shippingFrag", shippingFrag);
+        model.addAttribute("loginStaff", staffLoginForm);
         
         if(orderDetailsList == null || orderDetailsList.isEmpty()) {
             throw new RuntimeException("注文詳細が取得できませんでした");
@@ -85,7 +76,7 @@ public class StaffOrderController {
    
    // 発送確認画面表示
    @GetMapping("/stafforder/staffShippingConfirm")
-   public String showShippingConfirm(@RequestParam("orderId") int orderId, Model model) throws Exception{
+   public String showShippingConfirm(@RequestParam("orderId") int orderId, @SessionAttribute("loginStaff") StaffLoginForm staffLoginForm, Model model) throws Exception{
        // 注文明細取得
        List<OrderDetailsForm> orderDetailsList = staffOrderService.getOrderDetailsById(orderId);
 
@@ -95,6 +86,7 @@ public class StaffOrderController {
        model.addAttribute("orderDetailsList", orderDetailsList);
        model.addAttribute("shippingForm", shippingForm);
        model.addAttribute("orderId", orderId);
+       model.addAttribute("loginStaff", staffLoginForm);
        
        return "staffShippingConfirm";
    }
@@ -115,24 +107,36 @@ public class StaffOrderController {
     	
     	return "OK";
     }
+   
+   //発送とキャンセル処理
+   @PostMapping("/staffbatchAction")
+   public String staffBatchAction(@RequestParam(name = "selectedOrders", required = false) List<Integer> selectedOrders, @SessionAttribute("loginStaff") StaffLoginForm staffLoginForm, @RequestParam("action") String action, Model model) throws Exception{
+       if (selectedOrders == null || selectedOrders.isEmpty()) {
+           model.addAttribute("message", "注文を選択してください");
+           model.addAttribute("loginStaff", staffLoginForm);
+           //注文履歴再取得
+           List<OrderForm> listOrderForm = staffOrderService.getOrderList();
+           model.addAttribute("listOrderForm", listOrderForm);
+           return "staffOrderHistory";
+       }
 
-   // 発送処理
-   @PostMapping("/stafforder/shippingComplete")
-   public String shippingComplete(@RequestParam("orderId") int orderId, Model model) throws Exception{
-	   //ステータスを発送済みに変更する処理
-	   staffOrderService.shippedOrder(orderId);
-	   
-	   return "shippingComplete";
+       // actionによって処理を分ける
+       if ("ship".equals(action)) {
+           // 選択した注文を発送処理
+           for (Integer orderId : selectedOrders) {
+               staffOrderService.shippedOrder(orderId);
+               return "shippingComplete";
+           }
+       } else if ("cancel".equals(action)) {
+           for (Integer orderId : selectedOrders) {
+               staffOrderService.cancelShippedOrder(orderId);
+               return "shippingCancel";
+           }
+       }
+       
+       return "staffOrderHistory";
    }
    
-   // 発送キャンセル処理
-   @PostMapping("/stafforder/cancelShipping")
-   public String cancelShipping(@RequestParam("orderId") int orderId, Model model) throws Exception{
-	   //ステータスを未発送に変更する処理
-	   staffOrderService.cancelShippedOrder(orderId);
-	   
-	   return "shippingCancel";
-   }
    
    // 在庫変更処理
    @PostMapping("/staffstockupdate")

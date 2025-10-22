@@ -15,3 +15,17 @@ body {
     width: 200px; /* ボタン幅を統一 */
     margin: auto;
 }
+
+.action-buttons {
+    text-align: center; /* 中央揃え */
+    margin-top: 10px;   /* 上に少し余白 */
+    gap: 10px;          /* ボタン間にスペース */
+    display: flex;
+    justify-content: center;
+}
+
+.message-center {
+    text-align: center;
+    color: red;
+}
+
