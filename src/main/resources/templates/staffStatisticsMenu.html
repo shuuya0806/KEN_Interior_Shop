@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>集計管理メニュー</title>
+	<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/staffheader.css}" rel="stylesheet">
+	<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="wrapper">
+		<!-- 共通ヘッダーを挿入 -->
+		<header th:insert="~{staffHeader :: header_area}"></header> 
+			<main>
+			<h1>集計管理メニュー</h1>
+			<div class="menu-buttons">
+				<a th:href="@{/staffitem/statistics}" class="btn">商品別集計確認</a>
+				<a th:href="@{/staffmenu}" class="btn">従業員メニューへ戻る</a>
+			</div>
+			</main>
+		<footer></footer>
+	</div>
+</body>
+</html>
