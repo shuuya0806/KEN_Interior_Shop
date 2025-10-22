@@ -164,13 +164,14 @@
 			</label>
 			
 			<!-- ポイント数入力欄(ポイントを使用する場合のみ表示)-->
-			<div id="pointValueWrapper">
-				<label>
-					使用するポイント数
+			<span class="label-cell"></span>
+			<label class="radio-btn-Option">
+				<div id="pointValueWrapper">
+					<span>使用するポイント数</span>
 					<input type="text" th:field="*{usePoint}" id="pointValue">
-				</label>
-				<div id="pointError" class="errors"></div>
-			</div>
+					<div id="pointError" class="error-message"></div>
+				</div>
+			</label>
 
 			<span class="label-cell"></span>
 			<label class="radio-btn-Option">
