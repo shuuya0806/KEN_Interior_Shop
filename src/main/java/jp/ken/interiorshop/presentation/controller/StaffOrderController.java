@@ -133,5 +133,22 @@ public class StaffOrderController {
 	   
 	   return "shippingCancel";
    }
+   
+   // 在庫変更処理
+   @PostMapping("/staffstockupdate")
+   public String updateStock(@RequestParam("itemId") List<String> itemIds, @RequestParam("stock") List<String> stocks) throws Exception{
+	   for (int i = 0; i < itemIds.size(); i++) {
+		 String itemId = itemIds.get(i);
+	     String newStock = stocks.get(i);
+		 //在庫更新処理
+         staffOrderService.updateStock(itemId, newStock);
+	   }
+           
+
+
+       return "redirect:/staffitemstocklist";
+   }
+
+
 
 }

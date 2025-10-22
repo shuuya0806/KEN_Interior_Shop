@@ -115,4 +115,10 @@ public class StaffOrderRepository {
 		 String sql = "UPDATE orders SET shipping_frag = '未発送' WHERE order_id = ?";
 		 jdbcTemplate.update(sql, orderId);
 	}
+	
+	//在庫更新処理
+	public void updateStock(String itemId, String newStock) throws Exception{
+		 String sql = "UPDATE m_items SET stock = ? WHERE item_id = ?";
+	     jdbcTemplate.update(sql, newStock, itemId);
+	}
 }

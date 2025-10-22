@@ -12,27 +12,39 @@
     <header th:insert="~{staffHeader :: header_area}"></header>
     <main>
         <h1>在庫一覧</h1>
-        <form th:action="@{/staffstockupdate}" method="post">
-            <table>
-                <tr>
-                    <th>商品ID</th>
-                    <th>商品名</th>
-                    <th>在庫</th>
-                    <th>在庫変更</th>
-                </tr>
-                <th:block th:each="item : ${itemStockList}">
-                    <tr>
-                        <td th:text="${item.itemId}"></td>
-                        <td th:text="${item.itemName}"></td>
-                        <td th:text="${item.stock}"></td>
-                    </tr>
-                </th:block>
-            </table>
-            <div class="menu-buttons">
-                <button type="submit" class="btn">変更を保存</button>
-                <a th:href="@{/staffitemstock}" class="btn">戻る</a>
-            </div>
-        </form>
+		<form th:action="@{/staffstockupdate}" method="post">
+		    <table>
+		        <tr>
+		            <th>商品ID</th>
+		            <th>商品名</th>
+		            <th>在庫</th>
+		            <th>在庫変更</th>
+		        </tr>
+		        <th:block th:each="item, iStat : ${itemStockList}">
+		            <tr>
+		                <td>
+		                    <input type="hidden" name="itemId" th:value="${item.itemId}" />
+		                    <span th:text="${item.itemId}"></span>
+		                </td>
+		                <td th:text="${item.itemName}"></td>
+		                <td th:text="${item.stock}"></td>
+		                <td>
+		                    <select name="stock">
+		                        <option th:each="num : ${#numbers.sequence(0, 100)}"
+		                                th:value="${num}"
+		                                th:text="${num}"
+		                                th:selected="${num.toString() == item.stock}">
+		                        </option>
+		                    </select>
+		                </td>
+		            </tr>
+		        </th:block>
+		    </table>
+		    <div class="menu-buttons">
+		        <button type="submit" class="btn">変更を保存</button>
+		        <a th:href="@{/staffitemstock}" class="btn">戻る</a>
+		    </div>
+		</form>
     </main>
     <footer></footer>
 </div>
