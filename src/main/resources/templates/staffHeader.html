@@ -21,18 +21,18 @@
 					<!-- クリックで商品一覧画面へ遷移 -->
   					<img src="/images/logo/logo_SS_forStaff.png" alt="サイトロゴ" style="height:50px;">
    			 	</a>
-				
-				<!-- ログイン/ログアウト -->
-	            <!-- ログイン済み時（userLoggedIn が true） -->
-	            <span th:if="${loginStaff.staffName != null}">
-	              <!-- ログアウト処理後、currentUrl にリダイレクト -->
-	              <a th:href="@{/stafflogout}">ログアウト</a>
-	            </span>
 	            
 	            <!-- ログイン中のみログインユーザー名表示 -->
    			 	<div th:if="${loginStaff.staffName != null}">
       				<span th:text="${loginStaff.staffName} + 'さんログイン中です'"></span>
     			</div>
+    			
+    			<!-- ログイン/ログアウト -->
+	            <!-- ログイン済み時（userLoggedIn が true） -->
+	            <span th:if="${loginStaff.staffName != null}">
+	              <!-- ログアウト処理後、currentUrl にリダイレクト -->
+	              <a th:href="@{/stafflogout}">ログアウト</a>
+	            </span>
 			
 			 </div>
 		</div>
