@@ -63,7 +63,13 @@
         <div class="item-card" th:each="items : ${itemForm}" th:data-url="@{/item/detail/{id}(id=${items.itemId})}">
           <h3 th:text="${items.itemName}"></h3>
           <img th:src="@{/images/{img}(img=${items.image})}" th:alt="${items.itemName}">
-          <p th:text="'¥' + ${items.itemPrice}"></p>
+          <div th:if="${items.saleFrag == '未実施'}">
+          	<p th:text="'¥' + ${items.itemPrice}"></p>
+          </div>
+          <div th:if="${items.saleFrag == '実施中'}">
+			  <s><p th:text="'¥' + ${items.itemPrice}"></p></s>
+			  <p th:text="'¥' + ${items.salePrice}" class="sale-price"></p>
+		  </div>
         </div>
       </div>
     </div>

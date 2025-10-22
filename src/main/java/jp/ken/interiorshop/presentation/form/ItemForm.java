@@ -36,4 +36,7 @@ public class ItemForm implements Serializable {
 	
 	//セールフラグ
 	private String saleFrag;
+	
+	//セール価格
+	private int salePrice;
 }

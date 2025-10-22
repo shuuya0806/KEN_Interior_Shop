@@ -33,4 +33,7 @@ public class ItemEntity {
     
     // セールフラグ
     private String saleFrag;
+    
+    // セール価格
+    private int salePrice;
 }
