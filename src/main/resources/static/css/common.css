@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+main {
+	margin-top: 60px;
+}
+
 /* ログイン時に背景色が変わる */
 body.logged-in{
 	background-color: 	#FFC7AF	
