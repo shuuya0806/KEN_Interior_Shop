@@ -33,12 +33,18 @@
 	                    <!-- 商品説明 -->
 	                    <p th:text="${item.explanation}">商品説明</p>
 	                    <!-- 価格表示 -->
-	                    <p>
-	                        価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円
-	                        &nbsp;&nbsp;
-	                        <!-- 税込価格 10% を計算して表示 -->
-	                       (税込: <span th:text="${taxIncludedPrice}">0</span> 円)
-	                    </p>
+	                    <!-- セール中でないものはそのまま価格を表示 -->
+	                    <div th:if="${item.saleFrag == '未実施'}">
+		                    <p>
+		                        価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円
+		                        &nbsp;&nbsp;
+		                        <!-- 税込価格 10% を計算して表示 -->
+		                       (税込: <span th:text="${taxIncludedPrice}">0</span> 円)
+		                    </p>
+		                </div>
+		                <!-- セール中のものは割引後の金額も合わせて表示する -->
+		                	<s><p>価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円</p></s>
+		                	<p>価格（税抜）: <span th:text="${item.salePrice}" class="sale-price">0</span> 円</p>
 	                    <!-- 発売日 -->
 	                    <p>発売開始日: <span th:text="${item.rsDate} ?: '未定'"></span></p>
 	                </td>
