@@ -5,3 +5,10 @@ body {
 	background-color: #CBFFD3;
 }
 
+.menu-buttons{
+	display: flex;
+    flex-direction: column; /* ボタンを縦に並べる */
+    gap: 30px; /* ボタン間のスペース */
+    margin-top: 60px; /* 上からの余白 */
+}
+
