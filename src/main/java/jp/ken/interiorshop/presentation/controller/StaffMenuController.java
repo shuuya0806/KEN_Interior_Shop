@@ -159,9 +159,7 @@ public class StaffMenuController {
 	@GetMapping("staffitemstocklist")
 	public String showStaffItemStockList(@SessionAttribute("loginStaff") StaffLoginForm loginStaff, Model model) throws Exception{
 		//商品一覧を取得
-		List<ItemForm> itemList = itemService.getItemList();
-		//発売日のみの商品一覧を取得
-		List<ItemForm> itemStockList = itemService.getReleasedItemList(itemList);
+		List<ItemForm> itemStockList = itemService.getItemList();
 		
 		model.addAttribute("loginStaff", loginStaff);
 		model.addAttribute("itemStockList", itemStockList);
