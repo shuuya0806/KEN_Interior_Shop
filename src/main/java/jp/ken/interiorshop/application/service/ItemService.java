@@ -118,8 +118,9 @@ public class ItemService {
 			ItemForm newItem = new ItemForm();
 			newItem.setItemId(form.getItemId());
 			newItem.setItemName(form.getItemName());
-			newItem.setItemPrice(form.getItemPrice());
 			newItem.setItemQuantity(form.getItemQuantity());
+			newItem.setSaleFrag(form.getSaleFrag());
+			newItem.setItemPrice(form.getItemPrice());
 			cart.add(newItem);
 		}
 

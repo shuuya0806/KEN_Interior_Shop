@@ -79,7 +79,14 @@
 		                <!-- 商品名（カート画面表示用） -->
 		                <input type="hidden" name="itemName" th:value="${item.itemName}">
 		                <!-- 商品価格（カート画面表示用 / 計算用） -->
-		                <input type="hidden" name="itemPrice" th:value="${item.itemPrice}">
+		                <!-- セール未実施の場合は通常の価格を渡す -->
+		                <div th:if="${item.saleFrag == '未実施'}">
+		                	<input type="hidden" name="itemPrice" th:value="${item.itemPrice}">
+		                </div>
+		                <!-- セール実施中の場合はセール価格を渡す -->
+		                <div th:if="${item.saleFrag == '実施中'}">
+		                	<input type="hidden" name="itemPrice" th:value="${item.salePrice}">
+		                </div>
 		         
 		
 		                <!-- ★カート追加後に戻るページを指定するためのURL -->

@@ -313,7 +313,7 @@ public class ItemController {
 	    if (item.getSaleFrag() == "未実施") {
 	    	taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%加算
 	    } else {
-	    	int salePrice = item.getSalePrice();
+	    	int salePrice = Integer.parseInt(item.getSalePrice());
 	    	taxIncludedPrice = (int) Math.floor(salePrice * 1.1); //消費税10%加算
 	    }
 
