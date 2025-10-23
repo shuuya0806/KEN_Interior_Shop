@@ -45,8 +45,10 @@
 		                <!-- セール中のものは割引後の金額も合わせて表示する -->
 		                <div th:if="${item.saleFrag == '実施中'}">
 		                	<s><p>価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円</p></s>
-		                	<p>
-		                		価格（税抜）: <span th:text="${item.salePrice}" class="sale-price">0</span> 円
+		                	<p class="sale-price">
+								セール実施中!!
+								<br>
+		                		価格（税抜）: <span th:text="${item.salePrice}">0</span> 円
 		                        &nbsp;&nbsp;
 		                        <!-- 税込価格 10% を計算して表示 -->
 		                       (税込: <span th:text="${taxIncludedPrice}">0</span> 円)
@@ -77,7 +79,14 @@
 		                <!-- 商品名（カート画面表示用） -->
 		                <input type="hidden" name="itemName" th:value="${item.itemName}">
 		                <!-- 商品価格（カート画面表示用 / 計算用） -->
-		                <input type="hidden" name="itemPrice" th:value="${item.itemPrice}">
+		                <!-- セール未実施の場合は通常の価格を渡す -->
+		                <div th:if="${item.saleFrag == '未実施'}">
+		                	<input type="hidden" name="itemPrice" th:value="${item.itemPrice}">
+		                </div>
+		                <!-- セール実施中の場合はセール価格を渡す -->
+		                <div th:if="${item.saleFrag == '実施中'}">
+		                	<input type="hidden" name="itemPrice" th:value="${item.salePrice}">
+		                </div>
 		         
 		
 		                <!-- ★カート追加後に戻るページを指定するためのURL -->
