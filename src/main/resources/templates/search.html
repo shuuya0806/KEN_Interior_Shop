@@ -70,14 +70,29 @@
           <div class="item-img" th:data-url="@{/item/detail/{id}(id=${items.itemId})}">
             <h3 th:text="${items.itemName}"></h3>
             <img th:src="@{/images/{img}(img=${items.image})}" th:alt="${items.itemName}">
-            <p th:text="'¥' + ${items.itemPrice}"></p>
+	         <!-- セール中の商品でない場合は通常の価格のみ表示 -->
+	          <div th:if="${items.saleFrag == '未実施'}">
+	          	<p th:text="'¥' + ${items.itemPrice}"></p>
+	          </div>
+	          <!-- セール中の商品は通常の価格に取り消し線を引いて表示し、セール価格を赤文字で表示 -->
+	          <div th:if="${items.saleFrag == '実施中'}">
+				  <s><p th:text="'¥' + ${items.itemPrice}"></p></s>
+				  <p th:text="'¥' + ${items.salePrice}" class="sale-price"></p>
+			  </div>
           </div>
 
           <!-- カート追加フォーム（商品を選択してカートに追加） -->
           <form th:action="@{/cart/add}" method="post">
             <input type="hidden" name="itemId" th:value="${items.itemId}">
             <input type="hidden" name="itemName" th:value="${items.itemName}">
-            <input type="hidden" name="itemPrice" th:value="${items.itemPrice}">
+           	<!-- セール未実施の場合は通常の価格を渡す -->
+            <div th:if="${items.saleFrag == '未実施'}">
+            	<input type="hidden" name="itemPrice" th:value="${items.itemPrice}">
+            </div>
+            <!-- セール実施中の場合はセール価格を渡す -->
+            <div th:if="${items.saleFrag == '実施中'}">
+            	<input type="hidden" name="itemPrice" th:value="${items.salePrice}">
+            </div>
             <input type="hidden" name="keyword" th:value="${keyword}">
             <input type="hidden" name="categoryId" th:value="${categoryId}">
             <input type="hidden" name="minPrice" th:value="${minPrice}">
