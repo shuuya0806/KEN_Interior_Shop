@@ -6,12 +6,14 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import jp.ken.interiorshop.domain.entity.ItemEntity;
 import jp.ken.interiorshop.domain.entity.MemberEntity;
 import jp.ken.interiorshop.domain.entity.OrderDetailsEntity;
 import jp.ken.interiorshop.domain.entity.OrderEntity;
 import jp.ken.interiorshop.domain.entity.ShippingEntity;
 import jp.ken.interiorshop.domain.repository.MemberRepository;
 import jp.ken.interiorshop.domain.repository.StaffOrderRepository;
+import jp.ken.interiorshop.presentation.form.ItemForm;
 import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 import jp.ken.interiorshop.presentation.form.OrderForm;
 import jp.ken.interiorshop.presentation.form.ShippingForm;
@@ -121,6 +123,18 @@ public class StaffOrderService {
 		}
 		
 		return formList;
+	}
+	
+	private ItemEntity convertItem(ItemForm itemForm) {
+		
+		ItemEntity itemEntity = FormMapper.map(itemForm, ItemEntity.class);
+		return itemEntity;
+	}
+	
+	//商品登録処理
+	public void registItem(ItemForm itemForm) throws Exception{
+		ItemEntity itemEntity = convertItem(itemForm);
+		staffOrderRepository.registItem(itemEntity);
 	}
 	
 	private List<OrderDetailsForm> convertOrderDetails(List<OrderDetailsEntity> orderDetailsEntity) {

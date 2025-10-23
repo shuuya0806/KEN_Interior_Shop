@@ -5,8 +5,8 @@
   <title>商品新規登録</title>
   <!-- 共通・会員登録用CSSの読み込み -->
   <link th:href="@{/css/common.css}" rel="stylesheet">
-  <link th:href="@{/css/member_common.css}" rel="stylesheet">
-  <link th:href="@{/css/member_regist.css}" rel="stylesheet">
+  <link th:href="@{/css/staffheader.css}" rel="stylesheet">
+  <link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
   <main>
@@ -45,13 +45,14 @@
             </div>
           	
           	<!-- 画像データ -->
-          	<div class="regist-form">
+          	<!--	
+			  <div class="regist-form">
 	          <label for="imageFile">画像データ <strong class="required">(必須)</strong></label>
 	          <input id="imageFile" type="file" th:field="*{imageFile}" accept="image/*">
 	          <span th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}" class="error-message"></span>
 	          <span th:if="${imageError != null}" th:text="${imageError}" class="error-message" style="color:red;"></span>
           	</div>
-          	
+          	-->
           	<!-- 説明 -->
           	<div class="regist-form">
               <label for="explanation">説明 <strong class="required">(必須)</strong></label>

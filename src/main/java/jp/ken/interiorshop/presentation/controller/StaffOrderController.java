@@ -1,8 +1,6 @@
 package jp.ken.interiorshop.presentation.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.multipart.MultipartFile;
 
 import jp.ken.interiorshop.application.service.StaffOrderService;
 import jp.ken.interiorshop.common.validatior.groups.ValidGroupOrder;
@@ -208,7 +205,8 @@ public class StaffOrderController {
            Model model) throws Exception {
 
        // 画像がすでにある場合（再入力時）
-       if (itemForm.getImageBytes() != null && itemForm.getImageBytes().length > 0) {
+   /*    
+    	if (itemForm.getImageBytes() != null && itemForm.getImageBytes().length > 0) {
            String base64Image = Base64.getEncoder().encodeToString(itemForm.getImageBytes());
            model.addAttribute("imageBase64", base64Image);
        }
@@ -237,7 +235,7 @@ public class StaffOrderController {
            model.addAttribute("imageError", "画像ファイルは必須です");
            return "staffItemRegist"; // 登録画面に戻る
        }
-
+    */
        // バリデーションエラーがあれば入力画面に戻す
        if (bindingResult.hasErrors()) {
            return "staffItemRegist";
@@ -246,5 +244,11 @@ public class StaffOrderController {
        model.addAttribute("itemForm", itemForm);
        return "staffItemRegistConfirm";
    }
-
+   
+   @PostMapping("staffitemregistDB")
+   public String staffItemRegistDB(ItemForm itemForm, Model model) throws Exception{
+	   //商品をDBに登録する処理
+	   staffOrderService.registItem(itemForm);
+	   return "staffItemRegistComplete";
+   }
 }

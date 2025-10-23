@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import jp.ken.interiorshop.domain.entity.ItemEntity;
 import jp.ken.interiorshop.domain.entity.OrderDetailsEntity;
 import jp.ken.interiorshop.domain.entity.OrderEntity;
 import jp.ken.interiorshop.domain.entity.ShippingEntity;
@@ -120,5 +121,21 @@ public class StaffOrderRepository {
 	public void updateStock(String itemId, String newStock) throws Exception{
 		 String sql = "UPDATE m_items SET stock = ? WHERE item_id = ?";
 	     jdbcTemplate.update(sql, newStock, itemId);
+	}
+	
+	//商品登録処理
+	public void registItem(ItemEntity itemEntity) throws Exception{
+		String sql = "INSERT INTO m_item (item_name, category_id, item_price, rs_date, explanation, stock, sale_frag, sale_price ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		jdbcTemplate.update(sql,
+                itemEntity.getItemName(),
+                itemEntity.getCategoryId(),
+                itemEntity.getItemPrice(),
+                itemEntity.getRsDate(),
+                itemEntity.getExplanation(),
+                itemEntity.getStock(),
+                itemEntity.getSaleFrag(),
+                itemEntity.getSalePrice()
+				);
 	}
 }

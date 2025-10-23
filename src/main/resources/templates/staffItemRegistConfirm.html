@@ -13,7 +13,7 @@
   <div id="wrapper">
     <h1>商品新規登録確認</h1>
 	<!-- 登録処理用フォーム（hiddenで全データ送信） -->
-	<form th:action="@{/staffregistDB}" method="post" th:object="${itemForm}">
+	<form th:action="@{/staffitemregistDB}" method="post" th:object="${itemForm}">
 	  
 		<!-- 個人情報の表示 -->
 		<div class="info-block">
@@ -23,7 +23,9 @@
 			<div class="info-item">カテゴリーID：<span th:text="*{categoryId}"></span></div>
 			<div class="info-item">価格：<span th:text="*{itemPrice}"></span></div>
 			<div class="info-item">発売日：<span th:text="*{rsDate}"></span></div>
+		<!--
 			<div class="info-item">画像： <img th:if="${imageBase64 != null}" th:src="'data:image/jpeg;base64,' + ${imageBase64}" alt="プレビュー" width="200"/>
+		-->
 			<div class="info-item">説明：<span th:text="*{explanation}"></span></div>
 			<div class="info-item">セールフラグ：<span th:text="*{saleFrag}"></span></div>
 		</div>
@@ -34,8 +36,10 @@
 		<input type="hidden" th:field="*{categoryId}">
 		<input type="hidden" th:field="*{itemPrice}">
 		<input type="hidden" th:field="*{rsDate}">
+		<!--
 		<input type="hidden" th:field="*{imageBytes}">
 		<input type="hidden" th:field="*{originalFilename}">
+		-->
 		<input type="hidden" th:field="*{explanation}">
 		<input type="hidden" th:field="*{saleFrag}">
 		
@@ -53,8 +57,10 @@
 		<input type="hidden" th:field="*{categoryId}">
 		<input type="hidden" th:field="*{itemPrice}">
 		<input type="hidden" th:field="*{rsDate}">
+		<!--
 		<input type="hidden" th:field="*{imageBytes}">
 		<input type="hidden" th:field="*{originalFilename}">
+		-->
 		<input type="hidden" th:field="*{explanation}">
 		<input type="hidden" th:field="*{saleFrag}">
 	    <div class="buttons">
