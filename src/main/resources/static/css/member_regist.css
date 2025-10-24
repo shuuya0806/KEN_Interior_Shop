@@ -76,6 +76,18 @@ h2 {
 	margin-bottom: 10px;
 }
 
+.registform-label {
+	display: inline-block;
+}
+
+.error-message {
+	margin-left: 10px;
+}
+
+.radio-row  {
+	margin-bottom: 30px;
+}
+
 /* ボタン全体 */
 .buttons {
 	display: flex;

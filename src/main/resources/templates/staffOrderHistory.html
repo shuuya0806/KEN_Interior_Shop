@@ -4,6 +4,8 @@
 		<meta charset="UTF-8">
 		<title>注文履歴</title>
 		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/staffheader.css}" rel="stylesheet">
+		<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
 	</head>
 <body>
 	<div id="wrapper">
@@ -12,7 +14,7 @@
 		<main>
 			<h1>注文履歴</h1>
 			 <!-- 注文履歴がない場合のメッセージ -->
-    		<div th:if="${listOrderForm.isEmpty()}">
+    		<div class="item-Note" th:if="${listOrderForm.isEmpty()}">
         		<p>注文履歴はありません。</p>
     		</div>
 			

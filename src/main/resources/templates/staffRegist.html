@@ -20,23 +20,29 @@
 
             <!-- 氏名 -->
             <div class="regist-form">
-              <label for="fullName">氏名 <strong class="required">(必須)</strong></label>
-              <input id="fullName" type="text" th:field="*{staffName}">
-              <span th:if="${#fields.hasErrors('staffName')}" th:errors="*{staffName}" class="error-message"></span>
+				<div class="registform-label">
+					<label for="fullName">氏名 <strong class="required">(必須)</strong></label>
+              		<span th:if="${#fields.hasErrors('staffName')}" th:errors="*{staffName}" class="error-message"></span>
+				</div>
+                <input id="fullName" type="text" th:field="*{staffName}">
             </div>
 
             <!-- 従業員番号 -->
             <div class="regist-form">
-              <label for="staffId">従業員番号 <strong class="required">(必須)</strong></label>
-              <input id="staffId" type="text" th:field="*{staffId}">
-              <span th:if="${#fields.hasErrors('staffId')}" th:errors="*{staffId}" class="error-message"></span>
+				<div class="registform-label">
+					<label for="staffId">従業員番号 <strong class="required">(必須)</strong></label>
+              		<span th:if="${#fields.hasErrors('staffId')}" th:errors="*{staffId}" class="error-message"></span>
+				</div>
+              	<input id="staffId" type="text" th:field="*{staffId}">
             </div>
 
             <!-- パスワード -->
             <div class="regist-form">
-              <label for="password">パスワード <strong class="required">(必須)</strong></label>
-              <input id="password" type="text" th:field="*{password}">
-              <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
+				<div class="registform-label">
+					<label for="password">パスワード <strong class="required">(必須)</strong></label>
+              		<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
+				</div>
+             	<input id="password" type="text" th:field="*{password}">
             </div>
 
             <!-- 管理者権限 -->

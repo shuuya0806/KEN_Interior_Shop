@@ -8,19 +8,20 @@
 		<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
 	</head>
 <body>
-	<div id="wrapper">
-		<!-- 共通ヘッダーを挿入 -->
-	    <header th:insert="~{staffHeader :: header_area}"></header> 
-		<main>
+	<!-- 共通ヘッダーを挿入 -->
+	<header th:insert="~{staffHeader :: header_area}"></header> 
+	
+	<main>
+		<div id="wrapper">
 			<h1>従業員情報閲覧</h1>
 			 <!-- 注文履歴がない場合のメッセージ -->
-    		<div th:if="${staffLoginForm.isEmpty()}">
+    		<div class="orderhistory" th:if="${staffLoginForm.isEmpty()}">
         		<p>従業員情報はありません。</p>
     		</div>
 			
 			<!-- 注文履歴がある場合のみテーブルを表示 -->
-			<div th:if="${!staffLoginForm.isEmpty()}">
-				<table>
+			<div class="orderhistory" th:if="${!staffLoginForm.isEmpty()}">
+				<table class="info-block">
 					<tr>
 						<th>従業員ID</th>
 						<th>氏名</th>
@@ -30,10 +31,10 @@
 					</tr>
 					<th:block th:each="staff : ${staffLoginForm}">
 						<tr>
-							<td th:text="${staff.staffId}"></td>
-							<td th:text="${staff.staffName}"></td>
-							<td th:text="${staff.password}"></td>
-							<td th:text="${staff.administrator}"></td>
+							<td class="info-item" th:text="${staff.staffId}"></td>
+							<td class="info-item" th:text="${staff.staffName}"></td>
+							<td class="info-item" th:text="${staff.password}"></td>
+							<td class="info-item" th:text="${staff.administrator}"></td>
 
 							<td>
    								<a th:href="@{/staffedit(staffId=${staff.staffId})}">
@@ -50,12 +51,14 @@
 					</th:block>
 				</table>
 			</div>
+			
 			<div class="menu-buttons">
-				<a th:href="@{/empinfomenu}" class="btn">戻る</a>
+				<a th:href="@{/empinfomenu}" class="back-btn">戻る</a>
 			</div>
-		</main>
-		<footer></footer>
-	</div>
+			
+			<footer></footer>
+		</div>
+	</main>
 	<script th:src="@{/js/ordercancel.js}"></script>
 </body>
 </html>

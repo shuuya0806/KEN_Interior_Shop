@@ -1,9 +1,11 @@
 @charset "UTF-8";
 
+/* ページ全体 */
 body {
 	background-color: #e0ffff;
 }
 
+/* メニューボタン全体 */
 .menu-buttons {
     display: flex;
     flex-direction: column; /* ボタンを縦に並べる */
@@ -11,10 +13,12 @@ body {
     margin-top: 60px; /* 上からの余白 */
 }
 
+/* メニューボタンの幅 */
 .menu-buttons .btn {
     width: 200px; /* ボタン幅を統一 */
     margin: auto;
 }
+
 
 .action-buttons {
     text-align: center; /* 中央揃え */
@@ -27,5 +31,30 @@ body {
 .message-center {
     text-align: center;
     color: red;
+}
+
+
+.orderhistory {
+	margin-top: 30px;
+}
+
+/* 確認テーブル全体 */
+.info-block {
+	background-color: white;
+	padding: 20px 40px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+/* 確認テーブル */
+.info-item {
+	margin-bottom: 10px;
+	padding: 15px;
+}
+
+/*注釈*/
+.item-Note {
+	margin: 40px auto 0 ;
+	text-align: center;
 }
 
