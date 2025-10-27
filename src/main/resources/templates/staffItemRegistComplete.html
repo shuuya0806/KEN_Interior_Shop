@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>登録完了</title>
+	<!-- 共通・会員登録・完了画面用CSSの読み込み -->
+	<link th:href="@{/css/common.css}" rel="stylesheet">
+	<link th:href="@{/css/member_common.css}" rel="stylesheet">
+	<link th:href="@{/css/member_regist.css}" rel="stylesheet">
+	<link th:href="@{/css/complete.css}" rel="stylesheet">
+</head>
+<body>
+<main>
+	<div id="wrapper">
+		<div class="container">
+			<!-- タイトル表示 -->
+			<h1>商品登録完了</h1>
+
+			<!-- 完了メッセージ表示 -->
+			<div id="complete">
+				<div class="message">
+					<p><strong>商品登録が完了しました</strong></p><br>
+				</div>
+			</div>
+
+			<!-- ログインページへのリンク -->
+			<div>
+				<a th:href="@{/staffitemstock}" class="btn">在庫管理メニューへ戻る</a>
+			</div>
+		</div>
+	</div>
+</main>
+</body>
+</html>
