@@ -194,9 +194,11 @@ public class StaffOrderController {
    
    //新規商品登録画面へ遷移
    @GetMapping("/staffitemregist")
-   public String showStaffItemRegist(Model model) throws Exception{
-	   model.addAttribute("itemForm", new ItemForm());
-	   
+   public String showStaffItemRegist(Model model, ItemForm itemForm) throws Exception{
+	   if(itemForm == null) {
+		   model.addAttribute("itemForm", new ItemForm());
+	   }
+	   model.addAttribute("itemForm", itemForm);	   
 	   return "staffItemRegist";
    }
 
