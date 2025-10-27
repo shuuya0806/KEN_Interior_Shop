@@ -40,19 +40,17 @@
             <!-- 発売日 -->
          	<div class="regist-form">
               <label for="rsDate">発売日 <strong class="required">(必須)</strong></label>
-              <input id="rsDate" type="text" th:field="*{rsDate}">
+              <input id="rsDate" type="text" th:field="*{rsDate}" placeholder="YYYY-MM-DD">
               <span th:if="${#fields.hasErrors('rsDate')}" th:errors="*{rsDate}" class="error-message"></span>
             </div>
           	
           	<!-- 画像データ -->
-          	<!--	
 			  <div class="regist-form">
-	          <label for="imageFile">画像データ <strong class="required">(必須)</strong></label>
-	          <input id="imageFile" type="file" th:field="*{imageFile}" accept="image/*">
-	          <span th:if="${#fields.hasErrors('imageFile')}" th:errors="*{imageFile}" class="error-message"></span>
-	          <span th:if="${imageError != null}" th:text="${imageError}" class="error-message" style="color:red;"></span>
-          	</div>
-          	-->
+              <label for="image">画像パス <strong class="required">(必須)</strong></label>
+              <input id="image" type="text" th:field="*{image}" placeholder="img/xxx.png">
+              <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="error-message"></span>
+            </div>
+ 
           	<!-- 説明 -->
           	<div class="regist-form">
               <label for="explanation">説明 <strong class="required">(必須)</strong></label>

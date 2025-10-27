@@ -2,8 +2,6 @@ package jp.ken.interiorshop.presentation.form;
 
 import java.io.Serializable;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jp.ken.interiorshop.common.validatior.groups.ValidGroup1;
@@ -34,21 +32,13 @@ public class ItemForm implements Serializable {
 	private String itemPrice;
 	
 	//発売開始日
-	@NotBlank(message = "発売日を入力してください", groups = ValidGroup1.class)
+	@NotBlank(message = "発売日は必須です", groups = ValidGroup1.class)
 	@Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "発売日はYYYY-MM-DD形式で入力してください", groups = ValidGroup2.class)
 	private String rsDate;
 	
 	//画像データ
+	@NotBlank(message = "画像データは必須です", groups = ValidGroup1.class)
 	private String image;
-	
-	//画像アップロード用
-	private MultipartFile imageFile;
-	
-	// 確認画面用に画像データをバイト配列で保持
-	private byte[] imageBytes; 
-	
-	// ファイル名保持
-	private String originalFilename;
 	
 	//商品説明
 	@NotBlank(message = "説明は必須です", groups = ValidGroup1.class)
@@ -60,9 +50,11 @@ public class ItemForm implements Serializable {
 	private String stock;
 	
 	//セールフラグ
+	@NotBlank(message = "セールフラグは必須です", groups = ValidGroup1.class)
 	private String saleFrag;
 	
 	//セール価格
+	@NotBlank(message = "セール価格は必須です", groups = ValidGroup1.class)
 	@Pattern(regexp = "^[0-9]+$", message = "セール価格は数字のみで入力してください", groups = ValidGroup2.class)
 	private String salePrice;
 

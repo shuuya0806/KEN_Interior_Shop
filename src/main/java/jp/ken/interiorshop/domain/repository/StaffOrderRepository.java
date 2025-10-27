@@ -125,14 +125,15 @@ public class StaffOrderRepository {
 	
 	//商品登録処理
 	public void registItem(ItemEntity itemEntity) throws Exception{
-		String sql = "INSERT INTO m_item (item_name, category_id, item_price, rs_date, explanation, stock, sale_frag, sale_price ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO m_items (item_name, category_id, item_price, rs_date, image, explanation, stock, sale_frag, sale_price ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		jdbcTemplate.update(sql,
                 itemEntity.getItemName(),
                 itemEntity.getCategoryId(),
                 itemEntity.getItemPrice(),
                 itemEntity.getRsDate(),
-                itemEntity.getExplanation(),
+                itemEntity.getImage(),
+				itemEntity.getExplanation(),
                 itemEntity.getStock(),
                 itemEntity.getSaleFrag(),
                 itemEntity.getSalePrice()

@@ -33,6 +33,8 @@ public class StaffOrderController {
 		this.staffOrderService = staffOrderService;
 	}
 	
+	 private static final String UPLOAD_DIR = "src/main/resources/static/images/img";
+	
 	// 注文履歴確認画面表示
 	@GetMapping("/stafforder/history")
 	public String showOrderHistory(@SessionAttribute("loginStaff") StaffLoginForm staffLoginForm, Model model) 
@@ -203,47 +205,15 @@ public class StaffOrderController {
            @Validated(ValidGroupOrder.class) ItemForm itemForm,
            BindingResult bindingResult,
            Model model) throws Exception {
-
-       // 画像がすでにある場合（再入力時）
-   /*    
-    	if (itemForm.getImageBytes() != null && itemForm.getImageBytes().length > 0) {
-           String base64Image = Base64.getEncoder().encodeToString(itemForm.getImageBytes());
-           model.addAttribute("imageBase64", base64Image);
-       }
-
-       // 新規アップロードがある場合
-       MultipartFile imageFile = itemForm.getImageFile();
-       if (imageFile != null && !imageFile.isEmpty()) {
-           try {
-               byte[] imageBytes = imageFile.getBytes();
-               itemForm.setImageBytes(imageBytes);
-               itemForm.setOriginalFilename(imageFile.getOriginalFilename());
-
-               String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-               model.addAttribute("imageBase64", base64Image);
-
-           } catch (IOException e) {
-               e.printStackTrace();
-               model.addAttribute("imageError", "画像の読み込みに失敗しました");
-               return "staffItemRegist";
-           }
-       }
-
-       // 画像ファイル必須チェック
-       if ((itemForm.getImageBytes() == null || itemForm.getImageBytes().length == 0)
-               && (imageFile == null || imageFile.isEmpty())) {
-           model.addAttribute("imageError", "画像ファイルは必須です");
-           return "staffItemRegist"; // 登録画面に戻る
-       }
-    */
-       // バリデーションエラーがあれば入力画面に戻す
-       if (bindingResult.hasErrors()) {
-           return "staffItemRegist";
-       }
-
-       model.addAttribute("itemForm", itemForm);
-       return "staffItemRegistConfirm";
-   }
+	   		if(bindingResult.hasErrors()) {
+	   			model.addAttribute("itemForm", itemForm);
+	   			return "staffItemRegist";
+	   		}
+	   		model.addAttribute("itemForm", itemForm);
+	   		return "staffItemRegistConfirm"; 
+	    
+}
+   
    
    @PostMapping("staffitemregistDB")
    public String staffItemRegistDB(ItemForm itemForm, Model model) throws Exception{

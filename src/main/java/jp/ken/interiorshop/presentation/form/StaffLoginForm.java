@@ -2,6 +2,7 @@ package jp.ken.interiorshop.presentation.form;
 
 import java.io.Serializable;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -13,7 +14,7 @@ import lombok.Data;
 public class StaffLoginForm implements Serializable {
 	
 	@NotNull(message = "必須入力です", groups = ValidGroup1.class)
-	@Pattern(regexp = "^[0-9]{4}$", message = "従業員IDは4桁の数字で入力してください", groups = ValidGroup2.class)
+	@Min(value = 1000, message = "4桁の数字で入力してください", groups = ValidGroup2.class)
 	private Integer staffId;
 	
 	@NotEmpty(message = "必須入力です",  groups = ValidGroup1.class)

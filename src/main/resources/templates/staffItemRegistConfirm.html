@@ -19,29 +19,26 @@
 		<div class="info-block">
 			<h2>商品情報</h2>
 			<div class="info-item">商品名：<span th:text="*{itemName}"></span></div>
-			<div class="info-item">在庫数：<span th:text="*{itemQuantity}"></span></div>
 			<div class="info-item">カテゴリーID：<span th:text="*{categoryId}"></span></div>
 			<div class="info-item">価格：<span th:text="*{itemPrice}"></span></div>
 			<div class="info-item">発売日：<span th:text="*{rsDate}"></span></div>
-		<!--
-			<div class="info-item">画像： <img th:if="${imageBase64 != null}" th:src="'data:image/jpeg;base64,' + ${imageBase64}" alt="プレビュー" width="200"/>
-		-->
+			<div class="info-item">画像パス：<span th:text="*{image}"></span></div>
 			<div class="info-item">説明：<span th:text="*{explanation}"></span></div>
+			<div class="info-item">在庫数：<span th:text="*{stock}"></span></div>
 			<div class="info-item">セールフラグ：<span th:text="*{saleFrag}"></span></div>
+			<div class="info-item">セール価格：<span th:text="*{salePrice}"></span></div>
 		</div>
 			
 		<!-- hiddenフィールドでデータを再送信 -->
 		<input type="hidden" th:field="*{itemName}">
-		<input type="hidden" th:field="*{itemQuantity}">
 		<input type="hidden" th:field="*{categoryId}">
 		<input type="hidden" th:field="*{itemPrice}">
 		<input type="hidden" th:field="*{rsDate}">
-		<!--
-		<input type="hidden" th:field="*{imageBytes}">
-		<input type="hidden" th:field="*{originalFilename}">
-		-->
+		<input type="hidden" th:field="*{image}">
 		<input type="hidden" th:field="*{explanation}">
+		<input type="hidden" th:field="*{stock}">
 		<input type="hidden" th:field="*{saleFrag}">
+		<input type="hidden" th:field="*{salePrice}">
 		
 		<!-- 登録処理ボタン -->
 		<div class="buttons">
@@ -53,16 +50,14 @@
 	  <form th:action="@{/staffitemregist}" method="get" th:object="${itemForm}">
 		<!-- 入力したデータを再利用するために再送信 -->
 		<input type="hidden" th:field="*{itemName}">
-		<input type="hidden" th:field="*{itemQuantity}">
 		<input type="hidden" th:field="*{categoryId}">
 		<input type="hidden" th:field="*{itemPrice}">
 		<input type="hidden" th:field="*{rsDate}">
-		<!--
-		<input type="hidden" th:field="*{imageBytes}">
-		<input type="hidden" th:field="*{originalFilename}">
-		-->
+		<input type="hidden" th:field="*{image}">
 		<input type="hidden" th:field="*{explanation}">
+		<input type="hidden" th:field="*{stock}">
 		<input type="hidden" th:field="*{saleFrag}">
+		<input type="hidden" th:field="*{salePrice}">
 	    <div class="buttons">
 			<button type="submit" class="back-btn">修正</button>
 	    </div>
