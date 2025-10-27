@@ -19,4 +19,7 @@ public class StaffStatisticsController {
 	public String showStaffStatisticsMenu(Model model) {
 		return "staffStatisticsMenu";
 	}
+	
+	
+	
 }
