@@ -8,62 +8,62 @@
 		<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
 	</head>
 <body>
-	<div id="wrapper">
-		<!-- 共通ヘッダーを挿入 -->
-	    <header th:insert="~{staffHeader :: header_area}"></header> 
-		<main>
-			<h1>注文履歴</h1>
-			 <!-- 注文履歴がない場合のメッセージ -->
-    		<div class="item-Note" th:if="${listOrderForm.isEmpty()}">
-        		<p>注文履歴はありません。</p>
-    		</div>
-			
-			<!-- 注文履歴がある場合のみテーブルを表示 -->
-			<div th:if="${!listOrderForm.isEmpty()}">
-				<!-- メッセージがある場合だけ表示 -->
-				<div th:if="${message}" class="alert alert-warning message-center">
-				    <p th:text="${message}"></p>
-				</div>
-			    <form th:action="@{/staffbatchAction}" method="post">
-			        <table>
-			            <tr>
-			                <th>注文ID</th>
-			                <th>顧客名</th>
-			                <th>合計金額</th>
-			                <th>注文日</th>
-			                <th>ステータス</th>
-			                <th>詳細</th>
-			                <th>選択</th>
-			            </tr>
-			            <tr th:block th:each="order : ${listOrderForm}">
-			                    <td th:text="${order.orderId}"></td>
-			                    <td th:text="${order.memberName}"></td>
-			                    <td th:text="${order.total}"></td>
-			                    <td th:text="${order.orderDate}"></td>
-			                    <td th:text="${order.shippingFrag}"></td>
-			                    <td>
+	<!-- 共通ヘッダーを挿入 -->
+    <header th:insert="~{staffHeader :: header_area}"></header> 
+    
+    	<main>
+    		<div id="wrapper">
+				<h1>注文履歴</h1>
+				 <!-- 注文履歴がない場合のメッセージ -->
+	    		<div class="item-Note" th:if="${listOrderForm.isEmpty()}">
+	        		<p>注文履歴はありません。</p>
+	    		</div>
+				
+				<!-- 注文履歴がある場合のみテーブルを表示 -->
+				<div class="table" th:if="${!listOrderForm.isEmpty()}">
+					<!-- メッセージがある場合だけ表示 -->
+					<div th:if="${message}" class="alert alert-warning message-center">
+					    <p th:text="${message}"></p>
+					</div>
+				    <form th:action="@{/staffbatchAction}" method="post">
+				        <table class="info-block">
+				            <tr>
+				                <th>注文ID</th>
+				                <th>顧客名</th>
+				                <th>合計金額</th>
+				                <th>注文日</th>
+				                <th>ステータス</th>
+				                <th>詳細</th>
+				                <th>選択</th>
+				            </tr>
+				            <tr th:block th:each="order : ${listOrderForm}">
+			                    <td class="info-item" th:text="${order.orderId}"></td>
+			                    <td class="info-item" th:text="${order.memberName}"></td>
+			                    <td class="info-item" th:text="${order.total}"></td>
+			                    <td class="info-item" th:text="${order.orderDate}"></td>
+			                    <td class="info-item" th:text="${order.shippingFrag}"></td>
+			                    <td  class="info-item">
 									<a th:href="@{/staff/orders/{id}(id=${order.orderId})}">
 			                            <button type="button">詳細</button>
 			                        </a>
 								</td>
-								<td><input type="checkbox" name="selectedOrders" th:value="${order.orderId}"></td>
-			                </tr>
-			            </th:block>
-			        </table>
-			        <div class="action-buttons">
-			            <button type="submit" name="action" value="ship">発送処理</button>
-			            <button type="submit" name="action" value="cancel">発送キャンセル</button>
-			        </div>
-			    </form>
-			</div>
-
-			<div class="menu-buttons">
-				<a th:href="@{/staffordermenu}" class="btn">注文管理メニューに戻る</a>
-				<a th:href="@{/staffmenu}" class="btn">従業員メニューに戻る</a>
+								<td class="info-item"><input type="checkbox" name="selectedOrders" th:value="${order.orderId}"></td>
+				             </tr>
+				        </table>
+				        <div class="action-buttons">
+				            <button type="submit" name="action" value="ship">発送処理</button>
+				            <button type="submit" name="action" value="cancel">発送キャンセル</button>
+				        </div>
+				    </form>
+				</div>
+	
+				<div class="menu-buttons">
+					<a th:href="@{/staffordermenu}" class="btn">注文管理メニューに戻る</a>
+					<a th:href="@{/staffmenu}" class="btn">従業員メニューに戻る</a>
+				</div>
 			</div>
 		</main>
-		<footer></footer>
-	</div>
+	<footer></footer>
 	<script th:src="@{/js/ordercancel.js}"></script>
 </body>
 </html>

@@ -4,57 +4,59 @@
     <meta charset="UTF-8">
     <title>注文詳細</title>
     <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/staffheader.css}" rel="stylesheet">
+	<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-
-    <h1>注文詳細</h1>
-
-    <!-- 注文IDの表示（リストの先頭から取得） -->
-    <div th:if="${orderDetailsList != null and #lists.size(orderDetailsList) > 0}">
-        <p>注文ID：<span th:text="${orderDetailsList[0].orderId}"></span></p>
-    </div>
-    
-    <!-- 発送先情報 -->
-	<div th:if="${shippingForm != null}">
-	    <h2>発送先情報</h2>
-	    <p>名前：<span th:text="${shippingForm.shippingName}"></span></p>
-	    <p>フリガナ：<span th:text="${shippingForm.shippingKana}"></span></p>
-	    <p>電話番号：<span th:text="${shippingForm.shippingphone}"></span></p>
-	    <p>郵便番号：<span th:text="${shippingForm.shippingPostalCode}"></span></p>
-	    <p>住所：<span th:text="${shippingForm.shippingAddress1}"></span>
-	       <span th:text="${shippingForm.shippingAddress2}"></span>
-	       <span th:text="${shippingForm.shippingAddress3}"></span>
-	    </p>
-	</div>
-
-    <!-- 注文明細テーブル -->
-    <table border="1" cellpadding="5" cellspacing="0">
-        <thead>
-            <tr>
-                <th>注文詳細ID</th>
-                <th>商品ID</th>
-                <th>商品名</th>
-                <th>数量</th>
-                <th>小計</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="detail : ${orderDetailsList}">
-                <td th:text="${detail.detailId}"></td>
-                <td th:text="${detail.itemId}"></td>
-                <td th:text="${detail.itemName}"></td>
-                <td th:text="${detail.itemQuantity}"></td>
-                <td th:text="${detail.subtotal}"></td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <!-- 戻るボタン -->
-    <div style="margin-top: 20px;">
-        <a th:href="@{/stafforder/history}">
-            <button type="button">注文履歴に戻る</button>
-        </a>
-    </div>
-
+	<!-- 共通ヘッダーを挿入 -->
+    <header th:insert="~{staffHeader :: header_area}"></header> 
+    	<div id="wrapper">
+			<main>
+			    <h1>注文詳細</h1>
+			    
+			    <!-- 発送先情報 -->
+				<div class="table" th:if="${shippingForm != null}">
+					<!-- 注文IDの表示（リストの先頭から取得） -->
+				    <div th:if="${orderDetailsList != null and #lists.size(orderDetailsList) > 0}">
+				        <h2>注文ID：<span th:text="${orderDetailsList[0].orderId}"></span></h2>
+				    </div>
+				    <h2>発送先情報</h2>
+				    <p>名前：<span th:text="${shippingForm.shippingName}"></span></p>
+				    <p>フリガナ：<span th:text="${shippingForm.shippingKana}"></span></p>
+				    <p>電話番号：<span th:text="${shippingForm.shippingphone}"></span></p>
+				    <p>郵便番号：<span th:text="${shippingForm.shippingPostalCode}"></span></p>
+				    <p>住所：<span th:text="${shippingForm.shippingAddress1}"></span>
+				       <span th:text="${shippingForm.shippingAddress2}"></span>
+				       <span th:text="${shippingForm.shippingAddress3}"></span>
+				    </p>
+				</div>
+			
+			    <!-- 注文明細テーブル -->
+			    <table class="table">
+		            <tr>
+		                <th>注文詳細ID</th>
+		                <th>商品ID</th>
+		                <th>商品名</th>
+		                <th>数量</th>
+		                <th>小計</th>
+		            </tr>
+		            <tr th:each="detail : ${orderDetailsList}">
+		                <td class="info-item" th:text="${detail.detailId}"></td>
+		                <td class="info-item" th:text="${detail.itemId}"></td>
+		                <td class="info-item" th:text="${detail.itemName}"></td>
+		                <td class="info-item" th:text="${detail.itemQuantity}"></td>
+		                <td class="info-item" th:text="${detail.subtotal}"></td>
+		            </tr>
+			    </table>
+			    
+			    <!-- 戻るボタン -->
+			    <div class="menu-buttons">
+			        <a th:href="@{/stafforder/history}">
+			            <button type="button" class="btn">注文履歴に戻る</button>
+			        </a>
+			    </div>
+			</main>
+		</div>
+	<footer></footer>
 </body>
 </html>

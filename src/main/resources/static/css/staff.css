@@ -19,27 +19,25 @@ body {
     margin: auto;
 }
 
-
+/* 選択ボタン全体 */
 .action-buttons {
     text-align: center; /* 中央揃え */
     margin-top: 10px;   /* 上に少し余白 */
-    gap: 10px;          /* ボタン間にスペース */
+    gap: 20px;          /* ボタン間にスペース */
     display: flex;
     justify-content: center;
 }
 
+/* エラーメッセージ */
 .message-center {
     text-align: center;
     color: red;
-}
-
-
-.orderhistory {
-	margin-top: 30px;
+    font-weight: bold;
 }
 
 /* 確認テーブル全体 */
-.info-block {
+.table {
+	margin-top: 60px;
 	background-color: white;
 	padding: 20px 40px;
 	border: 1px solid black;
@@ -50,6 +48,7 @@ body {
 .info-item {
 	margin-bottom: 10px;
 	padding: 15px;
+	text-align: center;
 }
 
 /*注釈*/
@@ -57,4 +56,3 @@ body {
 	margin: 40px auto 0 ;
 	text-align: center;
 }
-

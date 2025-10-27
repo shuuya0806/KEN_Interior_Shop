@@ -15,12 +15,12 @@
 		<div id="wrapper">
 			<h1>従業員情報閲覧</h1>
 			 <!-- 注文履歴がない場合のメッセージ -->
-    		<div class="orderhistory" th:if="${staffLoginForm.isEmpty()}">
+    		<div class="item-Note" th:if="${staffLoginForm.isEmpty()}">
         		<p>従業員情報はありません。</p>
     		</div>
 			
 			<!-- 注文履歴がある場合のみテーブルを表示 -->
-			<div class="orderhistory" th:if="${!staffLoginForm.isEmpty()}">
+			<div class="table" th:if="${!staffLoginForm.isEmpty()}">
 				<table class="info-block">
 					<tr>
 						<th>従業員ID</th>
