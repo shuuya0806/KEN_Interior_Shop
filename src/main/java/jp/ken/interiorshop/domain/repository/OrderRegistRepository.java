@@ -72,17 +72,28 @@ public class OrderRegistRepository {
 	 * 注文詳細情報をDBに保存する	
 	 */
 	public void orderDetailsRegist(int orderId, List<OrderDetailsEntity> orderDetailsEntity) {
-		String sql = "INSERT INTO order_details (order_id, item_id, item_quantity, " +
+		String orderDetailsSQL = "INSERT INTO order_details (order_id, item_id, item_quantity, " +
 	             "subtotal)" +
 	             "VALUES (?, ?, ?, ?)";
+		String itemSalesSQL = "INSERT INTO item_sales(item_id, total_quantity, sales_total) VALUES (?, ?, ?) " +
+                "ON DUPLICATE KEY UPDATE total_quantity = total_quantity + ?, sales_total = sales_total + ?";
 		
 		// リスト内の各商品を順に登録
 		for(OrderDetailsEntity regist : orderDetailsEntity) {
-		jdbcTemplate.update(sql, 
+		// 注文詳細テーブルに登録
+		jdbcTemplate.update(orderDetailsSQL, 
 				orderId,
                 regist.getItemId(),
                 regist.getItemQuantity(),
                 regist.getSubtotal());
+		
+		// 商品売り上げテーブルに登録
+			jdbcTemplate.update(itemSalesSQL,
+					regist.getItemId(),
+					regist.getItemQuantity(),
+					regist.getSubtotal(),
+					regist.getItemQuantity(),
+					regist.getSubtotal());
 		}
 	}
 	

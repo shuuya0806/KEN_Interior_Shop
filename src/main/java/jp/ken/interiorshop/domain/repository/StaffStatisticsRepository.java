@@ -7,14 +7,14 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import jp.ken.interiorshop.domain.entity.OrderDetailsEntity;
-import jp.ken.interiorshop.domain.entity.OrderEntity;
+import jp.ken.interiorshop.domain.entity.SalesEntity;
+import jp.ken.interiorshop.infrastructure.mapper.SalesMapper;
 import jp.ken.interiorshop.infrastructure.mapper.StaffOrderDetailsMapper;
-import jp.ken.interiorshop.infrastructure.mapper.StaffOrderMapper;
 
 @Repository
 public class StaffStatisticsRepository {
 	
-	private RowMapper<OrderEntity> staffOrderMapper = new StaffOrderMapper();
+	private RowMapper<SalesEntity> salesMapper = new SalesMapper();
 	private RowMapper<OrderDetailsEntity> staffOrderDetailsMapper = new StaffOrderDetailsMapper();
 	private JdbcTemplate jdbcTemplate;
 	
@@ -22,16 +22,16 @@ public class StaffStatisticsRepository {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	//全注文履歴を取得
-	public List<OrderEntity> getOrderAllList() throws Exception {
+	//全商品売上を取得
+	public List<SalesEntity> getItemSalesAllList() throws Exception {
 		
 		String sql = "SELECT * "
-				+ "FROM orders "
-				+ "ORDER BY order_id";
+				+ "FROM item_sales "
+				+ "ORDER BY item_id";
 		
-		List<OrderEntity> orderList = jdbcTemplate.query(sql, staffOrderMapper);
+		List<SalesEntity> itemSalesList = jdbcTemplate.query(sql, salesMapper);
 		
-		return orderList;
+		return itemSalesList;
 	}
 	
 	//全注文詳細情報を取得
