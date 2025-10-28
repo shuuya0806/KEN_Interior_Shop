@@ -12,6 +12,8 @@
 <body>
   <main>
     <div id="wrapper">
+		<!-- 共通ヘッダーを挿入 -->
+	    <header th:insert="~{staffHeader :: header_area}"></header> 
       <h1>商品新規登録</h1>
       <div id="member-regist">
         <!-- 会員登録フォーム -->
@@ -92,7 +94,7 @@
         </form>
 
         <div class="buttons">
-          <form th:action="@{/staffitemstocks}" method="get">
+          <form th:action="@{/staffitemstock}" method="get">
             <button type="submit" class="back-btn">戻る</button>
           </form>
         </div>

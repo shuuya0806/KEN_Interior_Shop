@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
 import jp.ken.interiorshop.application.service.ItemService;
 import jp.ken.interiorshop.application.service.StaffLoginService;
 import jp.ken.interiorshop.common.validatior.groups.ValidGroupOrder;
@@ -47,8 +48,9 @@ public class StaffMenuController {
 	
 	//従業員情報登録画面表示
 	@GetMapping("/staffregist")
-	public String showStaffRegist(@ModelAttribute StaffLoginForm staffLoginForm, Model model) {
-		model.addAttribute("loginStaff", staffLoginForm);
+	public String showStaffRegist(@ModelAttribute StaffLoginForm staffLoginForm, Model model, HttpSession session) {
+		StaffLoginForm loginStaff = (StaffLoginForm) session.getAttribute("loginStaff");
+	    model.addAttribute("loginStaff", loginStaff);
 		
 		if(staffLoginForm == null) {
 			model.addAttribute("staffLoginForm", new StaffLoginForm());

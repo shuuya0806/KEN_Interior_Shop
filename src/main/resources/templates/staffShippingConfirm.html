@@ -6,7 +6,8 @@
     <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+<!-- 共通ヘッダーを挿入 -->
+	    <header th:insert="~{staffHeader :: header_area}"></header> 
 <h1>発送確認</h1>
 
 <!-- 注文情報 -->

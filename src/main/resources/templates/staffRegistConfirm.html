@@ -5,12 +5,14 @@
   <title>従業員情報登録確認</title>
   <!-- 共通・会員登録用CSSの読み込み -->
   <link th:href="@{/css/common.css}" rel="stylesheet">
-  <link th:href="@{/css/member_common.css}" rel="stylesheet">
-  <link th:href="@{/css/member_regist.css}" rel="stylesheet">
+  <link th:href="@{/css/staff.css}" rel="stylesheet">
+  <link th:href="@{/css/staffitemregist.css}" rel="stylesheet">
 </head>
 <body>
 <main>
   <div id="wrapper">
+	  <!-- 共通ヘッダーを挿入 -->
+	  <header th:insert="~{staffHeader :: header_area}"></header> 
     <h1>従業員情報登録確認</h1>
 	<!-- 登録処理用フォーム（hiddenで全データ送信） -->
 	<form th:action="@{/staffregistDB}" method="post" th:object="${staffLoginForm}">

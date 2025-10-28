@@ -12,6 +12,8 @@
 <body>
 <main>
   <div id="wrapper">
+	  <!-- 共通ヘッダーを挿入 -->
+	    <header th:insert="~{staffHeader :: header_area}"></header> 
     <h1>商品新規登録確認</h1>
 	<!-- 登録処理用フォーム（hiddenで全データ送信） -->
 	<form th:action="@{/staffitemregistDB}" method="post" th:object="${itemForm}">

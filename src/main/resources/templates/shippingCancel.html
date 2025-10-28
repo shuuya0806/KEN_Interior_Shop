@@ -2,18 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>発送キャンセル</title>
+    <title>発送完了</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+	<link th:href="@{/css/staff.css}" rel="stylesheet">
+	<link th:href="@{/css/complete.css}" rel="stylesheet">
 </head>
 <body>
+<main>
+	<div id="wrapper">
+		<!-- 共通ヘッダーを挿入 -->
+	    <header th:insert="~{staffHeader :: header_area}"></header> 
+		<div class="container">
+			<!-- タイトル表示 -->
+			<h1>発送キャンセル</h1>
 
-    <h1>発送キャンセル</h1>
-    <p>発送をキャンセルしました。</p>
-    
-    <div style="margin-top: 20px;">
-	    <a th:href="@{/stafforder/history}">
-	        <button type="button">注文履歴に戻る</button>
-	    </a>
+			<!-- 完了メッセージ表示 -->
+			<div id="complete">
+				<div class="message">
+					<p><strong>発送をキャンセルしました</strong></p><br>
+				</div>
+			</div>
+
+			<div>
+				<a th:href="@{/stafforder/history}" class="btn">注文履歴へ戻る</a>
+			</div>
+		</div>
 	</div>
-
+</main>
 </body>
 </html>

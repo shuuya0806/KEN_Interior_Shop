@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.ken.interiorshop.application.service.StaffOrderService;
 import jp.ken.interiorshop.common.validatior.groups.ValidGroupOrder;
@@ -179,7 +180,7 @@ public class StaffOrderController {
 
    // 在庫変更処理
    @PostMapping("/staffstockupdate")
-   public String updateStock(@RequestParam("itemId") List<String> itemIds, @RequestParam("stock") List<String> stocks) throws Exception{
+   public String updateStock(@RequestParam("itemId") List<String> itemIds, @RequestParam("stock") List<String> stocks, RedirectAttributes redirectAttributes) throws Exception{
 	   for (int i = 0; i < itemIds.size(); i++) {
 		 String itemId = itemIds.get(i);
 	     String newStock = stocks.get(i);
@@ -187,7 +188,7 @@ public class StaffOrderController {
          staffOrderService.updateStock(itemId, newStock);
 	   }
            
-
+	   redirectAttributes.addFlashAttribute("message", "変更を保存しました");
 
        return "redirect:/staffitemstocklist";
    }
