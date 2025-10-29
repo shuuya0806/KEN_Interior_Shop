@@ -157,11 +157,16 @@ public class StaffOrderController {
             return "staffOrderHistory";
         }
 
-        // 成功リストがあれば発送処理を実施
+        // 成功リストがあれば発送確認画面へ遷移
         for (Integer orderId : selectedOrders) {
             if ("ship".equals(action)) {
-                staffOrderService.shippedOrder(orderId);
+                //staffOrderService.shippedOrder(orderId);
                 successList.add(orderId);
+                List<OrderDetailsForm> orderDetailsList = staffOrderService.getOrderDetailsById(orderId);
+                ShippingForm shippingForm = staffOrderService.getShippingId(orderId);
+                model.addAttribute("orderId", orderId);
+                model.addAttribute("shippingForm", shippingForm);
+            	model.addAttribute("orderDetailsList", orderDetailsList);
             } else if ("cancel".equals(action)) {
                 staffOrderService.cancelShippedOrder(orderId);
                 successList.add(orderId);
@@ -170,12 +175,18 @@ public class StaffOrderController {
 
         // ボタンにより画面遷移を分岐
         if ("ship".equals(action)) {
-            return "shippingComplete";
+        	return "staffShippingConfirm";
         } else if ("cancel".equals(action)) {
             return "shippingCancel";
         }
 
         return "staffOrderHistory";
+    }
+    
+    @PostMapping("/shippingcomplete")
+    public String showShippingComplete(@RequestParam("orderId") int orderId) throws Exception{
+    	staffOrderService.shippedOrder(orderId);
+    	return "shippingComplete";
     }
 
    // 在庫変更処理
