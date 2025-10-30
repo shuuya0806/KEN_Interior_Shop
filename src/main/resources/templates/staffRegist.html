@@ -10,10 +10,13 @@
   <link th:href="@{/css/member_regist.css}" rel="stylesheet">
 </head>
 <body>
+	
+	<!-- 共通ヘッダーを挿入 -->
+	<header th:insert="~{staffHeader :: header_area}"></header> 
+	    
   <main>
     <div id="wrapper">
-		<!-- 共通ヘッダーを挿入 -->
-	    <header th:insert="~{staffHeader :: header_area}"></header> 
+		
       <h1>従業員情報登録</h1>
       <div id="member-regist">
         <!-- 会員登録フォーム -->

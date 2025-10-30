@@ -8,17 +8,19 @@
 	<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<div id="wrapper">
-		<!-- 共通ヘッダーを挿入 -->
-		<header th:insert="~{staffHeader :: header_area}"></header> 
-			<main>
+	
+	<!-- 共通ヘッダーを挿入 -->
+	<header th:insert="~{staffHeader :: header_area}"></header> 
+	<main>
+		<div id="wrapper">
 			<h1>集計管理メニュー</h1>
 			<div class="menu-buttons">
 				<a th:href="@{/itemSales}" class="btn">商品別集計確認</a>
 				<a th:href="@{/staffmenu}" class="btn">従業員メニューへ戻る</a>
 			</div>
-			</main>
-		<footer></footer>
-	</div>
+		</div>
+	</main>
+	<footer></footer>
+	
 </body>
 </html>

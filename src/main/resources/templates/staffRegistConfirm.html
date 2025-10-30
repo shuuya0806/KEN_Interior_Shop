@@ -10,10 +10,13 @@
   <link th:href="@{/css/staffitemregist.css}" rel="stylesheet">
 </head>
 <body>
+
+<!-- 共通ヘッダーを挿入 -->
+<header th:insert="~{staffHeader :: header_area}"></header> 	
+
 <main>
   <div id="wrapper">
-	  <!-- 共通ヘッダーを挿入 -->
-	  <header th:insert="~{staffHeader :: header_area}"></header> 
+	  
     <h1>従業員情報登録確認</h1>
 	<!-- 登録処理用フォーム（hiddenで全データ送信） -->
 	<form th:action="@{/staffregistDB}" method="post" th:object="${staffLoginForm}">
