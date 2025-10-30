@@ -97,10 +97,37 @@ public class ItemService {
 		return cart;
 	}
 
+	// 在庫数判定
+	public boolean searchStock(HttpSession session, ItemForm form) throws Exception {
+	    // DBから該当商品の在庫数を取得
+	    Integer stock = itemSearchRepository.getStock(form.getItemId());
+
+	    // nullまたは0以下なら在庫なし
+	    if (stock == null || stock <= 0) {
+	        return false;
+	    }
+
+	    // カート内にすでに同じ商品がある場合、その数量も考慮
+	    List<ItemForm> cart = getCart(session);
+	    int alreadyInCart = 0;
+	    for (ItemForm item : cart) {
+	        if (item.getItemId().equals(form.getItemId())) {
+	            alreadyInCart += item.getItemQuantity();
+	        }
+	    }
+
+	    // カート内＋今回追加数が在庫を超えるならNG
+	    if (alreadyInCart + form.getItemQuantity() > stock) {
+	        return false;
+	    }
+
+	    return true;
+	}
+	
 	/*
 	 * カートに商品を追加（同一商品なら数量加算）
 	 */
-	public void addToCart(HttpSession session, ItemForm form) {
+	public void addToCart(HttpSession session, ItemForm form) throws Exception{
 		List<ItemForm> cart = getCart(session);
 		boolean found = false;
 		
@@ -214,4 +241,6 @@ public class ItemService {
 		ItemEntity entity = itemSearchRepository.getItemById(itemId);
 		return modelMapper.map(entity, ItemForm.class);
 	}
+	
+	
 }

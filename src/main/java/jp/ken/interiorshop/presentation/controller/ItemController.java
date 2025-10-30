@@ -116,7 +116,15 @@ public class ItemController {
 	public String addToCart(@ModelAttribute ItemForm item,
 	                        @RequestParam String redirectUrl,
 	                        HttpSession session,
-	                        RedirectAttributes redirectAttributes) {
+	                        RedirectAttributes redirectAttributes) throws Exception{
+		//DBから在庫数を取得し判定
+		boolean result = itemService.searchStock(session, item);
+		
+		//在庫がない場合はメッセージを表示し、元画面にリダイレクト
+		if(result == false) {
+			session.setAttribute("message", "在庫がないため購入できません");
+			return "redirect:" + redirectUrl;
+		}
 		
 		// カートに商品を追加
 		itemService.addToCart(session, item);

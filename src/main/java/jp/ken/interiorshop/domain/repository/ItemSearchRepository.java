@@ -54,6 +54,12 @@ public class ItemSearchRepository {
 		return jdbcTemplate.queryForObject(sql, itemMapper, itemId);
 	}
 	
+	//商品IDを元に在庫数を取得
+	public  Integer getStock(String itemId) throws Exception{
+		String sql = "SELECT stock FROM m_items WHERE item_id = ?";
+        return jdbcTemplate.queryForObject(sql, Integer.class, itemId);
+	}
+	
 	// 次月発売予定商品を取得
 	public List<ItemEntity> getNextMonthItem() throws Exception{
 		String sql = "SELECT * FROM m_items WHERE YEAR(rs_date) = YEAR(CURDATE() + INTERVAL 1 MONTH) AND MONTH(rs_date) = MONTH(CURDATE() + INTERVAL 1 MONTH)";
