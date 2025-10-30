@@ -310,11 +310,11 @@ public class ItemController {
 	    ItemForm item = itemService.getItemById(itemId);
 	    int price = Integer.parseInt(item.getItemPrice());
 	    int taxIncludedPrice;
-	    if (item.getSaleFrag() == "未実施") {
-	    	taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%加算
-	    } else {
+	    if (item.getSaleFrag().equals("実施中")) {
 	    	int salePrice = Integer.parseInt(item.getSalePrice());
 	    	taxIncludedPrice = (int) Math.floor(salePrice * 1.1); //消費税10%加算
+	    } else {
+	    	taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%加算
 	    }
 
 	    // 商品情報と税込価格の計算結果をモデルに格納
