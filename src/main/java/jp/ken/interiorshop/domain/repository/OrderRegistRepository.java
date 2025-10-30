@@ -75,8 +75,14 @@ public class OrderRegistRepository {
 		String orderDetailsSQL = "INSERT INTO order_details (order_id, item_id, item_quantity, " +
 	             "subtotal)" +
 	             "VALUES (?, ?, ?, ?)";
+		
 		String itemSalesSQL = "INSERT INTO item_sales(item_id, total_quantity, sales_total) VALUES (?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE total_quantity = total_quantity + ?, sales_total = sales_total + ?";
+		
+		String itemStockSQL = "UPDATE m_items AS i " +
+                "JOIN order_details AS od ON i.item_id = od.item_id " +
+                "SET i.stock = GREATEST(i.stock - od.item_quantity, 0) " +
+                "WHERE od.order_id = ?";
 		
 		// リスト内の各商品を順に登録
 		for(OrderDetailsEntity regist : orderDetailsEntity) {
@@ -95,6 +101,8 @@ public class OrderRegistRepository {
 				regist.getItemQuantity(),
 				regist.getSubtotal());
 		}
+		
+		jdbcTemplate.update(itemStockSQL, orderId);
 	}
 	
 	//獲得ポイントをDBに登録
