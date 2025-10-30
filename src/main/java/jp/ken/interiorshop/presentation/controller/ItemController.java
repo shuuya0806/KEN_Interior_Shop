@@ -117,7 +117,7 @@ public class ItemController {
 	                        @RequestParam String redirectUrl,
 	                        HttpSession session,
 	                        RedirectAttributes redirectAttributes) {
-
+		
 		// カートに商品を追加
 		itemService.addToCart(session, item);
 
@@ -341,28 +341,6 @@ public class ItemController {
 	    
 	    // 商品詳細画面へ遷移
 	    return "itemDetails"; 
-	}
-
-	/**
-	 * 商品詳細ページからカート追加
-	  */
-	@PostMapping("/item/detail/{itemId}/add-to-cart")
-	public String addToCartOnDetail(
-	        @PathVariable("itemId") int itemId,
-	        HttpSession session,
-	        Model model) throws Exception {
-
-	    // DBから商品情報を取得
-	    ItemForm item = itemService.getItemById(itemId);
-
-	    // カートに追加
-	    itemService.addToCart(session, item);
-
-	    // メッセージをセッションに格納（画面表示用）
-	    session.setAttribute("message", item.getItemName() + " をカートに追加しました");
-
-	    // 商品詳細画面に戻る（検索条件保持のため、戻るURLはセッションに依存）
-	    return "redirect:/back1";
 	}
 
 	/**
