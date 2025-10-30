@@ -48,7 +48,7 @@ public class StaffLoginController {
 			//従業員IDとパスワードが一致していれば、matchをtrueに
 			StaffLoginForm matchedStaff = null;
 			for(StaffLoginForm sta : login) {
-				if(Integer.valueOf(sta.getStaffId()).equals(Integer.valueOf(staffLoginForm.getStaffId()))
+				if(sta.getStaffId().equals(staffLoginForm.getStaffId())
 				&& sta.getPassword().equals(staffLoginForm.getPassword())){
 					match = true;
 					
