@@ -115,7 +115,7 @@ public class OrderRegistRepository {
 	}
 	
 	public List<OrderEntity> getOrderListById(int memberId) throws Exception{
-		String sql = "SELECT order_id, member_id, total, order_date, payment, shipping_id, shipping_frag,  use_point FROM orders WHERE member_id = ? ORDER BY order_date DESC;";
+		String sql = "SELECT order_id, member_id, total, order_date, payment, shipping_id, shipping_frag,  use_point FROM orders WHERE member_id = ? ORDER BY order_id";
 		return jdbcTemplate.query(sql, staffOrderMapper, memberId);
 	}
 }
