@@ -5,13 +5,19 @@
 		<title>マイページメニュー</title>
 		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{/css/member_common.css}" rel="stylesheet">
+		<link th:href="@{/css/header.css}" rel="stylesheet">
+		<script th:src="@{/js/main.js}"></script>
 	</head>
 <body>
+		<!-- 共通ヘッダー（ログイン状態に応じて表示内容を切り替え） -->
+	  	<header th:insert="~{header :: header_area}"></header>
 		<main>
-			<h1>マイページメニュー</h1>
-			<div class="menu-buttons">
-				<a th:href="@{/mypage}" class="btn">個人情報</a>
-				<a th:href="@{/memberorderhistory}" class="btn">注文履歴</a>
+			<div id ="wrapper">
+				<h1>マイページメニュー</h1>
+				<div class="menu-buttons">
+					<a th:href="@{/mypage}" class="btn">個人情報</a>
+					<a th:href="@{/memberorderhistory}" class="btn">注文履歴</a>
+				</div>
 			</div>
 		</main>
 		<footer></footer>

@@ -4,43 +4,45 @@
     <meta charset="UTF-8">
     <title>注文履歴</title>
     <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
-	<link th:href="@{/css/staffheader.css}" rel="stylesheet">
-	<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/member_common.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/member_regist.css}" rel="stylesheet">
 </head>
 <body>
     <main>
-        <h1>注文履歴</h1>
-
-        <div th:if="${#lists.isEmpty(orderForm)}">
-            <p>注文履歴はありません。</p>
-        </div>
-
-        <table th:if="${!#lists.isEmpty(orderForm)}" border="1">
-            <thead>
-                <tr>
-                    <th>注文ID</th>
-                    <th>注文日</th>
-                    <th>合計金額</th>
-                    <th>支払方法</th>
-                    <th>発送状態</th>
-                    <th>使用ポイント</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="order : ${orderForm}">
-                    <td th:text="${order.orderId}"></td>
-                    <td th:text="${order.orderDate}"></td>
-                    <td th:text="${order.total} + '円'"></td>
-                    <td th:text="${order.payment}"></td>
-                    <td th:text="${order.shippingFrag}"></td>
-                    <td th:text="${order.usePoint}"></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div>
-            <a th:href="@{/mypagemenu}">マイページメニューへ戻る</a>
-        </div>
+		<div id="wrapper">
+	        <h1>注文履歴</h1>
+	
+	        <div th:if="${#lists.isEmpty(orderForm)}">
+	            <p>注文履歴はありません。</p>
+	        </div>
+			<div class ="info-block">
+		        <table th:if="${!#lists.isEmpty(orderForm)}" border="1">
+		            <thead>
+		                <tr>
+		                    <th>注文ID</th>
+		                    <th>注文日</th>
+		                    <th>合計金額</th>
+		                    <th>支払方法</th>
+		                    <th>発送状態</th>
+		                    <th>使用ポイント</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr th:each="order : ${orderForm}">
+		                   	<td><div class="info-item" th:text="${order.orderId}"></div></td>
+			                <td><div class="info-item" th:text="${order.orderDate}"></div></td>
+			                <td><div class="info-item" th:text="${order.total} + '円'"></div></td>
+			                <td><div class="info-item" th:text="${order.payment}"></div></td>
+			                <td><div class="info-item" th:text="${order.shippingFrag}"></div></td>
+			                <td><div class="info-item" th:text="${order.usePoint}"></div></td>
+		                </tr>
+		            </tbody>
+		        </table>
+			</div>
+	        <div class="buttons">
+	            <a th:href="@{/mypagemenu}" class="btn">マイページメニューへ戻る</a>
+	        </div>
+	   </div>
     </main>
 </body>
 </html>
