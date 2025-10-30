@@ -79,6 +79,7 @@
 				  <s><p th:text="'¥' + ${items.itemPrice}"></p></s>
 				  <p th:text="'¥' + ${items.salePrice}" class="sale-price"></p>
 			  </div>
+			  <p>在庫数：<span th:text="${items.stock}"></span>個</p>
           </div>
 
           <!-- カート追加フォーム（商品を選択してカートに追加） -->

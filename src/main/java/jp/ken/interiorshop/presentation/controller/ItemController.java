@@ -202,6 +202,7 @@ public class ItemController {
 	    
 	    List<ItemForm> itemFormList;
 	    List<ItemForm> releasedItemList;
+	    List<ItemForm> cartItems = itemService.getCart(session);
 
 	    // 金額の妥当性チェック（負の値が含まれている場合はエラー）
 	    if ((minPrice != null && minPrice < 0) || (maxPrice != null && maxPrice < 0)) {
@@ -212,6 +213,7 @@ public class ItemController {
 	        
 	        // 条件が不正な場合はDBから全件取得した物から発売日の商品のみを取得
 		 	releasedItemList = itemService.getReleasedItemList(itemFormList);
+		 	
 	    }
 	    // 価格整合性チェック（最低価格 > 最高価格 の場合はエラー）
 	    else if (minPrice != null && maxPrice != null && maxPrice < minPrice) {
@@ -234,6 +236,15 @@ public class ItemController {
 	        if (releasedItemList.isEmpty()) {
 	            model.addAttribute("infoMessage", "該当商品はありません");
 	        }
+	    }
+	    
+	    for(ItemForm cart : cartItems) {
+	    	for(ItemForm itemList : releasedItemList) {
+	    		if(itemList.getItemName().equals(cart.getItemName())) {
+	    			int newStock =itemList.getStock() - cart.getItemQuantity();
+	    			itemList.setStock(Math.max(newStock, 0));
+	    		}
+	    	}
 	    }
 
 	    // 検索結果をモデルに格納
@@ -323,6 +334,15 @@ public class ItemController {
 	    	taxIncludedPrice = (int) Math.floor(salePrice * 1.1); //消費税10%加算
 	    } else {
 	    	taxIncludedPrice = (int) Math.floor(price * 1.1); // 消費税10%加算
+	    }
+	    
+	    List<ItemForm> cartItems = itemService.getCart(session);
+	    
+	    for(ItemForm cart : cartItems) {
+    		if(item.getItemName().equals(cart.getItemName())) {
+    			int newStock =item.getStock() - cart.getItemQuantity();
+    			item.setStock(Math.max(newStock, 0));
+    		}
 	    }
 
 	    // 商品情報と税込価格の計算結果をモデルに格納

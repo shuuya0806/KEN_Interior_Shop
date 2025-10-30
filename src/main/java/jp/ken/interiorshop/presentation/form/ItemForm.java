@@ -47,7 +47,7 @@ public class ItemForm implements Serializable {
 	//在庫数
 	@NotBlank(message = "在庫数は必須です", groups = ValidGroup1.class)
 	@Pattern(regexp = "^[0-9]+$", message = "在庫数は数字のみで入力してください", groups = ValidGroup2.class)
-	private String stock;
+	private Integer stock;
 	
 	//セールフラグ
 	@NotBlank(message = "セールフラグは必須です", groups = ValidGroup1.class)
