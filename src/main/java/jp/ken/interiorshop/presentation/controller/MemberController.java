@@ -1,5 +1,7 @@
 package jp.ken.interiorshop.presentation.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -335,7 +337,7 @@ public class MemberController {
 	public String showMemberOrderHistory(HttpSession session, Model model) throws Exception {
 		MemberLoginForm loginUser = (MemberLoginForm) session.getAttribute("loginUser");
 		//顧客IDをキーに対応した注文履歴を取得
-		OrderForm orderForm = orderRegistService.getOrderListById(loginUser.getMemberId());
+		List<OrderForm> orderForm = orderRegistService.getOrderListById(loginUser.getMemberId());
 		
 		model.addAttribute("orderForm", orderForm);
 		

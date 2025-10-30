@@ -123,6 +123,15 @@ public class OrderRegistService {
 		return orderForm;
 	}
 	
+	private List<OrderForm> convertList(List<OrderEntity> entityList) {
+	    List<OrderForm> formList = new ArrayList<>();
+	    for (OrderEntity entity : entityList) {
+	        OrderForm form = modelMapper.map(entity, OrderForm.class);
+	        formList.add(form);
+	    }
+	    return formList;
+	}
+	
 	//注文詳細変換（Entity → Form 変換）
 	private List<OrderDetailsEntity> convert(List<OrderDetailsForm> formList) {
 	    List<OrderDetailsEntity> entityList = new ArrayList<>();
@@ -167,9 +176,9 @@ public class OrderRegistService {
 	
 	
 	//顧客IDをキーに注文詳細情報を取得
-	public OrderForm getOrderListById(int memberId) throws Exception{
-		OrderEntity entity = orderRegistRepository.getOrderListById(memberId);
-		OrderForm orderForm = convert(entity);
+	public List<OrderForm> getOrderListById(int memberId) throws Exception{
+		List<OrderEntity> entityList = orderRegistRepository.getOrderListById(memberId);
+		List<OrderForm> orderForm = convertList(entityList);
 		
 		return orderForm;
 	}
