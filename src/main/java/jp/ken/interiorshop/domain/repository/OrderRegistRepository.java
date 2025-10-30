@@ -88,12 +88,12 @@ public class OrderRegistRepository {
                 regist.getSubtotal());
 		
 		// 商品売り上げテーブルに登録
-			jdbcTemplate.update(itemSalesSQL,
-					regist.getItemId(),
-					regist.getItemQuantity(),
-					regist.getSubtotal(),
-					regist.getItemQuantity(),
-					regist.getSubtotal());
+		jdbcTemplate.update(itemSalesSQL,
+				regist.getItemId(),
+				regist.getItemQuantity(),
+				regist.getSubtotal(),
+				regist.getItemQuantity(),
+				regist.getSubtotal());
 		}
 	}
 	
