@@ -43,7 +43,7 @@
 		                    </p>
 		                </div>
 		                <!-- セール中のものは割引後の金額も合わせて表示する -->
-		                <div th:if="${item.saleFrag == '実施中'}">
+		                <div th:if="${item.saleFrag == '実施'}">
 		                	<s><p>価格（税抜）: <span th:text="${item.itemPrice}">0</span> 円</p></s>
 		                	<p class="sale-price">
 								セール実施中!!
@@ -85,7 +85,7 @@
 		                	<input type="hidden" name="itemPrice" th:value="${item.itemPrice}">
 		                </div>
 		                <!-- セール実施中の場合はセール価格を渡す -->
-		                <div th:if="${item.saleFrag == '実施中'}">
+		                <div th:if="${item.saleFrag == '実施'}">
 		                	<input type="hidden" name="itemPrice" th:value="${item.salePrice}">
 		                </div>
 		         

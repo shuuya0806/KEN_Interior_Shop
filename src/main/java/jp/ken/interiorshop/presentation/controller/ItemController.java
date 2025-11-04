@@ -329,7 +329,7 @@ public class ItemController {
 	    ItemForm item = itemService.getItemById(itemId);
 	    int price = Integer.parseInt(item.getItemPrice());
 	    int taxIncludedPrice;
-	    if (item.getSaleFrag().equals("実施中")) {
+	    if (item.getSaleFrag().equals("実施")) {
 	    	int salePrice = Integer.parseInt(item.getSalePrice());
 	    	taxIncludedPrice = (int) Math.floor(salePrice * 1.1); //消費税10%加算
 	    } else {

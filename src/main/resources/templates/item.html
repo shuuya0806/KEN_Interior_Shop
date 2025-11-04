@@ -68,7 +68,7 @@
           	<p th:text="'¥' + ${items.itemPrice}"></p>
           </div>
           <!-- セール中の商品は通常の価格に取り消し線を引いて表示し、セール価格を赤文字で表示 -->
-          <div th:if="${items.saleFrag == '実施中'}">
+          <div th:if="${items.saleFrag == '実施'}">
 			  <s><p th:text="'¥' + ${items.itemPrice}"></p></s>
 			  <p th:text="'¥' + ${items.salePrice}" class="sale-price"></p>
 		  </div>
