@@ -49,12 +49,15 @@ public class OrderRegistRepository {
 	 *  注文情報をDBに保存し、登録した注文IDを返す
 	 */
 		public int orderRegist(int shippingId, int memberId, OrderEntity orderEntity) {
-		String sql = "INSERT INTO orders (member_id, total, order_date, " +
+		String orderSQL = "INSERT INTO orders (member_id, total, order_date, " +
 	             "payment, shipping_id, shipping_frag, use_point) " +
 	             "VALUES (?, ?, ?, ?, ?, ?, ?)";
 		
+		String salesSQL = "INSERT INTO sales (sales_id, sales) VALUES(1, ?)"
+				+ "ON DUPLICATE KEY UPDATE sales = sales + ?";
+		
 		// 注文情報をDBに登録（未発送状態で保存）
-		jdbcTemplate.update(sql, memberId,
+		jdbcTemplate.update(orderSQL, memberId,
                 orderEntity.getTotal(),
                 LocalDate.now(),
                 orderEntity.getPayment(),
@@ -64,6 +67,11 @@ public class OrderRegistRepository {
 		
 		//登録直後の注文IDを取得
 		Integer orderId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+		
+		// 売上をDBに登録
+		jdbcTemplate.update(salesSQL, 
+				orderEntity.getTotal(),
+				orderEntity.getTotal());
 
 		return orderId;
 	}

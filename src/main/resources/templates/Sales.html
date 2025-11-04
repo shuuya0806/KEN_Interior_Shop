@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<title>商品別売上</title>
+		<link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+		<link th:href="@{/css/staffheader.css}" rel="stylesheet">
+		<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
+	</head>
+<body>
+	<!-- 共通ヘッダーを挿入 -->
+    <header th:insert="~{staffHeader :: header_area}"></header> 
+    
+    	<main>
+    		<div id="wrapper">
+				<h1>商品別売上</h1>
+				<div class="tabs">
+				  <!-- 売上タブ -->
+				  <input id="all" type="radio" name="tab_item" checked>
+				  <label class="tab_item" for="all">売上</label>
+				   <div class="tab_content" id="all_content">
+				    <div class="tab_content_description">
+				      <!-- 注文履歴がない場合のメッセージ -->
+			    		<div class="item-Note" th:if="${listSalesForm.isEmpty()}">
+			        		<p>売上はありません。</p>
+			    		</div>
+						
+						<!-- 注文履歴がある場合のみテーブルを表示 -->
+						<div class="table" th:if="${!listSalesForm.isEmpty()}">
+							<!-- メッセージがある場合だけ表示 -->
+							<div th:if="${message}" class="alert alert-warning message-center">
+							    <p th:text="${message}"></p>
+							</div>
+						        <table class="info-block">
+						            <tr>
+						                <th>売上</th>
+						            </tr>
+						            <tr th:block th:each="Sales : ${listSalesForm}">
+					                    <td class="info-item" th:text="${Sales.sales}"></td>
+						             </tr>
+						        </table>
+						</div>
+				    </div>
+				  </div>
+				  
+				  <!-- 商品別売上タブ -->
+				  <input id="item_sales" type="radio" name="tab_item">
+				  <label class="tab_item" for="item_sales">商品別</label>
+				  <div class="tab_content" id="item_sales_content">
+				    <div class="tab_content_description">
+				       <!-- 注文履歴がない場合のメッセージ -->
+			    		<div class="item-Note" th:if="${listItemSalesForm.isEmpty()}">
+			        		<p>商品別売上はありません。</p>
+			    		</div>
+						
+						<!-- 注文履歴がある場合のみテーブルを表示 -->
+						<div class="table" th:if="${!listItemSalesForm.isEmpty()}">
+							<!-- メッセージがある場合だけ表示 -->
+							<div th:if="${message}" class="alert alert-warning message-center">
+							    <p th:text="${message}"></p>
+							</div>
+						        <table class="info-block">
+						            <tr>
+						                <th>商品ID</th>
+						                <th>商品名</th>
+						                <th>売上数</th>
+						                <th>売上</th>
+						            </tr>
+						            <tr th:block th:each="iSales : ${listItemSalesForm}">
+					                    <td class="info-item" th:text="${iSales.itemId}"></td>
+					                    <td class="info-item" th:text="${iSales.itemName}"></td>
+					                    <td class="info-item" th:text="${iSales.itemQuantity}"></td>
+					                    <td class="info-item" th:text="${iSales.total}"></td>
+						             </tr>
+						        </table>
+						</div>
+				    </div>
+				  </div>
+				</div>
+				
+				<div class="menu-buttons">
+					<a th:href="@{/staffstatistics}" class="btn">集計管理メニューに戻る</a>
+					<a th:href="@{/staffmenu}" class="btn">従業員メニューに戻る</a>
+				</div>
+			</div>
+		</main>
+	<footer></footer>
+	<script th:src="@{/js/ordercancel.js}"></script>
+</body>
+</html>

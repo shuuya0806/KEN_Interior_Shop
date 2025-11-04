@@ -14,9 +14,7 @@ public class SalesMapper implements RowMapper<SalesEntity> {
 		
 		SalesEntity salseEntity = new SalesEntity();
 		
-		salseEntity.setItemId(rs.getInt("item_id"));
-		salseEntity.setItemQuantity(rs.getInt("total_quantity"));
-		salseEntity.setTotal(rs.getInt("sales_total"));
+		salseEntity.setSales(rs.getInt("sales"));
 		
 		return salseEntity;
 	}

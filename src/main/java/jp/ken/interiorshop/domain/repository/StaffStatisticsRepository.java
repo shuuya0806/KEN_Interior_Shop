@@ -6,16 +6,19 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import jp.ken.interiorshop.domain.entity.ItemSalesEntity;
 import jp.ken.interiorshop.domain.entity.OrderDetailsEntity;
 import jp.ken.interiorshop.domain.entity.SalesEntity;
+import jp.ken.interiorshop.infrastructure.mapper.ItemSalesMapper;
 import jp.ken.interiorshop.infrastructure.mapper.SalesMapper;
 import jp.ken.interiorshop.infrastructure.mapper.StaffOrderDetailsMapper;
 
 @Repository
 public class StaffStatisticsRepository {
 	
-	private RowMapper<SalesEntity> salesMapper = new SalesMapper();
+	private RowMapper<ItemSalesEntity> ItemsalesMapper = new ItemSalesMapper();
 	private RowMapper<OrderDetailsEntity> staffOrderDetailsMapper = new StaffOrderDetailsMapper();
+	private RowMapper<SalesEntity> salesMapper = new SalesMapper();
 	private JdbcTemplate jdbcTemplate;
 	
 	public StaffStatisticsRepository(JdbcTemplate jdbcTemplate) {
@@ -23,13 +26,13 @@ public class StaffStatisticsRepository {
 	}
 	
 	//全商品売上を取得
-	public List<SalesEntity> getItemSalesAllList() throws Exception {
+	public List<ItemSalesEntity> getItemSalesAllList() throws Exception {
 		
 		String sql = "SELECT * "
 				+ "FROM item_sales "
 				+ "ORDER BY item_id";
 		
-		List<SalesEntity> itemSalesList = jdbcTemplate.query(sql, salesMapper);
+		List<ItemSalesEntity> itemSalesList = jdbcTemplate.query(sql, ItemsalesMapper);
 		
 		return itemSalesList;
 	}
@@ -46,5 +49,16 @@ public class StaffStatisticsRepository {
 		return orderDetailsEntity;
 	}
 	
+	//売上を取得
+	public List<SalesEntity> getSalesList() throws Exception{
+		
+		String sql = "SELECT * "
+				+ "FROM sales "
+				+ "ORDER BY sales";
+		
+		List<SalesEntity> salesEntity = jdbcTemplate.query(sql, salesMapper);
+		
+		return salesEntity;
+	}
 	
 }

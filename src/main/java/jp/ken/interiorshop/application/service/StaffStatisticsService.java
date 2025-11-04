@@ -7,9 +7,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import jp.ken.interiorshop.domain.entity.ItemEntity;
+import jp.ken.interiorshop.domain.entity.ItemSalesEntity;
 import jp.ken.interiorshop.domain.entity.SalesEntity;
 import jp.ken.interiorshop.domain.repository.ItemSearchRepository;
 import jp.ken.interiorshop.domain.repository.StaffStatisticsRepository;
+import jp.ken.interiorshop.presentation.form.ItemSalesForm;
 import jp.ken.interiorshop.presentation.form.SalesForm;
 
 @Service
@@ -27,16 +29,17 @@ public class StaffStatisticsService {
 		this.FormMapper = FormMapper;
 	}
 	
-	public List<SalesForm> getItemSalesList() throws Exception {
+	//商品別売上をDBから取得
+	public List<ItemSalesForm> getItemSalesList() throws Exception {
 		
-		List<SalesEntity> entityList = null;
-		List<SalesForm> formList = null;
+		List<ItemSalesEntity> entityList = null;
+		List<ItemSalesForm> formList = null;
 		
 		entityList = staffStatisticsRepository.getItemSalesAllList();
 		
-		formList = convert(entityList);
+		formList = itemSalesConvert(entityList);
 		
-		for(SalesForm form : formList) {
+		for(ItemSalesForm form : formList) {
 			form.setItemName(getItemName(form.getItemId()));
 		}
 		
@@ -57,7 +60,32 @@ public class StaffStatisticsService {
 		return entity.getItemName();
 	}
 	
-	private List<SalesForm> convert(List<SalesEntity> entityList) {
+	//売上をDBから取得
+	public List<SalesForm> getSalesList() throws Exception {
+		
+		List<SalesEntity> entityList = null;
+		List<SalesForm> formList = null;
+		
+		entityList = staffStatisticsRepository.getSalesList();
+		
+		formList = salesConvert(entityList);
+		
+		return formList;
+ 	}
+	
+	private List<ItemSalesForm> itemSalesConvert(List<ItemSalesEntity> entityList) {
+		
+		List<ItemSalesForm> formList = new ArrayList<ItemSalesForm>();
+		
+		for(ItemSalesEntity entity : entityList) {
+			ItemSalesForm form = FormMapper.map(entity, ItemSalesForm.class);
+			formList.add(form);
+		}
+		
+		return formList;
+	}
+	
+	private List<SalesForm> salesConvert(List<SalesEntity> entityList) {
 		
 		List<SalesForm> formList = new ArrayList<SalesForm>();
 		
