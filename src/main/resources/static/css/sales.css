@@ -2,16 +2,15 @@
 
 /*タブ切り替え全体のスタイル*/
 .tabs {
-  margin-top: 50px;
   padding-bottom: 40px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 700px;
-  margin: 0 auto;}
+  margin: 50px auto 0;}
 
 /*タブのスタイル*/
 .tab_item {
-  width: calc(100%/3);
+  width: calc(100%/2);
   height: 50px;
   border-bottom: 3px solid #5ab4bd;
   background-color: #d9d9d9;
@@ -40,8 +39,14 @@ input[name="tab_item"] {
   padding: 40px 40px 0;
   clear: both;
   overflow: hidden;
+  margin: 0 auto;
 }
 
+.tab_content_description {
+	text-align: center;
+	display: flex;
+    justify-content: center; /* 横方向の中央寄せ */
+}
 
 /*選択されているタブのコンテンツのみを表示*/
 #all:checked ~ #all_content,

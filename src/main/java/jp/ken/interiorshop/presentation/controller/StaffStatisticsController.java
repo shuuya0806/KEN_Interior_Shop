@@ -54,7 +54,7 @@ public class StaffStatisticsController {
 			model.addAttribute("listItemSalesForm", listItemSalesForm);
 		}
 		
-		return "Sales";
+		return "sales";
 	}
 	
 }
