@@ -11,6 +11,7 @@ import jp.ken.interiorshop.domain.entity.CategoryEntity;
 import jp.ken.interiorshop.domain.entity.ItemEntity;
 import jp.ken.interiorshop.infrastructure.mapper.CategoryMapper;
 import jp.ken.interiorshop.infrastructure.mapper.ItemMapper;
+import jp.ken.interiorshop.presentation.form.ItemForm;
 
 @Repository
 public class ItemSearchRepository {
@@ -64,6 +65,22 @@ public class ItemSearchRepository {
 	public List<ItemEntity> getNextMonthItem() throws Exception{
 		String sql = "SELECT * FROM m_items WHERE YEAR(rs_date) = YEAR(CURDATE() + INTERVAL 1 MONTH) AND MONTH(rs_date) = MONTH(CURDATE() + INTERVAL 1 MONTH)";
 		return jdbcTemplate.query(sql, itemMapper);
+	}
+	
+	//商品情報変更を登録
+	public void editItem(ItemForm itemForm) throws Exception{
+		 String sql = "UPDATE m_items SET item_name = ?, item_price = ?, rs_date = ?, image = ?, explanation = ?, sale_frag = ?, sale_price = ? WHERE item_id = ?";
+		 
+		 jdbcTemplate.update(sql, 
+				 itemForm.getItemName(), 
+				 itemForm.getItemPrice(), 
+				 itemForm.getRsDate(), 
+				 itemForm.getImage(), 
+				 itemForm.getExplanation(), 
+				 itemForm.getSaleFrag(), 
+				 itemForm.getSalePrice(), 
+				 itemForm.getItemId()
+				 );
 	}
 
 	/*

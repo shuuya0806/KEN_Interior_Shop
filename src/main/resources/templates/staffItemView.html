@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>商品一覧</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/staffheader.css}" rel="stylesheet">
+    <link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/staffitemregist.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <header th:insert="~{staffHeader :: header_area}"></header>
+    <main>
+		<div id="wrapper">
+	        <h1>商品一覧</h1>
+	        <div class="message">
+			    <strong th:text="${message}"></strong>
+			</div>
+				<div class="info-block">
+				    <table>
+				        <tr>
+				            <th>商品ID</th>
+				            <th>商品名</th>
+				            <th>操作</th>
+				        </tr>
+				        <th:block th:each="item, iStat : ${itemStockList}">
+				            <tr>
+				                <td>
+				                    <input type="hidden" name="itemId" th:value="${item.itemId}" />
+				                    <span th:text="${item.itemId}"></span>
+				                </td>
+				                <td><div class="info-item" th:text="${item.itemName}"></div></td>
+				                <td>
+									<form th:action="@{/staffitemedit}" method="get">
+										<input type="hidden" name="itemId" th:value="${item.itemId}">
+				                    	<button type="submit">編集</button>
+				                    </form>
+				                </td>
+				            </tr>
+				        </th:block>
+				    </table>
+				</div>
+			    <div class="menu-buttons">
+			        <a th:href="@{/staffitemstock}" class="back-btn">戻る</a>
+			    </div>
+		</div>
+    </main>
+    <footer></footer>
+
+</body>
+</html>

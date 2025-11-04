@@ -242,5 +242,10 @@ public class ItemService {
 		return modelMapper.map(entity, ItemForm.class);
 	}
 	
+	//商品情報変更を登録する処理
+	public void editItem(ItemForm itemForm) throws Exception{
+		itemSearchRepository.editItem(itemForm);
+	}
+	
 	
 }

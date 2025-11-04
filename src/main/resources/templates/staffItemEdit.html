@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>商品情報編集</title>
+  <!-- 共通・会員登録用CSSの読み込み -->
+  <link th:href="@{/css/common.css}" rel="stylesheet">
+  <link th:href="@{/css/staffheader.css}" rel="stylesheet">
+  <link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
+  <link th:href="@{/css/staffitemregist.css}" rel="stylesheet">
+</head>
+<body>
+	
+	<!-- 共通ヘッダーを挿入 -->
+	<header th:insert="~{staffHeader :: header_area}"></header> 
+	
+  <main>
+    <div id="wrapper">
+      <h1>商品情報編集</h1>
+      <div id="member-regist">
+        <!-- 会員登録フォーム -->
+        <form th:action="@{/staffitemeditconfirm}" th:object="${itemForm}" method="post">
+			<input type="hidden" th:field="*{itemId}">
+			
+            <!-- 商品名 -->
+            <div class="regist-form">
+              <label for="itemName">商品名 <strong class="required">(必須)</strong></label>
+              <input id="itemName" type="text" th:field="*{itemName}">
+              <span th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}" class="error-message"></span>
+            </div>
+
+            <!-- 価格 -->
+            <div class="regist-form">
+              <label for="itemPrice">価格 <strong class="required">(必須)</strong></label>
+              <input id="itemPrice" type="text" th:field="*{itemPrice}">
+              <span th:if="${#fields.hasErrors('itemPrice')}" th:errors="*{itemPrice}" class="error-message"></span>
+            </div>
+
+            <!-- 発売日 -->
+         	<div class="regist-form">
+              <label for="rsDate">発売日 <strong class="required">(必須)</strong></label>
+              <input id="rsDate" type="text" th:field="*{rsDate}" placeholder="YYYY-MM-DD">
+              <span th:if="${#fields.hasErrors('rsDate')}" th:errors="*{rsDate}" class="error-message"></span>
+            </div>
+          	
+          	<!-- 画像データ -->
+			  <div class="regist-form">
+              <label for="image">画像パス <strong class="required">(必須)</strong></label>
+              <input id="image" type="text" th:field="*{image}" placeholder="img/xxx.png">
+              <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="error-message"></span>
+            </div>
+ 
+          	<!-- 説明 -->
+          	<div class="regist-form">
+              <label for="explanation">説明 <strong class="required">(必須)</strong></label>
+              <textarea id="explanation" th:field="*{explanation}" rows="5"></textarea>
+              <span th:if="${#fields.hasErrors('explanation')}" th:errors="*{explanation}" class="error-message"></span>
+            </div>
+          	
+          	<!-- セールフラグ -->
+          	<div class="regist-form">
+			    <label>セールフラグ <strong class="required">(必須)</strong></label>
+			    <label>
+			        <input type="radio" th:field="*{saleFrag}" value="実施"> 実施
+			    </label>
+			    <label>
+			        <input type="radio" th:field="*{saleFrag}" value="未実施"> 未実施
+			    </label>
+			    <span th:if="${#fields.hasErrors('saleFrag')}" th:errors="*{saleFrag}" class="error-message"></span>
+			</div>
+
+            <!-- セール価格 -->
+          	<div class="regist-form">
+              <label for="salePrice">セール価格 <strong class="required">(必須)</strong></label>
+              <input id="salePrice" type="text" th:field="*{salePrice}">
+              <span th:if="${#fields.hasErrors('salePrice')}" th:errors="*{salePrice}" class="error-message"></span>
+            </div>
+			
+          <!-- ボタンエリア：登録・戻る -->
+          <div class="buttons">
+            <button type="submit" class="btn">確認</button>
+          </div>
+        </form>
+
+        <div class="buttons">
+          <form th:action="@{/staffitemview}" method="get">
+            <button type="submit" class="back-btn">戻る</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

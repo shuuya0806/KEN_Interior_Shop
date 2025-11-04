@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>商品情報変更完了</title>
+	<!-- 共通・会員登録・完了画面用CSSの読み込み -->
+	<link th:href="@{/css/common.css}" rel="stylesheet">
+	<link th:href="@{/css/staff.css}" rel="stylesheet">
+	<link th:href="@{/css/staffheader.css}" rel="stylesheet">
+	<link th:href="@{/css/complete.css}" rel="stylesheet">
+</head>
+<body>
+	
+<!-- 共通ヘッダーを挿入 -->
+<header th:insert="~{staffHeader :: header_area}"></header> 	
+	
+<main>
+	<div id="wrapper">
+		<div class="container">
+			<!-- タイトル表示 -->
+			<h1>商品情報変更完了</h1>
+
+			<!-- 完了メッセージ表示 -->
+			<div id="complete">
+				<div class="message">
+					<p><strong>商品情報の変更が完了しました</strong></p><br>
+				</div>
+			</div>
+
+			<!-- ログインページへのリンク -->
+			<div>
+				<a th:href="@{/staffitemview}" class="btn">商品情報編集画面へ戻る</a>
+			</div>
+		</div>
+	</div>
+</main>
+</body>
+</html>

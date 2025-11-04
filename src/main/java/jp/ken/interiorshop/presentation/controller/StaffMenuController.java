@@ -160,6 +160,43 @@ public class StaffMenuController {
 		return "staffStockItemList";
 	}
 	
+	//商品情報編集画面
+	@GetMapping("staffitemview")
+	public String showStaffItemView(Model model) throws Exception{
+		//商品一覧を取得
+		List<ItemForm> itemStockList = itemService.getItemList();
+			
+		model.addAttribute("itemStockList", itemStockList);
+		
+		return "staffItemView";
+	   }
 	
+	//商品情報編集の編集画面
+	@GetMapping("staffitemedit")
+	public String staffItemEdit(@ModelAttribute("itemForm") ItemForm itemForm, @RequestParam("itemId") int itemId, Model model) throws Exception{
+		if(itemForm.getExplanation() == null) {
+			itemForm = itemService.getItemById(itemId);
+			model.addAttribute("itemForm", itemForm);
+		}
 	
+		model.addAttribute("itemForm", itemForm);
+		return "staffItemEdit";
+	}
+	
+	//商品情報編集確認画面
+	@PostMapping("staffitemeditconfirm")
+	public String staffItemEditConfirm(@ModelAttribute("itemForm") ItemForm itemForm, Model model) throws Exception{
+		model.addAttribute("itemForm", itemForm);
+		
+		return "staffItemEditConfirm";
+	}
+	
+	//商品情報編集登録完了画面
+	@PostMapping("staffitemeditDB")
+	public String staffItemEditDB(@ModelAttribute("itemForm") ItemForm itemForm, Model model) throws Exception{
+		//商品情報変更処理
+		itemService.editItem(itemForm);
+		
+		return "staffItemEditComplete";
+	}
 }

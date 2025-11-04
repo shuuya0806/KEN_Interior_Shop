@@ -214,6 +214,7 @@ public class StaffOrderController {
 	   return "staffItemRegist";
    }
 
+   //新規商品登録確認画面
    @PostMapping("/staffitemregistconfirm")
    public String showStaffItemRegistConfirm(
            @Validated(ValidGroupOrder.class) ItemForm itemForm,
@@ -228,7 +229,7 @@ public class StaffOrderController {
 	    
 }
    
-   
+   //新規商品登録処理
    @PostMapping("staffitemregistDB")
    public String staffItemRegistDB(ItemForm itemForm, Model model) throws Exception{
 	   //商品をDBに登録する処理
