@@ -50,7 +50,7 @@ public class OrderRegistRepository {
 	 */
 		public int orderRegist(int shippingId, int memberId, OrderEntity orderEntity) {
 		String orderSQL = "INSERT INTO orders (member_id, total, order_date, " +
-	             "payment, shipping_id, shipping_frag, use_point, specifydate, specifytime) " +
+	             "payment, shipping_id, shipping_frag, use_point, specify_date, specify_time) " +
 	             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		String salesSQL = "INSERT INTO sales (sales_id, sales) VALUES(1, ?)"
