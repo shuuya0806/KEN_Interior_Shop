@@ -61,9 +61,9 @@ public class ItemSearchRepository {
         return jdbcTemplate.queryForObject(sql, Integer.class, itemId);
 	}
 	
-	// 次月発売予定商品を取得
+	// 発売予定商品を取得
 	public List<ItemEntity> getNextMonthItem() throws Exception{
-		String sql = "SELECT * FROM m_items WHERE YEAR(rs_date) = YEAR(CURDATE() + INTERVAL 1 MONTH) AND MONTH(rs_date) = MONTH(CURDATE() + INTERVAL 1 MONTH)";
+		String sql = "SELECT * FROM m_items WHERE rs_date >= CURDATE()";
 		return jdbcTemplate.query(sql, itemMapper);
 	}
 	
