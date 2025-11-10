@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>注文詳細</title>
+    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+	<link th:href="@{/css/staffheader.css}" rel="stylesheet">
+	<link th:href="@{/css/staff.css}" rel="stylesheet" type="text/css">
+</head>
+<body>
+	
+	<!-- 共通ヘッダーを挿入 -->
+    <header th:insert="~{staffHeader :: header_area}"></header> 
+    	
+	<main>
+		<div id="wrapper">
+		    <h1>注文詳細</h1>
+		    
+		    <form th:action="@{/editMemberConfirm}" th:Object="${shippingForm}" method="post">
+			    <!-- 発送先情報 -->
+				<div class="table" th:if="${shippingForm != null}">
+					<!-- 注文IDの表示（リストの先頭から取得） -->
+				    <div th:if="${orderDetailsList != null and #lists.size(orderDetailsList) > 0}">
+				        <h2>注文ID：<span th:text="${orderDetailsList[0].orderId}"></span></h2>
+				    </div>
+				    <h2>発送先情報</h2>
+				    
+				    <!-- 氏名 -->
+				    <div class="regist-form">
+					    <label for="fullName">名前<strong class="required">(必須)</strong></label>
+					    <input id="fullName" type="text" th:field="*{shippingName}" placeholder="例：山田太郎">
+		              	<span th:if="${#fields.hasErrors('shippingName')}" th:errors="*{shippingName}" class="error-message"></span>
+				    </div>
+	              	
+	              	<!-- フリガナ -->
+		            <div class="regist-form">
+		              <label for="kana">フリガナ <strong class="required">(必須)</strong></label>
+		              <input id="kana" type="text" th:field="*{shippingKana}" placeholder="例：ヤマダタロウ">
+		              <span th:if="${#fields.hasErrors('shippingKana')}" th:errors="*{shippingKana}" class="error-message"></span>
+		            </div>
+		            
+		            <!-- 電話番号 -->
+		            <div class="regist-form">
+		              <label for="phone">電話番号 <strong class="required">(必須)</strong></label>
+		              <input id="phone" type="tel" th:field="*{shippingphone}" placeholder="例：09012345678">
+		              <span th:if="${#fields.hasErrors('shippingphone')}" th:errors="*{shippingphone}" class="error-message"></span>
+		              <span th:if="${phoneError}" class="error-message" th:text="${phoneError}"></span>
+		            </div>
+		            
+		            <!-- 郵便番号（任意） -->
+		            <div class="regist-form">
+		              <label for="postal">郵便番号 (任意)</label>
+		              <input id="postal" type="text" th:field="*{shippingPostalCode}" placeholder="例：5300001">
+		              <span th:if="${#fields.hasErrors('shippingPostalCode')}" th:errors="*{shippingPostalCode}" class="error-message"></span>
+		            </div>
+		            
+		            <!-- 都道府県 -->
+		            <div class="regist-form">
+		              <label for="prefecture">都道府県 <strong class="required">(必須)</strong></label>
+		              <input id="prefecture" type="text" th:field="*{shippingAddress1}" placeholder="例：大阪府">
+		              <span th:if="${#fields.hasErrors('shippingAddress1')}" th:errors="*{shippingAddress1}" class="error-message"></span>
+		            </div>
+		
+		            <!-- 市区町村 -->
+		            <div class="regist-form">
+		              <label for="city">市区町村 <strong class="required">(必須)</strong></label>
+		              <input id="city" type="text" th:field="*{shippingAddress2}" placeholder="例：大阪市北区">
+		              <span th:if="${#fields.hasErrors('shippingAddress2')}" th:errors="*{shippingAddress2}" class="error-message"></span>
+		            </div>
+		
+		            <!-- 番地 -->
+		            <div class="regist-form">
+		              <label for="street">番地 <strong class="required">(必須)</strong></label>
+		              <input id="street" type="text" th:field="*{shippingAddress3}" placeholder="例：梅田1-1-1">
+		              <span th:if="${#fields.hasErrors('shippingAddress3')}" th:errors="*{shippingAddress3}" class="error-message"></span>
+		            </div>
+		            
+				</div>
+			</form>
+		
+		    <!-- 注文明細テーブル -->
+		    <table class="table">
+	            <tr>
+	                <th>注文詳細ID</th>
+	                <th>商品ID</th>
+	                <th>商品名</th>
+	                <th>数量</th>
+	                <th>小計</th>
+	            </tr>
+	            <tr th:each="detail : ${orderDetailsList}">
+	                <td class="info-item" th:text="${detail.detailId}"></td>
+	                <td class="info-item" th:text="${detail.itemId}"></td>
+	                <td class="info-item" th:text="${detail.itemName}"></td>
+	                <td class="info-item" th:text="${detail.itemQuantity}"></td>
+	                <td class="info-item" th:text="${detail.subtotal}"></td>
+	            </tr>
+		    </table>
+		    
+		    <!-- 戻るボタン -->
+		    <div class="menu-buttons">
+		        <a th:href="@{/stafforder/history}">
+		            <button type="button" class="btn">注文履歴に戻る</button>
+		        </a>
+		    </div>
+	    </div>
+	</main>
+		
+	<footer></footer>
+</body>
+</html>

@@ -25,6 +25,7 @@
 		                    <th>支払方法</th>
 		                    <th>発送状態</th>
 		                    <th>使用ポイント</th>
+		                    <th>操作</th>
 		                </tr>
 		            </thead>
 		            <tbody>
@@ -35,6 +36,11 @@
 			                <td><div class="info-item" th:text="${order.payment}"></div></td>
 			                <td><div class="info-item" th:text="${order.shippingFrag}"></div></td>
 			                <td><div class="info-item" th:text="${order.usePoint}"></div></td>
+			                <td  class="info-item">
+								<a th:href="@{/member/orders/{id}(id=${order.orderId})}">
+		                            <button type="button">詳細</button>
+		                        </a>
+							</td>
 		                </tr>
 		            </tbody>
 		        </table>

@@ -8,9 +8,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -18,12 +20,15 @@ import jakarta.validation.Valid;
 import jp.ken.interiorshop.application.service.LoginService;
 import jp.ken.interiorshop.application.service.OrderRegistService;
 import jp.ken.interiorshop.application.service.RegistService;
+import jp.ken.interiorshop.application.service.StaffOrderService;
 import jp.ken.interiorshop.application.service.UpdateService;
 import jp.ken.interiorshop.application.service.WithdrawService;
 import jp.ken.interiorshop.common.validatior.groups.ValidGroupOrder;
 import jp.ken.interiorshop.presentation.form.MemberLoginForm;
 import jp.ken.interiorshop.presentation.form.MemberRegistForm;
+import jp.ken.interiorshop.presentation.form.OrderDetailsForm;
 import jp.ken.interiorshop.presentation.form.OrderForm;
+import jp.ken.interiorshop.presentation.form.ShippingForm;
 
 @Controller
 public class MemberController {
@@ -33,14 +38,18 @@ public class MemberController {
 	private final WithdrawService withdrawService;
 	private final UpdateService updateService;
 	private final OrderRegistService orderRegistService;
+	private final StaffOrderService staffOrderService;
 
 	public MemberController(LoginService loginService, RegistService registService,
-	                        WithdrawService withdrawService, UpdateService updateService, OrderRegistService orderRegistService) {
+	                        WithdrawService withdrawService, UpdateService updateService, OrderRegistService orderRegistService,
+	                        StaffOrderService staffOrderService) {
 		this.loginService = loginService;
 		this.registService = registService;
 		this.withdrawService = withdrawService;
 		this.updateService = updateService;
 		this.orderRegistService = orderRegistService;
+		this.staffOrderService = staffOrderService;
+		
 	}
 
 	/**
@@ -343,4 +352,39 @@ public class MemberController {
 		
 		return "memberOrderHistory";
 	}
+	
+	//注文履歴詳細画面表示
+   @GetMapping("/member/orders/{orderId:[0-9]+}")
+    public String showOrderDetail(@PathVariable("orderId") int orderId, Model model) throws Exception {
+
+        // DBから注文詳細情報を取得
+    	List<OrderDetailsForm> orderDetailsList = staffOrderService.getOrderDetailsById(orderId);
+    	
+    	// DBからorderIdをキーに発送先情報を取得
+    	ShippingForm shippingForm = staffOrderService.getShippingId(orderId);
+    	
+    	// DBからorderIdをキーに発送フラグを取得
+    	String shippingFrag = staffOrderService.getShippingFrag(orderId);
+    	
+        model.addAttribute("orderDetailsList", orderDetailsList);
+        model.addAttribute("shippingForm", shippingForm);
+        model.addAttribute("shippingFrag", shippingFrag);
+        
+        if(orderDetailsList == null || orderDetailsList.isEmpty()) {
+            throw new RuntimeException("注文詳細が取得できませんでした");
+        }
+        
+        return "memberOrderDetails";
+    }
+   
+   //発送情報変更処理
+   @PostMapping("editMemberConfirm")
+   public String editMemberConfirm(@ModelAttribute("shippingForm") ShippingForm shippingForm, RedirectAttributes redirectAttributes) {
+	   
+	   
+	   redirectAttributes.addFlashAttribute("message", "変更を保存しました");
+	   
+	   return "redirect:/member/orders/{orderId:[0-9]+}";
+   }
+   
 }
