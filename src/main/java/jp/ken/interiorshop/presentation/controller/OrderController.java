@@ -51,6 +51,7 @@ public class OrderController {
         
         // 会員情報取得
         memberRegistForm = orderRegistService.getMemberList(id);
+        orderForm.setSpecifyDate(LocalDate.now().plusDays(2).toString());
         
         // 会員情報をshippingFormに格納
         shippingForm.setShippingName(memberRegistForm.getMemberName());
@@ -102,7 +103,6 @@ public class OrderController {
 	    model.addAttribute("cartItemNames", cartItems);
 	    model.addAttribute("orderForm", orderForm);
 	    model.addAttribute("totalQuantity", totalQuantity);
-	    model.addAttribute("futureDate", LocalDate.now().plusDays(2));
 	    model.addAttribute("getPoint", getPoint);
 	    model.addAttribute("memberRegistForm", memberRegistForm);
 
@@ -163,7 +163,6 @@ public class OrderController {
 		    model.addAttribute("cartItemNames", cartItems);
 		    model.addAttribute("orderForm", orderForm);
 		    model.addAttribute("totalQuantity", totalQuantity);
-		    model.addAttribute("futureDate", LocalDate.now().plusDays(2));
 		    model.addAttribute("getPoint", getPoint);
 
 		    // 注文確認画面へ遷移

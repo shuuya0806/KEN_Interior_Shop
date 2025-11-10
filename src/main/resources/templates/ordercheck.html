@@ -192,7 +192,7 @@
                 <input type="radio" th:field="*{shipping}" value="Specify"/> 日時指定
               </label>
               <div class="date-inputs">
-				<input type="date" th:field="*{specifyDate}" th:attr="min=${futureDate}" id="date">
+				<input type="date" th:field="*{specifyDate}" th:value="${memberRegistForm.specifyDate}" th:attr="min=${specifyDate}" id="date">
 				<select th:field="*{specifyTime}">
 				  <option value="午前中">午前中</option>
 				  <option value="12時～14時">12時～14時</option>

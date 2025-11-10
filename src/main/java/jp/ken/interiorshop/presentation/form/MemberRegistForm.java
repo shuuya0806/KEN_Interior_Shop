@@ -72,4 +72,10 @@ public class MemberRegistForm implements Serializable {
 	
 	//ポイント 初期値は0
 	private Integer point;
+	
+	//日付指定
+	private String specifyDate;
+	
+	//時間指定
+	private String specifyTime;
 }
