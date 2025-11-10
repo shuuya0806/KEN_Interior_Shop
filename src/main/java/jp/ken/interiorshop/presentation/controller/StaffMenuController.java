@@ -160,7 +160,7 @@ public class StaffMenuController {
 		return "staffStockItemList";
 	}
 	
-	//商品情報編集画面
+	/*//商品情報編集画面
 	@GetMapping("staffitemview")
 	public String showStaffItemView(Model model) throws Exception{
 		//商品一覧を取得
@@ -169,7 +169,7 @@ public class StaffMenuController {
 		model.addAttribute("itemStockList", itemStockList);
 		
 		return "staffItemView";
-	   }
+	   }*/
 	
 	//商品情報編集の編集画面
 	@GetMapping("staffitemedit")

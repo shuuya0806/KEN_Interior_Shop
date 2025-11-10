@@ -59,3 +59,11 @@ textarea {
   height: 100px;     /* 高さを固定 */
   box-sizing: border-box;
 }
+
+.form-btn {
+	background: #4CAF50;
+	color: white;
+	border: none;
+	padding: 6px 10px;
+	 cursor: pointer;
+}
