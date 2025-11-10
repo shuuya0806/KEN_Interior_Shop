@@ -61,4 +61,10 @@ public class OrderForm implements Serializable {
 	
 	//使用するポイント
 	private int usePoint;
+	
+	//日付指定
+	private String specifyDate;
+	
+	//時間指定
+	private String specifyTime;
 }

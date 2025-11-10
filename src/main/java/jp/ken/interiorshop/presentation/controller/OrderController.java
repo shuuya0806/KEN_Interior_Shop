@@ -143,7 +143,7 @@ public class OrderController {
 
 	            orderForm.setOrderDetailsForm(detailsList);
 	        }
-
+	    
 	        //セッションから税抜き金額を取得
 	        int totalExclTax = (int) session.getAttribute("totalExclTax");
 	        

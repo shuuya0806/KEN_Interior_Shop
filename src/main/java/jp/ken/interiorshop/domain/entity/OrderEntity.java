@@ -33,6 +33,15 @@ public class OrderEntity {
     // 使用したポイント
     private int usePoint;
     
+    //配送指定
+    private String specifyDelivery;
+    
+    //日付指定
+    private Date specifyDate;
+    
+    //時間指定
+    private String specifyTime;
+    
     // 複数商品を保持するリスト
     // private List<OrderDetailsForm> orderDetailsForm = new ArrayList<>();  元のデータ(テスト後の挙動次第で元に戻す)   
     private List<OrderDetailsEntity> orderDetailsEntity = new ArrayList<>();

@@ -21,6 +21,10 @@ public class StaffOrderMapper implements RowMapper<OrderEntity>  {
 		orderEntity.setPayment(rs.getString("payment"));
 		orderEntity.setShippingId(rs.getInt("shipping_id"));
 		orderEntity.setShippingFrag(rs.getString("shipping_frag"));
+		orderEntity.setUsePoint(rs.getInt("use_point"));
+		orderEntity.setSpecifyDelivery(rs.getString("specify_delivery"));
+		orderEntity.setSpecifyDate(rs.getDate("specify_date"));
+		orderEntity.setSpecifyTime(rs.getString("specify_time"));
 		
 		return orderEntity;
 

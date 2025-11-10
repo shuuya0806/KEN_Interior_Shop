@@ -50,8 +50,8 @@ public class OrderRegistRepository {
 	 */
 		public int orderRegist(int shippingId, int memberId, OrderEntity orderEntity) {
 		String orderSQL = "INSERT INTO orders (member_id, total, order_date, " +
-	             "payment, shipping_id, shipping_frag, use_point) " +
-	             "VALUES (?, ?, ?, ?, ?, ?, ?)";
+	             "payment, shipping_id, shipping_frag, use_point, specifydate, specifytime) " +
+	             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		String salesSQL = "INSERT INTO sales (sales_id, sales) VALUES(1, ?)"
 				+ "ON DUPLICATE KEY UPDATE sales = sales + ?";
@@ -63,8 +63,9 @@ public class OrderRegistRepository {
                 orderEntity.getPayment(),
                 shippingId, 
                 "未発送",
-                orderEntity.getUsePoint());
-		
+                orderEntity.getUsePoint(), 
+				orderEntity.getSpecifyDate(), 
+				orderEntity.getSpecifyTime());		
 		//登録直後の注文IDを取得
 		Integer orderId = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 		
@@ -123,7 +124,7 @@ public class OrderRegistRepository {
 	}
 	
 	public List<OrderEntity> getOrderListById(int memberId) throws Exception{
-		String sql = "SELECT order_id, member_id, total, order_date, payment, shipping_id, shipping_frag,  use_point FROM orders WHERE member_id = ? ORDER BY order_id";
+		String sql = "SELECT order_id, member_id, total, order_date, payment, shipping_id, shipping_frag, use_point, specify_delivery, specify_date, specify_time FROM orders WHERE member_id = ? ORDER BY order_id";
 		return jdbcTemplate.query(sql, staffOrderMapper, memberId);
 	}
 }
